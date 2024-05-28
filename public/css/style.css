@@ -1,0 +1,300 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css");
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    text-decoration: none;
+}
+
+body{
+    background-color: #f4f4f4;/* #17178d; */
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card{
+    padding: 30px;
+    width: 50%;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-login{
+    padding: 30px 30px 15px 30px;
+    width: 500px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 0px 8px #000000;
+}
+
+.card .img-logo{
+    width: 80px;
+    border-radius: 50%;
+}
+
+.card-login .img-logo{
+    width: 80px;
+    border-radius: 50%;
+}
+
+.card .title{
+    font-size: 12pt;
+    margin: 10px 0;
+}
+
+.card .sub-title{
+    font-size: 13pt;
+}
+
+.btn-login{
+    width: 150px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #17178dd2;
+    border: solid 1px blue;
+    color: blue;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.btn-login:hover{
+    transition: 500ms;
+    background-color: #17178d;
+    color: white;
+}
+
+.btn-begin{
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #17178dee;
+    border: none;
+    color: #ffffff;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+
+.btn-prev{
+    width: 120px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: red;
+    border: none;
+    color: #ffffff;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.btn-next{
+    width: 120px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #4aa3c7;
+    border: none;
+    color: #ffffff;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.btn-begin:hover{
+    transition: 500ms;
+    background-color: #17178d;
+}
+
+.div-form-login{
+    width: 90%;
+    margin-top: 15px;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.div-form-begin{
+    width: 90%;
+    /*height: 200px;*/
+    border: 1px solid #000000;
+    margin-top: 15px;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.input-begin{
+    height: 30px;
+    border: 1px solid #3997bc;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.div-btn-login{
+    display: flex; justify-content: space-between; flex-direction: row-reverse;
+}
+
+select{
+    color: #000000;
+}
+
+.div-100{
+    width: 100%;
+}
+
+.div-60{
+    width: 58%;
+}
+
+.div-40{
+    width: 38%;
+}
+
+.div-30{
+    width: 28%;
+}
+
+.div-50{
+    width: 48%;
+}
+
+label{
+    font-size: 10pt;
+    font-weight: 700;
+}
+
+.success-register{
+    width: 100%;
+    height: 100vh;
+    background-color: #00000088;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.success-register .message-register{
+    width: 350px;
+    height: 150px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.success-register .message-register span{
+    color: rgb(202, 13, 13);
+    font-weight: 600;
+    font-size: 20pt;
+}
+
+.success-register .message-register .btn{
+    width: 150px;
+    height: 35px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #17178dee;
+    border: none;
+    color: #ffffff;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.success-register .message-register i{
+    font-size: 35pt;
+    color: green;
+}
+
+.success-register .message-register p{
+    color: #474747;
+    margin: 5px 0;
+}
+
+.special-need span{
+    margin-right: 20px;
+    font-size: 10pt;
+}
+
+
+
+/*
+    Ocultando as Divs
+**/
+#div-form2, #div-form3, #div-form4, #div-form5, #div-form6, #div-form7, #div-form8, #div-form9{
+    display: none;
+}
+
+.copyright{
+    font-style: italic;
+    font-size: 10pt;
+    margin-top: 15px;
+}
+
+
+/** For Mobile **/
+@media screen and (max-width: 570px){
+
+    /* Tela de  Login **/
+    div.card-login{
+        margin: 0 25px;
+    }
+
+    .div-btn-login{
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .div-btn-login .btn-login{
+        width: 100%;
+    }
+
+    /* Tela de Inicio para preinscricao */
+    .card{
+        width: 100%;
+        margin: 0 25px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .img-logo{
+        width: 60px !important;
+    }
+
+    .card h1{
+        font-size: 10pt !important;
+    }
+
+    .form-group{
+        width: 100% !important;
+    }
+
+}

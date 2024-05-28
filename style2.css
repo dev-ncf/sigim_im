@@ -1,0 +1,627 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css");
+/*
+    Formatacao de pagina inicial do painel do usuario
+**/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    text-decoration: none;
+    list-style: none;
+}
+
+#header-painel-student{
+    width: 100%;
+    height: 60px;
+    background-color: #3997bc;
+    padding: 0 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo{
+    width: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.img-logo{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.header-logo .legend{
+    margin-left: 10px;
+    color: #fff;
+}
+
+.header-logo .legend h1{
+    font-size: 15pt;
+    font-weight: 400;
+}
+
+.header-logo .legend h1 sub{
+    font-size: 8pt;
+    /*font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 300;*/
+}
+
+.header-info-user h2{
+    font-size: 12pt;
+    color: #ffffff;
+    font-weight: 500;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.header-info-user h3{
+    font-size: 13pt;
+    color: #ffffff;
+}
+
+.header-info-user .btn-logout{
+    border: none;
+    border-radius: 5px;
+    background-color: #ff0000;
+    color: #fff;
+    width: 60px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.div-home{
+    padding: 0 150px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.div-home aside{
+    width: 20%;
+    height: 40vh;
+    border: 1px solid #cccccc;
+    box-shadow: 0px 0px 5px #cccccc;
+    border-radius: 7px;
+    /*padding: 25px;*/
+}
+
+.div-home aside h1{
+    color: #0b4d9c;
+    font-size: 13pt;
+    font-weight: 500;
+    margin: 10px 0 10px 20px;
+}
+
+.div-home aside ul li{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.div-home .active{
+    background-color: #cccccc7a;
+}
+
+.div-home aside ul li a{
+    margin-left: 25px;
+    padding: 10px;
+    font-size: 10pt;
+    font-weight: 400;
+    color: #5495e3;
+}
+
+.div-home .section-home{
+    width: 76%;
+    border: 1px solid #cccccc;
+    padding: 25px;
+    box-shadow: 0px 0px 5px #cccccc;
+    border-radius: 7px;
+}
+
+.div-home .section-profile{
+    position: relative;
+    width: 76%;
+    border: 1px solid #cccccc;
+    padding: 25px;
+    box-shadow: 0px 0px 5px #cccccc;
+    border-radius: 7px;
+
+}
+
+.div-home section h1{
+    font-weight: 500;
+}
+
+.div-home section .table-registration{
+    width: 100%;
+}
+
+.div-home section .table-registration, th{
+    font-weight: 700;
+    padding: 3px;
+}
+
+.div-home section .table-registration tr:nth-child(1){
+    background-color: #5495e3;
+    color: #fff;
+}
+
+.div-home section .table-registration, th, td{
+    font-size: 10pt;
+    border: 1px solid #cccccc;
+    border-collapse: collapse;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+}
+
+.div-home section .table-registration, td{
+    padding: 7px;
+    font-weight: 300;
+}
+
+
+
+/*
+    Criando divs para larguras dos cards
+*/
+.div-100{
+    width: 100%;
+}
+
+.div-60{
+    width: 59%;
+}
+
+.div-40{
+    width: 39%;
+}
+
+.div-25{
+    width: 24%;
+}
+
+.div-20{
+    width: 19%;
+}
+
+.div-50{
+    width: 49%;
+}
+
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+}
+
+.input-form{
+
+    height: 25px;
+    border: 1px solid #3997bc;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    width: 100%;
+}
+
+label{
+    font-size: 8pt;
+    color: #000;
+    font-weight: 400;
+}
+
+/* Botao de atualizacao */
+.btn-update{
+    width: 130px;
+    height: 35px;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    background-color: green;
+    cursor: pointer;
+}
+
+.btn-update:hover{
+    background-color: #0080009f;
+}
+
+
+.btn-update-password{
+    width: 130px;
+    height: 35px;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    background-color: green;
+    cursor: pointer;
+}
+
+.btn-update-password:hover{
+    background-color: #0080009f;
+}
+
+
+/* Configuracao de Menu Burger */
+.menu-burger{
+    display: none;
+}
+
+.div-personal-info{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 1px solid green;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.div-address{
+    width: 48%;
+    display: flex;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 1px solid green;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.div-address-legend{
+    position: absolute;
+    background-color: green;
+    color: #fff;
+    padding: 3px 50px;
+    top: 302px;
+    font-size: 10pt;
+}
+
+.div-contact{
+    width: 49%;
+    display: flex;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 1px solid green;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.div-contact-label{
+    position: absolute;
+    background-color: green;
+    color: #fff;
+    padding: 3px 50px;
+    top: 302px;
+    font-size: 10pt;
+}
+
+.div-password-label{
+    position: absolute;
+    background-color: red;
+    color: #fff;
+    padding: 3px 50px;
+    top: 503px;
+    font-size: 10pt;
+}
+.novaInscricaoLink{
+    background-color: rgb(6, 184, 6);
+     color:#f4f4f4;
+      padding: 4px 6px;
+      border-radius: 5px;
+}
+.novaInscricaoLink:hover{
+    background-color:rgba(6, 184, 6, 0.274);
+    color: #008000;
+}
+
+/** For Mobile **/
+@media screen and (max-width: 570px){
+
+    /* Tela de Inicio do painel do inscrito */
+    #header-painel-student{
+        padding: 0 35px !important;
+    }
+
+    #header-painel-student .header-logo{
+        width: 100% !important;
+        display: flex;
+        flex-direction: space-between;
+        align-items: center;
+    }
+
+    #header-painel-student .header-logo .legend h1{
+        font-size: 12pt !important;
+    }
+
+    .header-info-user{
+        display: none;
+    }
+
+    .menu-burger{
+        display: block;
+    }
+
+    .btn-menu-burger{
+        width: 50px;
+        padding: 3px;
+        background-color: #145e80;
+        border: none;
+        border-radius: 5px;
+        color: #ffffff;
+    }
+
+    .btn-menu-burger i{
+        font-size: 15pt;
+    }
+
+    /* Ocultando o menu do sistema da versao Desktop **/
+    .div-home aside{
+        display: none;
+    }
+
+    /* Trabalhando com a section home */
+    .div-home{
+        margin: 0 !important;
+        padding: 20px;
+    }
+
+    .div-home .section-home{
+        width: 100%;
+        position: relative;
+    }
+
+    .div-home .section-home .table-registration{
+        width: 700px !important;
+    }
+
+
+    /* Trabalhando com a section de perfil */
+    .div-home .section-profile{
+        width: 100% !important;
+        position: relative;
+    }
+
+    /* Div de Endereco */
+    .div-address{
+        width: 100% !important;
+    }
+
+    .div-address-legend{
+        top: 770px;
+    }
+
+    .div-contact{
+        width: 100% !important;
+    }
+
+    .div-contact-label{
+        top: 935px;
+    }
+
+    .div-password-label{
+        top: 1135px;
+    }
+
+    .div-personal-info .div-mobile{
+        width: 100% !important;
+    }
+}
+
+
+/* Trabalhando com o painel do Registo Academico */
+.btn-action-student{
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 2px;
+    color: #fff;
+}
+
+.btn-primary{
+    background-color: #1466d1c2;
+}
+
+.btn-primary:hover{
+    background-color: #1466d1;
+}
+
+.btn-success{
+    background-color: #0ea00ec2;
+}
+
+.btn-success:hover{
+    background-color: #0ea00e;
+}
+
+.btn-danger{
+    background-color: #c21919be;
+}
+
+.btn-danger:hover{
+    background-color: #c21919;
+}
+
+.btn-secondary{
+    background-color: #636363be;
+}
+
+.btn-secondary:hover{
+    background-color: #646464;
+}
+
+/* Situacao Financeira */
+.btn-new-finance-student{
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(14, 180, 14, 0.788);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.btn-new-finance-student:hover{
+    background-color:rgb(14, 180, 14);
+}
+
+
+
+/* Trabalhando com modal de cadastro de tacko */
+span.required{
+    font-size: 10pt;
+    font-weight: 600;
+    color: red;
+}
+
+.form-group-new-movement{
+    display: flex; flex-direction: column; margin-bottom: 10px;
+}
+
+.label-form-new-movement{
+    margin-bottom: 5px; font-size: 10pt;
+}
+
+.input-form-new-movement{
+    height: 27px; padding: 5px;
+}
+
+.div-propina{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+/* Tabela de Order de servicos */
+.table-order{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.table-order, th{
+    font-weight: 700;
+    padding: 3px;
+}
+
+.table-order tr:nth-child(1){
+    background-color: #5495e3;
+    color: #fff;
+}
+
+.table-order, th, td{
+    font-size: 10pt;
+    border: 1px solid #cccccc;
+    border-collapse: collapse;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+}
+
+.table-order, td{
+    padding: 7px;
+    font-weight: 300;
+}
+
+/*/Estilizacao de pagibnacao */
+.pagination {
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+  }
+
+  .page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+  }
+
+  .page-link:hover {
+    z-index: 2;
+    color: #0056b3;
+    text-decoration: none;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+  }
+
+  .page-link:focus {
+    z-index: 3;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  .page-item:first-child .page-link {
+    margin-left: 0;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+  }
+
+  .page-item:last-child .page-link {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+  }
+
+  .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  .page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #fff;
+    border-color: #dee2e6;
+  }
+
+  .pagination-lg .page-link {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .pagination-lg .page-item:first-child .page-link {
+    border-top-left-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+  }
+
+  .pagination-lg .page-item:last-child .page-link {
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+  }
+
+  .pagination-sm .page-link {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .pagination-sm .page-item:first-child .page-link {
+    border-top-left-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem;
+  }
+
+  .pagination-sm .page-item:last-child .page-link {
+    border-top-right-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+  }
