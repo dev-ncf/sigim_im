@@ -12,8 +12,8 @@
 		crossorigin="anonymous">
 	<link rel="stylesheet" href="{{ asset('css/style2.css') }}">
 	<link rel="shortcut icon" href="{{ asset('img/logo.png') }}">
-    <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}">
-	@vite('resources/css/app.css')
+    {{-- <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}"> --}}
+	{{-- @vite('resources/css/app.css') --}}
 
 </head>
 

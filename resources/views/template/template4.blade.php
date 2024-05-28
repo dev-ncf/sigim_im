@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 	<link rel="stylesheet"
 		href="{{ asset('assets/plugins/datatables/datatables.min.css') }}">
-	<link rel="stylesheet" href="{{ asset('css/tailwind.css') }}">
+	{{-- <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}"> --}}
 </head>
 
 <body>
