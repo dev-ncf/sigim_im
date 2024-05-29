@@ -11,7 +11,7 @@
 			<h1>Minha Inscrição</h1>
 
 			@if ($lastEnrollmentPeriod->end > date('Y-m-d'))
-				@if ($movements->count() < 5)
+				@if ($movements->count() >=1)
 					@if ($lastEnrollment->semestre === $lastEnrollmentPeriod->semestre)
 						<p
 							style="width: 50%; background-color: #1900ff2c; color: #1900ff; border-radius:5px; padding:4px 8px; font-size:12px;margin:0">
