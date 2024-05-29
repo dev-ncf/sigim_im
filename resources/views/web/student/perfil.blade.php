@@ -1,4 +1,4 @@
-@extends('template.template2')
+@extends('template.template2-1')
 
 
 @section('active-perfil') class="active" @endsection
@@ -8,7 +8,7 @@
     <section class="section-profile">
         <h1>Personaliza&ccedil;&atilde;o</h1>
         <div style="border-bottom: 1px solid #cccccc; margin: 20px 0"></div>
-        
+
         <div class="div-personal-info">
             <div style="position: absolute; background-color: green; color: #fff; padding: 3px 50px; top: 85px; font-size: 10pt;"><i class="bi bi-person"></i> Informacão Pessoal</div>
             <div class="div-40 div-mobile">
@@ -181,7 +181,7 @@
 
 @section('javascript')
     <script type="text/javascript">
-        
+
         //Escutando a submicao do formulario de edicao da password
         document.getElementById('form-password-update').addEventListener('submit', function(element){
             element.preventDefault();
