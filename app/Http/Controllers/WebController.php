@@ -436,8 +436,12 @@ class WebController extends Controller
     {
         if (isset($_GET['student_code']) && !empty($_GET['student_code'])) {
             $student = Student::where('code','=',$_GET['student_code'])->where('extension_id', '=', auth()->user()->extension_id)->first();
-          
-             $studentEnrollment = StudentEnrollment::with(['student'])->where('student_id','=',$student->id)->latest()->paginate(10);
+            if($student){
+
+                $studentEnrollment = StudentEnrollment::with(['student'])->where('student_id','=',$student->id)->latest()->paginate(10);
+            }else{
+                $studentEnrollment = StudentEnrollment::with(['student'])->where('student_id','=','0')->latest()->paginate(10);
+            }
             // dd($students);
         }else{
             $studentEnrollment = StudentEnrollment::with(['student'])->where('extension_id', '=', auth()->user()->extension_id)->latest()->paginate(10);

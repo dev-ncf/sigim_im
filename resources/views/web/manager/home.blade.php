@@ -29,61 +29,69 @@
 				<!--th>Documentos</th-->
 				<th>Acção</th>
 			</tr>
-			@foreach ($studentEnrollment as $enrollment)
-				@if ($enrollment->student->extension_id === auth()->user()->extension_id)
-					<tr>
-						<td>
-							{{ $enrollment->student->code }}
-						</td>
+            @if ($studentEnrollment->count()>=1)
 
-						<td>
-							{{ $enrollment->student->first_name . ' ' . $enrollment->student->last_name }}
-						</td>
+                @foreach ($studentEnrollment as $enrollment)
+                    @if ($enrollment->student->extension_id === auth()->user()->extension_id)
+                        <tr>
+                            <td>
+                                {{ $enrollment->student->code }}
+                            </td>
 
-						<td>
-							{{ $enrollment->extension->city }}
-						</td>
-						<td>
-							{{ $enrollment->semestre }}º
-						</td>
+                            <td>
+                                {{ $enrollment->student->first_name . ' ' . $enrollment->student->last_name }}
+                            </td>
 
-						<td>
-							@if ($enrollment->enrollment_status == '2')
-								<span
-									style="padding: 5px; background-color: rgb(14, 180, 14); border-radius: 3px; font-size: 8pt; color: #ffffff;">Aprovada</span>
-							@elseif($enrollment->enrollment_status == '1')
-								<span
-									style="padding: 5px; background-color: rgb(255, 182, 46); border-radius: 3px; font-size: 8pt; color: #ffffff;">Pendente</span>
-							@else
-								<span
-									style="padding: 5px; background-color: rgb(255, 71, 71); border-radius: 3px; font-size: 8pt; color: #ffffff;">Rejeitada</span>
-							@endif
-						</td>
-						{{-- {{ $enrollment->student->code }} --}}
-						<td>
-							@if ($enrollment->enrollment_status == '1')
-								<button class="btn-action-student btn-success btn-aprovad-student"
-									id="btn-aprovad-student" data-value="{{ $enrollment->id }}">
-									<i class="bi bi-check"></i>
-								</button>
-								{{-- <button class="btn-action-student btn-danger">
-                                    <i class="bi bi-x"></i>
-                                </button> --}}
-							@endif
-							@if ($enrollment->enrollment_status == '2')
-								<a target="_blank" href="student/{{ $enrollment->student->code }}"
-									style="padding: 3.5px;" classs="btn-action-student btn-primary">
-									<i class="bi bi-eye"></i>
-								</a>
-								<a href="{{ url('/printer/recipient-inscription/' . $enrollment->student->code).'/'.$enrollment->id }}"
-									style="padding: 3.5px;" classs="btn-action-student btn-secondary">
-									<i class="bi bi-printer"></i>
-								</a>
-							@endif
-						</td>
-					</tr>
-				@endif
-			@endforeach
+                            <td>
+                                {{ $enrollment->extension->city }}
+                            </td>
+                            <td>
+                                {{ $enrollment->semestre }}º
+                            </td>
+
+                            <td>
+                                @if ($enrollment->enrollment_status == '2')
+                                    <span
+                                        style="padding: 5px; background-color: rgb(14, 180, 14); border-radius: 3px; font-size: 8pt; color: #ffffff;">Aprovada</span>
+                                @elseif($enrollment->enrollment_status == '1')
+                                    <span
+                                        style="padding: 5px; background-color: rgb(255, 182, 46); border-radius: 3px; font-size: 8pt; color: #ffffff;">Pendente</span>
+                                @else
+                                    <span
+                                        style="padding: 5px; background-color: rgb(255, 71, 71); border-radius: 3px; font-size: 8pt; color: #ffffff;">Rejeitada</span>
+                                @endif
+                            </td>
+                            {{-- {{ $enrollment->student->code }} --}}
+                            <td>
+                                @if ($enrollment->enrollment_status == '1')
+                                    <button class="btn-action-student btn-success btn-aprovad-student"
+                                        id="btn-aprovad-student" data-value="{{ $enrollment->id }}">
+                                        <i class="bi bi-check"></i>
+                                    </button>
+                                    {{-- <button class="btn-action-student btn-danger">
+                                        <i class="bi bi-x"></i>
+                                    </button> --}}
+                                @endif
+                                @if ($enrollment->enrollment_status == '2')
+                                    <a target="_blank" href="student/{{ $enrollment->student->code }}"
+                                        style="padding: 3.5px;" classs="btn-action-student btn-primary">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="{{ url('/printer/recipient-inscription/' . $enrollment->student->code).'/'.$enrollment->id }}"
+                                        style="padding: 3.5px;" classs="btn-action-student btn-secondary">
+                                        <i class="bi bi-printer"></i>
+                                    </a>
+                                @endif
+                            </td>
+                        </tr>
+                    @endif
+                @endforeach
+            @else
+            <tr>
+
+                <td style="width: 100%; padding: 16px 16px ; font-size: 12pt; background-color: #ff000021;color:#880000" colspan="6">Nenhum dado foi encontrado</td>
+            </tr>
+            @endif
 
 		</table>
 

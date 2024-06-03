@@ -59,11 +59,11 @@ class WebController extends Controller
 
         if (preg_match($padrao, $request->email)) {
             if (Auth::guard('manager')->attempt($credential)) {
-                
+
                 $request->session()->regenerate();
                 return redirect()->route('home-manager');
             }
-    
+
             return back()->withErrors([
                 'message' => 'Credencias invalidas tenta novamente!'
             ]);
@@ -71,14 +71,14 @@ class WebController extends Controller
             if (Auth::attempt($credential)) {
                 $student = Student::where('user_id', '=', auth()->user()->id)->first();
                 $request->session()->regenerate();
-    
+
                 if ($student) {
                     return redirect()->route('home');
                 }else{
                     return redirect()->route('registration');
                 }
             }
-    
+
             return back()->withErrors([
                 'message' => 'Credencias invalidas tenta novamente!'
             ]);
@@ -108,8 +108,8 @@ class WebController extends Controller
     				'password' => Hash::make($request->password),
     			]);
 
-    			$email = $request->email; 
-    			
+    			$email = $request->email;
+
     			$account_verify->create([
     				'code' => $code,
     				'user_id' => $new_user->id
@@ -222,14 +222,14 @@ class WebController extends Controller
         $code = $this->generateCodeStudent($extension->code);
 
         try{
-           
+
             DB::beginTransaction();
             //extraindo as necessidades especias educativas
             $special_education_need = '';
 
             if (array_key_exists('special_education_need', $request->student)) {
                 for ($i=0; $i < count($request->student['special_education_need']); $i++) {
-                    $special_education_need = $special_education_need. $request->student['special_education_need'][$i]; 
+                    $special_education_need = $special_education_need. $request->student['special_education_need'][$i];
                     if ($i < count($request->student['special_education_need']) - 1) {
                         $special_education_need = $special_education_need. ', ';
                     }else{
@@ -370,7 +370,7 @@ class WebController extends Controller
     public function passwordUpdate(Request $request, User $user){
         if ($request->new_password === $request->conf_password):
             $check_password =  Hash::check($request->password, auth()->user()->password);
-            
+
             if ($check_password):
                 $user = $user->find(auth()->user()->id);
                 try{
@@ -440,13 +440,13 @@ class WebController extends Controller
         //dd($manager);
         return view('web.manager.perfil', compact('manager'));
     }
-    
+
     //Atualizacao de Senha para os Manager
     public function passwordUpdateManager(Request $request, Manager $manager){
         if ($request->new_password === $request->conf_password):
             if (true):
                 $user = $manager->find(auth()->user()->id);
-                
+
                 try{
                     $user->update([
                         'password' => Hash::make($request->new_password)
@@ -472,7 +472,7 @@ class WebController extends Controller
             ]);
         endif;
     }
-    
+
     //Metodo de renderizacao do estudante
     public function studentManager($code)
     {
@@ -505,7 +505,7 @@ class WebController extends Controller
                 'status' => '2',
                 'manager_id' => auth()->user()->id,
             ]);
-            
+
             foreach ($request->items as $item) {
                 $movementStudentItem->create([
                     'description' => $item['description'],
