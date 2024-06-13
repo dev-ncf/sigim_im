@@ -11,7 +11,7 @@
 			<h1>Minha Inscrição</h1>
 
 			@if ($lastEnrollmentPeriod->end > date('Y-m-d'))
-				@if ($movements->count() >=1)
+				{{-- @if ($movements->count() >=1) --}}
 					@if ($lastEnrollment->semestre === $lastEnrollmentPeriod->semestre)
 						<p
 							style="width: 50%; background-color: #1900ff2c; color: #1900ff; border-radius:5px; padding:4px 8px; font-size:12px;margin:0">
@@ -27,13 +27,13 @@
 							href="{{ route('enrollment-store') }}" style="">Nova
 							Inscrição</a>
 					@endif
-				@else
+				{{-- @else
 					<p
 						style="width: 50%; background-color: #ff88002c; color: #ff8800; border-radius:5px; padding:4px 8px; font-size:12px;margin:0">
 						Olá <span style="color: #000; font-weight: bold"> Sr(a)
 							{{ $student->last_name }}</span>, dirige-se a Direcção do Registo Académico para
 						regularizar sua situação financeira!</p>
-				@endif
+				@endif --}}
 			@endif
 			<form id="enrollmentform" style="display: none" action="{{ route('enrollment-store') }}"
 				method="post"

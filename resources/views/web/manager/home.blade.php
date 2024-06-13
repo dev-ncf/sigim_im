@@ -99,6 +99,7 @@
 			{{ $studentEnrollment->links() }}
 		</div>
 	</section>
+	
 	<div id="preloader"
 		style="width: 100%; height: 100vh; position: absolute; top: 0; left: 0; background: #ffffff9f; display: none; justify-content: center; align-items: center;">
 		<img src="{{ asset('img/load.gif') }}" style="width: 130px;">
