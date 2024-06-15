@@ -41,7 +41,10 @@ class Student extends Model
 
 
     public function studentEnrollment(){
-        return $this->hasOne(StudentEnrollment::class);
+        return $this->hasMany(StudentEnrollment::class);
+    }
+    public function studentMovement(){
+        return $this->hasMany(MovementStudent::class);
     }
 
     public function document()
@@ -72,5 +75,13 @@ class Student extends Model
     public function manager()
     {
         return $this->belongsTo(Manager::class, 'manager_response_id', 'id');
+    }
+    public function truncateName($name)
+    {
+        $words = explode(' ', $name);
+        if (count($words) > 3) {
+            return implode(' ', array_slice($words, 0, 3)) . '...';
+        }
+        return $name;
     }
 }

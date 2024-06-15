@@ -6,10 +6,10 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="page-sub-header">
-					<h3 class="page-title">Enrollments</h3>
+					<h3 class="page-title">Propinas</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="students.html">Enrollment</a></li>
-						<li class="breadcrumb-item active">All Enrollments</li>
+						<li class="breadcrumb-item"><a href="students.html">Propina</a></li>
+						<li class="breadcrumb-item active">Todas Propinas</li>
 					</ul>
 				</div>
 			</div>
@@ -17,28 +17,49 @@
 	</div>
 
 	<div class="student-group-form">
-		<div class="row">
+		<form class="row" action="{{route('propina-search')}}" method="POST">
+            @csrf
 			<div class="col-lg-3 col-md-6">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search by ID ...">
+					<input type="text" class="form-control" placeholder="Pesquisar pelo numero de Recibo ..." name="receipt_number">
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-6">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search by Name ...">
+					<input type="text" class="form-control" placeholder="Pesquisar pelo Código ..." name="student_code" value="{{ old('student_code')}}">
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-6">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search by Phone ...">
+					<select type="text" class="form-control" name="month">
+                        <option value="">Selecione o Mês</option>
+                        <Option value="1">1º</Option>
+                        <Option value="2">2º</Option>
+                        <Option value="3">3º</Option>
+                        <Option value="4">4º</Option>
+                        <Option value="5">5º</Option>
+                        <Option value="6">6º</Option>
+                        <Option value="7">7º</Option>
+                    </select>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="form-group">
+					<select type="text" class="form-control" name="semestre">
+                        <option value="">Selecione o Semestre</option>
+                        <Option value="1">1º</Option>
+                        <Option value="2">2º</Option>
+                        <Option value="3">3º</Option>
+                        <Option value="4">4º</Option>
+                    </select>
 				</div>
 			</div>
 			<div class="col-lg-2">
 				<div class="search-student-btn">
-					<button type="btn" class="btn btn-primary">Search</button>
+					<button type="submit" class="btn btn-primary">Filtrar</button>
 				</div>
 			</div>
-		</div>
+		</fom>
 	</div>
 	<div class="row">
 		<div class="col-sm-12">
@@ -48,11 +69,6 @@
 					<div class="page-header">
 						<div class="row align-items-center">
 
-							<div class="float-end download-grp col-auto ms-auto text-end">
-
-								<a href="{{ route('enrollment-add') }}" class="btn btn-primary"><i
-										class="fas fa-plus"></i></a>
-							</div>
 						</div>
 					</div>
 
@@ -64,18 +80,18 @@
 								<tr>
 
 									<th>Nome</th>
-									<th>Local de Estudo</th>
-									<th>Curso</th>
+									<th>Recibo</th>
+									<th>Valor</th>
 									<th>Semestre</th>
-									<th>Estado</th>
+									<th>Mes</th>
+									<th>Ano</th>
 
 									<th class="text-end">Action</th>
 								</tr>
 							</thead>
 							<tbody>
 
-                                @foreach ($enrollments as $student)
-                                    @foreach ($student->studentEnrollment as $enrollment)
+                                @foreach ($propinas as $propina)
                                         <tr>
 
 
@@ -84,34 +100,31 @@
 
                                                     <a
                                                         href="">{{
-                                                        $student->truncateName($student->first_name . ' ' . $student->last_name) }}</a>
+                                                        $propina->student->truncateName($propina->student->first_name . ' ' . $propina->student->last_name) }}</a>
                                                 </h2>
 
                                             </td>
                                             <td>
 
-                                                {{ $enrollment->extension->city }}
+                                                {{ $propina->receipt_number }}
 
                                         </td>
+                                        <td>{{$propina->total_amount}}</td>
+                                        <td>{{$propina->semestre}}</td>
                                             <td>
-                                                {{ $enrollment->course->label }}
-
-
+                                                {{ $propina->month }}
+                                            </td>
+                                            <td>
+                                                {{ $propina->year }}
                                             </td>
 
-                                            <td>{{$enrollment->semestre}}</td>
-                                            <td><span
-												style="padding: 3px 8px; {{ $enrollment->enrollment_status == 2 ? 'background-color: #0080004a; color: #009000' : ($enrollment->enrollment_status == 1 ? 'background-color: #ffa5004a; color: #ffa500' : 'background-color: #ff08004a; color: #ff0800') }}">
-												{{ $enrollment->enrollment_status == 2 ? 'Aprovada' : ($enrollment->enrollment_status == 1 ? 'Pendente' : 'Cancelada') }}
-											</span>
 
-										</td>
                                             <td class="text-end">
                                                 <div class="actions">
                                                     <a href="javascript:;" class="btn btn-sm bg-success-light me-2">
                                                         <i class="feather-eye"></i>
                                                     </a>
-                                                    <a href="{{ route('student-edit', ['studente_code' => $student->code]) }}"
+                                                    <a href="{{ route('student-edit', ['studente_code' => $propina->id]) }}"
                                                         class="btn btn-sm bg-danger-light">
 
                                                         <i class="feather-edit"></i>
@@ -119,7 +132,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach
+
 								@endforeach
 							</tbody>
 						</table>

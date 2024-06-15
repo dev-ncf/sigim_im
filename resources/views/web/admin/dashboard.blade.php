@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="page-sub-header">
-					<h3 class="page-title">Bem vindo Admin!</h3>
+					<h3 class="page-title">Bem vindo Sr(a). {{$dadosUsuario->last_name}}!</h3>
 					<ul class="breadcrumb">
 						<li class="breadcrumb-item"><a href="index.html">Home</a></li>
 						<li class="breadcrumb-item active">Admin</li>
@@ -113,10 +113,25 @@
 												{{ $student->first_name . ' ' . $student->last_name }}
 											</a>
 										</td>
-										<td class="text-center">{{ $student->studentEnrollment->faculty->label }}</td>
-										<td class="text-center">{{ $student->studentEnrollment->course->label }}</td>
-										<td class="text-center">{{ $student->studentEnrollment->sewingLine->label }}
-										</td>
+										<td class="text-center">
+                                            @foreach ($student->studentEnrollment as $studentEnrollment)
+
+                                            {{ $studentEnrollment->faculty->label }}
+                                            @endforeach
+                                        </td>
+										<td class="text-center">
+                                            @foreach ($student->studentEnrollment as $studentEnrollment)
+
+                                            {{ $studentEnrollment->course->label }}
+                                            @endforeach
+                                        </td>
+										<td class="text-center">
+                                            @foreach ($student->studentEnrollment as $studentEnrollment)
+
+                                            {{ $studentEnrollment->sewingLine->label }}
+                                            @endforeach
+                                        </td>
+
 
 									</tr>
 								@endforeach
@@ -129,50 +144,4 @@
 
 		</div>
 	</div>
-
-	<div class="row">
-		<div class="col-xl-3 col-sm-6 col-12">
-			<div class="card flex-fill fb sm-box">
-				<div class="social-likes">
-					<p>Seguidores no facebook</p>
-					<h6>50,095</h6>
-				</div>
-				<div class="social-boxs">
-					<img src="{{ asset('assets/img/icons/social-icon-01.svg') }}" alt="Social Icon">
-				</div>
-			</div>
-		</div>
-		<div class="col-xl-3 col-sm-6 col-12">
-			<div class="card flex-fill twitter sm-box">
-				<div class="social-likes">
-					<p>Seguidores no twitter</p>
-					<h6>48,596</h6>
-				</div>
-				<div class="social-boxs">
-					<img src="{{ asset('assets/img/icons/social-icon-02.svg') }}" alt="Social Icon">
-				</div>
-			</div>
-		</div>
-		<div class="col-xl-3 col-sm-6 col-12">
-			<div class="card flex-fill insta sm-box">
-				<div class="social-likes">
-					<p>Seguidores no instagram</p>
-					<h6>52,085</h6>
-				</div>
-				<div class="social-boxs">
-					<img src="{{ asset('assets/img/icons/social-icon-03.svg') }}" alt="Social Icon">
-				</div>
-			</div>
-		</div>
-		<div class="col-xl-3 col-sm-6 col-12">
-			<div class="card flex-fill linkedin sm-box">
-				<div class="social-likes">
-					<p>Seguidores no linkedin</p>
-					<h6>69,050</h6>
-				</div>
-				<div class="social-boxs">
-					<img src="{{ asset('assets/img/icons/social-icon-04.svg') }}" alt="Social Icon">
-				</div>
-			</div>
-		</div>
 	@endsection

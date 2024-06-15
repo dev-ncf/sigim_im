@@ -17,6 +17,7 @@ use App\Models\Gender;
 use App\Models\CivilStatus;
 use App\Models\District;
 use App\Models\AcademicLevel;
+use App\Models\Admin;
 use App\Models\ScholarshipType;
 use App\Models\CourseAnnouncementSource;
 use App\Models\FormPayment;
@@ -62,11 +63,18 @@ class WebController extends Controller
             if (Auth::guard('manager')->attempt($credential)) {
 
                 $request->session()->regenerate();
+                $user = Manager::find(Auth::guard('manager')->id());
+                // dd($user->funcao);
+                if($user->nivel=='A'){
+
+                    return redirect()->route('home-admin');
+                }
                 return redirect()->route('home-manager');
-            }else if (Auth::guard('admin')->attempt($credential)) {
-                $request->session()->regenerate();
-                return redirect()->route('home-admin');
             }
+            // else if (Auth::guard('admin')->attempt($credential)) {
+            //     $request->session()->regenerate();
+            //     return redirect()->route('home-admin');
+            // }
 
             return back()->withErrors([
                 'message' => 'Credencias invalidas tenta novamente!'
@@ -177,7 +185,7 @@ class WebController extends Controller
     //Funcao para inicio de preinscricao
     public function viewForm()
     {
- 		$name = auth()->user()->name;
+ 		// $name = auth()->user()->name;
  		$extensions = Extension::all();
         $provinces = Province::all();
         $document_types = DocumentType::all();
@@ -186,9 +194,9 @@ class WebController extends Controller
         $academic_levels = AcademicLevel::all();
         $scholarship_modality = ScholarshipType::all();
         $course_annoucement_sources = CourseAnnouncementSource::all();
-        $email = auth()->user()->email;
+        // $email = auth()->user()->email;
 
-    	return view('web.student.registration', compact(['name', 'email','extensions', 'provinces', 'document_types', 'genders', 'civil_statuses', 'academic_levels', 'scholarship_modality', 'course_annoucement_sources']));
+    	return view('web.student.registration', compact(['extensions', 'provinces', 'document_types', 'genders', 'civil_statuses', 'academic_levels', 'scholarship_modality', 'course_annoucement_sources']));
     }
 
 
@@ -454,9 +462,8 @@ class WebController extends Controller
     {
         $students = Student::all();
         $managers  = Manager::all();
-    //     $studentsByYear = Student::select(DB::raw('YEAR(updated_at) as ano'), 'gender_id', DB::raw('count(*) as total'))
-    // ->groupBy('ano', 'gender_id')
-    // ->get();
+    $dadosUsuario = Manager::find(Auth::id());
+    // dd($dadosUsuario);
 
 
 $studentsByYear = Student::select(DB::raw('YEAR(updated_at) as ano'), 'gender_id', DB::raw('count(*) as total'))
@@ -464,10 +471,11 @@ $studentsByYear = Student::select(DB::raw('YEAR(updated_at) as ano'), 'gender_id
     ->get();
 
 
-        return view('web.admin.dashboard', compact('students','managers','studentsByYear'));
+        return view('web.admin.dashboard', compact('students','managers','studentsByYear','dadosUsuario'));
     }
     public function managerDashboard()
     {
+
 
         return view('web.admin.manager'/* , compact('students')*/);
     }

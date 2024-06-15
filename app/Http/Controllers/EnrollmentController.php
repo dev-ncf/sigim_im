@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use App\Models\Manager;
 use App\Models\StudentEnrollment;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
@@ -15,10 +17,22 @@ class EnrollmentController extends Controller
     public function index()
     {
         //
-        $enrollments = Student::with('studentEnrollment')->paginate(50);
-      return view('web.admin.Enrolment.list', compact('enrollments'));
+        $dadosUsuario = Manager::find(Auth::id());
+        if (!function_exists('truncate_name')) {
+            function truncate_name($name)
+            {
+                $words = explode(' ', $name);
+                if (count($words) > 3) {
+                    return implode(' ', array_slice($words, 0, 3)) . '...';
+                }
+                return $name;
+            }
+        }
+        $enrollments = Student::with('studentEnrollment')->get();
+      return view('web.admin.Enrolment.list', compact('enrollments','dadosUsuario'));
 
     }
+
 
     /**
      * Show the form for creating a new resource.

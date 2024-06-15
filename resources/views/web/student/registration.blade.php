@@ -8,7 +8,7 @@
         <form class="div-form-begin registration-begin" id="div-form1" onsubmit="hideDivForm('div-form1', 'div-form2')">
             <div class="form-group div-100">
                 <label for="">Nome Completo</label>
-                <input class="input-begin" type="text" name="" id="name" value="{{ $name }}">
+                <input class="input-begin" type="text" name="" id="name" value="">
             </div>
             <div class="form-group div-30">
                 <label for="">Local de estudo</label>
@@ -226,7 +226,7 @@
             </div>
             <div class="form-group div-100">
                 <label for="">Email</label>
-                <input class="input-begin" type="email" id="student-email" name="student-email" value="{{$email}}" disabled required>
+                <input class="input-begin" type="email" id="student-email" name="student-email" value="" disabled required>
             </div>
             <div class="div-100" style="text-align: center;">
                 {{-- <button class="btn-prev" id="btn-show-form3" onclick="hideDivForm('div-form4', 'div-form3')">
@@ -447,7 +447,7 @@
                     extension: extension
                 }
             }).then(response => {
-                
+
                 faculties.innerHTML = ''
                 let option = document.createElement('option');
                 option.textContent = 'escolha...';
@@ -608,7 +608,7 @@
 
             //Escutando os clicks de cada checkbox
             special_needs[i].addEventListener('click', function(element){
-                
+
                 //verificando se esta incluso o valor do elemento dentro do array das necessidades especias escolhidas
                if (!all_special_needs.includes(element.srcElement.value)) {
                     //adcionando o elemento dentro do vetor

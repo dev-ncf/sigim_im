@@ -2,18 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use App\Models\Extension;
 use App\Models\Manager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ManagerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
+
     {
-        $managers = Manager::paginate();
-        return view('web.admin.manager.list',compact('managers'));
+        $dadosUsuario = Manager::find(Auth::id());
+        $query = Manager::query();
+        if($request->has('manager_name') && !empty($request->manager_name)){
+            $query->where('first_name','like','%'.$request->manager_name.'%')->orWhere('last_name','like','%'.$request->manager_name.'%');
+
+        }
+        if($request->has('extension_id') && !empty($request->extension_id)){
+            $query->where('extension_id','=',$request->extension_id);
+
+        }
+        if($request->has('manager_email') && !empty($request->manager_email)){
+            $query->where('email','like','%'.$request->manager_email.'%');
+
+        }
+        $managers = $query->get();
+        $extensoes = Extension::get();
+
+        return view('web.admin.manager.list',compact('managers','extensoes','dadosUsuario'));
         //
     }
 

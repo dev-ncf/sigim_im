@@ -3,10 +3,12 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\MovementStudentController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
+use App\Models\Admin;
 use App\Models\MovementStudent;
 use App\Models\Student;
 use Dompdf\Dompdf;
@@ -15,7 +17,7 @@ use Illuminate\Support\Facades\Hash;
 Route::get('/', [WebController::class, 'viewLogin'])->name('login')->middleware('guest');
 Route::post('/', [WebController::class, 'auth'])->name('authenticate');
 
-Route::get('/register', [WebController::class, 'viewRegister'])->name('register');
+Route::get('/register', [WebController::class, 'viewForm'])->name('register');
 Route::post('/register', [WebController::class, 'register'])->name('registerPost');
 Route::post('/verify/email', [WebController::class, 'verifyEmail'])->name('verifyEmail');
 
@@ -56,18 +58,23 @@ Route::post('/logout', function(){
 
 #Rotas para gestores do Registo academico
 Route::get('/manager/home/{student_code?}', [WebController::class, 'homeManager'])->name('home-manager')->middleware('auth:manager');
-Route::prefix('admin')->middleware('auth:admin')->group(function () {
+Route::prefix('admin')->middleware('auth:manager')->group(function () {
     Route::get('/home', [WebController::class, 'homeAdmin'])->name('home-admin');
     Route::get('/manager', [WebController::class, 'managerDashboard'])->name('manager-dashboard');
     Route::get('/student', [WebController::class, 'studentDashboard'])->name('student-dashboard');
     Route::prefix('/students')->group(function(){
         Route::get('/list',[StudentController::class,'index'])->name('student-list');
-        Route::get('/add',[StudentController::class,'store'])->name('student-add');
+        Route::get('/show/{student_id?}',[StudentController::class,'show'])->name('student-show');
+        Route::get('/add',[AdminController::class,'adminEstudanteAdicionar'])->name('student-add');
+        Route::get('/search',[StudentController::class,'index'])->name('student-search');
+        Route::post('/store',[AdminController::class,'adminEstudanteStore'])->name('admin-student-store');
         Route::get('/edit/{studente_code?}',[StudentController::class,'edit'])->name('student-edit');
     });
     Route::prefix('/managers')->group(function(){
         Route::get('/list',[ManagerController::class,'index'])->name('manager-list');
-        Route::get('/add',[ManagerController::class,'store'])->name('manager-add');
+        Route::get('/search',[ManagerController::class,'index'])->name('manager-search');
+        Route::get('/add',[AdminController::class,'AdminGestorAdicionar'])->name('manager-add');
+        Route::post('/store',[AdminController::class,'AdminGestorStore'])->name('admin-manager-store');
         Route::get('/edit/{studente_code?}',[ManagerController::class,'edit'])->name('manager-edit');
     });
     Route::prefix('/admins')->group(function(){
@@ -75,9 +82,18 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::get('/add',[AdminController::class,'store'])->name('admin-add');
         Route::get('/edit/{studente_code?}',[AdminController::class,'edit'])->name('admin-edit');
     });
+    Route::prefix('/propinas')->group(function(){
+        Route::get('/list',[MovementStudentController::class,'index'])->name('propina-list');
+        Route::get('/list',[MovementStudentController::class,'index'])->name('propina-list');
+        Route::post('/search',[MovementStudentController::class,'index'])->name('propina-search');
+        Route::post('/store',[AdminController::class,'AdminPropinaStore'])->name('admin-propina-store');
+        Route::get('/add/{student_id?}',[AdminController::class,'AdminPropinaAdicionar'])->name('propina-add');
+        Route::get('/edit/{studente_code?}',[AdminController::class,'edit'])->name('propina-edit');
+    });
     Route::prefix('/enrollments')->group(function(){
         Route::get('/list',[EnrollmentController::class,'index'])->name('enrollment-list');
-        Route::get('/add',[EnrollmentController::class,'store'])->name('enrollment-add');
+        Route::get('/add',[AdminController::class,'adminInscricaoAdicionar'])->name('enrollment-add');
+        Route::post('/store',[AdminController::class,'adminInscricaoStore'])->name('admin-enrollment-store');
         Route::get('/edit/{studente_code?}',[EnrollmentController::class,'edit'])->name('enrollment-edit');
     });
 });

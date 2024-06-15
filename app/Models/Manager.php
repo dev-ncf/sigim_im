@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class Manager extends Authenticatable
 {
     use HasFactory, Notifiable;
-    
+
 
     protected $guard = 'manager';
 
@@ -20,8 +20,13 @@ class Manager extends Authenticatable
         'document_number',
         'phone',
         'phone_secondary',
-        'password'
-    ];
+        'password',
+        'issue_date',
+        'expiration_date',
+        'issue_place',
+        'email',
+        'extension_id'
 
+    ];
 
 }

@@ -5,10 +5,10 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="page-sub-header">
-					<h3 class="page-title">Managers</h3>
+					<h3 class="page-title">Gestores</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="students.html">Manager</a></li>
-						<li class="breadcrumb-item active">All Managers</li>
+						<li class="breadcrumb-item"><a href="students.html">Gestor</a></li>
+						<li class="breadcrumb-item active">Todos Gestores</li>
 					</ul>
 				</div>
 			</div>
@@ -16,20 +16,26 @@
 	</div>
 
 	<div class="student-group-form">
-		<div class="row">
+		<form class="row" action="">
 			<div class="col-lg-3 col-md-6">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search by ID ...">
+					<input type="text" class="form-control" placeholder="Search by Nome ..." name="manager_name">
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-6">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search by Name ...">
+					<select type="text" class="form-control" name="extension_id">
+                        <option value="">Selecione a Extensão</option>
+                        @foreach ($extensoes as $dado)
+                        <option value="{{$dado->id}}">{{$dado->city}}</option>
+
+                        @endforeach
+                    </select>
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-6">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search by Phone ...">
+					<input type="text" class="form-control" placeholder="Search by Email ..." name="manager_email">
 				</div>
 			</div>
 			<div class="col-lg-2">
@@ -37,12 +43,17 @@
 					<button type="btn" class="btn btn-primary">Search</button>
 				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="card card-table comman-shadow">
 				<div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
 					<div class="page-header">
 						<div class="row align-items-center">
@@ -50,13 +61,8 @@
 
 							</div>
 							<div class="float-end download-grp col-auto ms-auto text-end">
-								<a href="students.html" class="btn btn-outline-gray active me-2"><i
-										class="feather-list"></i></a>
-								<a href="students-grid.html" class="btn btn-outline-gray me-2"><i
-										class="feather-grid"></i></a>
-								<a href="#" class="btn btn-outline-primary me-2"><i class="fas fa-download"></i>
-									Download</a>
-								<a href="{{ route('student-add') }}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+
+								<a href="{{ route('manager-add') }}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
 							</div>
 						</div>
 					</div>
@@ -84,9 +90,7 @@
 										</td>
 										<td>
 											<h2 class="table-avatar">
-												<a href="student-details.html" class="avatar avatar-sm me-2"><img
-														class="avatar-img rounded-circle"
-														src="{{ asset('assets/img/profiles/avatar-01.jpg') }}" alt="User Image"></a>
+
 												<a href="student-details.html">{{ $manager->first_name . ' ' . $manager->last_name }}</a>
 											</h2>
 										</td>
