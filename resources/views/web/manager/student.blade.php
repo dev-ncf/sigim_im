@@ -23,6 +23,7 @@
 					<th>Faculdade</th>
 					<th>Curso</th>
 					<th>Linha de Pesquisa</th>
+					<th>Semestre</th>
 				</tr>
 				@foreach ($student->studentEnrollment as $enrollment)
 					<tr>
@@ -38,6 +39,9 @@
 						</td>
 						<td>
 							{{ $enrollment->sewingLine->label }}
+						</td>
+						<td>
+							{{ $enrollment->semestre }}
 						</td>
 					</tr>
 				@endforeach
@@ -201,8 +205,8 @@
 @section('javascript')
 	<script>
 		/*document.getElementById('form-search').addEventListener('submit', (form) => {
-																									            document.getElementById('preloader').style.display = 'flex';
-																									        });*/
+																										            document.getElementById('preloader').style.display = 'flex';
+																										        });*/
 
 
 
