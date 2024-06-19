@@ -24,26 +24,28 @@
 					<th>Curso</th>
 					<th>Linha de Pesquisa</th>
 				</tr>
-				<tr>
-					<td>
-						{{ $student->studentEnrollment->extension->city }}
-					</td>
-					<td>
-						{{ $student->studentEnrollment->faculty->label }}
-					</td>
-					<td>
-						{{ $student->studentEnrollment->course->label }}
-					</td>
-					<td>
-						{{ $student->studentEnrollment->sewingLine->label }}
-					</td>
-				</tr>
+				@foreach ($student->studentEnrollment as $enrollment)
+					<tr>
+
+						<td>
+							{{ $enrollment->extension->city }}
+						</td>
+						<td>
+							{{ $enrollment->faculty->label }}
+						</td>
+						<td>
+							{{ $enrollment->course->label }}
+						</td>
+						<td>
+							{{ $enrollment->sewingLine->label }}
+						</td>
+					</tr>
+				@endforeach
 			</table>
 		</div>
 		<div style="border-bottom: 1px solid #cccccc; margin: 20px 0"></div>
 		<div>
-			<div
-				style="display: flex; justify-content: space-between; alim-items: center; margin-bottom: 15px;">
+			<div style="display: flex; justify-content: space-between; alim-items: center; margin-bottom: 15px;">
 				<h2 style="margin-bottom: 10px; font-weight: 400; font-size: 14pt;">Situação Financeira
 				</h2>
 				<button class="btn-new-finance-student" id="btn-new-finance-student">Nova</button>
@@ -92,8 +94,7 @@
 							@endif
 						</td>
 						<td>
-							<a href="receipt-payment/{{ $movement->code }}" class="btn"
-								style="cursor: pointer;">
+							<a href="receipt-payment/{{ $movement->code }}" class="btn" style="cursor: pointer;">
 								<i class="bi bi-printer"></i>
 							</a>
 						</td>
@@ -109,8 +110,7 @@
 
 	<div id="div-modal-movement"
 		style="position: absolute; width: 100%; height: 100vh; top:0; left:0; display: none; justify-content: center; align-items: center; background-color: #00000057;">
-		<div
-			style="position: relative; width: 750px; background-color: #ffffff; border-radius: 5px;">
+		<div style="position: relative; width: 750px; background-color: #ffffff; border-radius: 5px;">
 
 			<div
 				style="display: flex; justify-content: space-between; align-items: center; background-color: #3997bc; height: 40px; border-radius: 5px 5px 0 0; padding: 0 20px;">
@@ -146,9 +146,8 @@
 								@endif
 							@endforeach
 						</select>
-						<input type="number" min="1" class="input-form-new-movement"
-							style="margin-top: 10px; display: none;" id="subject-number"
-							placeholder="Numero de disciplinas">
+						<input type="number" min="1" class="input-form-new-movement" style="margin-top: 10px; display: none;"
+							id="subject-number" placeholder="Numero de disciplinas">
 						<button id="btn-service-movement" type="submit" class="btn-new-finance-student"
 							style="width: 100%; margin-top: 10px;">Adcionar</button>
 					</form>
@@ -159,43 +158,39 @@
 					<div id="order-dinamic">
 						<h4>Nenhum serviço escolhido</h4>
 					</div>
-					<form id='formProcess'
-						style="display: none; justify-content: space-between; flex-wrap: wrap;">
-						<select style="padding: 4px; margin: 4px 0" form="formProcess" id="form-payment"
-							required>
+					<form id='formProcess' style="display: none; justify-content: space-between; flex-wrap: wrap;">
+						<select style="padding: 4px; margin: 4px 0" form="formProcess" id="form-payment" required>
 							<option value="">escolha...</option>
 							@foreach ($form_payments as $payment)
 								<option value="{{ $payment->id }}">{{ $payment->label }}</option>
 							@endforeach
 						</select>
-						<input style="padding: 4px; margin: 4px 0" form="formProcess" id="receipt-number"
-							type="number" placeholder='No do Talao' required />
-						<input style="padding: 4px; margin: 4px 0" form="formProcess" id="date-receipt"
-							type="date" min="2023-05-10" max="{{ date('Y-m-d') }}" required />
+						<input style="padding: 4px; margin: 4px 0" form="formProcess" id="receipt-number" type="number"
+							placeholder='No do Talao' required />
+						<input style="padding: 4px; margin: 4px 0" form="formProcess" id="date-receipt" type="date" min="2023-05-10"
+							max="{{ date('Y-m-d') }}" required />
 						<input type="hidden" value="{{ $student->id }}" id="input-student" required>
-						<input style="padding: 4px; margin: 4px 0" form="formProcess" id="month"
-							type="number" placeholder="Digite o mês (MM) a pagar"
+						<input style="padding: 4px; margin: 4px 0" form="formProcess" id="month" type="number"
+							placeholder="Digite o mês (MM) a pagar"
 							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
 							maxlength="2" required />
 
-						<input style="padding: 4px; margin: 4px 0" form="formProcess" id="year"
-							type="number" placeholder="Digite o ano (YYYY) a pagar"
+						<input style="padding: 4px; margin: 4px 0" form="formProcess" id="year" type="number"
+							placeholder="Digite o ano (YYYY) a pagar"
 							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
 							maxlength="4" required />
 
-						<select style="padding: 4px; margin: 4px 0" form="formProcess" id="semestre"
-							required onchange="updateOptions(this)">
+						<select style="padding: 4px; margin: 4px 0" form="formProcess" id="semestre" required
+							onchange="updateOptions(this)">
 							<option value="">Semestre...</option>
 							@for ($i = 1; $i <= $lastEnrollment->semestre; $i++)
-								<option value="{{ $i }}"
-									@if ($i === $lastEnrollment->semestre) selected @endif>
+								<option value="{{ $i }}" @if ($i === $lastEnrollment->semestre) selected @endif>
 									{{ $i }}º
 								</option>
 							@endfor
 						</select>
 
-						<button type="submit" class="btn-new-finance-student"
-							style="width: 100%; margin-top: 10px;">Processar</button>
+						<button type="submit" class="btn-new-finance-student" style="width: 100%; margin-top: 10px;">Processar</button>
 					</form>
 				</div>
 			</div>
@@ -206,8 +201,8 @@
 @section('javascript')
 	<script>
 		/*document.getElementById('form-search').addEventListener('submit', (form) => {
-																						            document.getElementById('preloader').style.display = 'flex';
-																						        });*/
+																									            document.getElementById('preloader').style.display = 'flex';
+																									        });*/
 
 
 
