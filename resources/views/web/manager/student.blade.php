@@ -41,7 +41,7 @@
 							{{ $enrollment->sewingLine->label }}
 						</td>
 						<td>
-							{{ $enrollment->semestre }}
+							{{ $enrollment->semestre }}º
 						</td>
 					</tr>
 				@endforeach
