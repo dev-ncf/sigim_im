@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="page-sub-header">
-					<h3 class="page-title">Bem vindo Sr(a). {{$dadosUsuario->last_name}}!</h3>
+					<h3 class="page-title">Bem vindo Sr(a). {{ $dadosUsuario->last_name }}!</h3>
 					<ul class="breadcrumb">
 						<li class="breadcrumb-item"><a href="index.html">Home</a></li>
 						<li class="breadcrumb-item active">Admin</li>
@@ -42,8 +42,7 @@
 								{{ $totalManagers = count($managers) }}</h3>
 						</div>
 						<div class="db-icon">
-							<img src="{{ asset('assets/img/icons/admin-svgrepo-com.svg') }}"
-								alt="Dashboard Icon">
+							<img src="{{ asset('assets/img/icons/admin-svgrepo-com.svg') }}" alt="Dashboard Icon">
 						</div>
 					</div>
 				</div>
@@ -88,8 +87,7 @@
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
-						<table
-							class="star-student table-hover table-center table-borderless table-striped table">
+						<table class="star-student table-hover table-center table-borderless table-striped table">
 							<thead class="thead-light">
 								<tr>
 									<th>ID</th>
@@ -106,32 +104,26 @@
 											<div>#{{ $student->code }}</div>
 										</td>
 										<td class="text-nowrap">
-											<a href="profile.html">
-												<img class="rounded-circle"
-													src="{{ asset('assets/img/profiles/avatar-0' . rand(1, 3) . '.jpg') }}"
-													width="25" alt="Star Students">
+											<a href="#">
+
 												{{ $student->first_name . ' ' . $student->last_name }}
 											</a>
 										</td>
 										<td class="text-center">
-                                            @foreach ($student->studentEnrollment as $studentEnrollment)
-
-                                            {{ $studentEnrollment->faculty->label }}
-                                            @endforeach
-                                        </td>
+											@foreach ($student->studentEnrollment as $studentEnrollment)
+												{{ $studentEnrollment->faculty->label }}
+											@endforeach
+										</td>
 										<td class="text-center">
-                                            @foreach ($student->studentEnrollment as $studentEnrollment)
-
-                                            {{ $studentEnrollment->course->label }}
-                                            @endforeach
-                                        </td>
+											@foreach ($student->studentEnrollment as $studentEnrollment)
+												{{ $studentEnrollment->course->label }}
+											@endforeach
+										</td>
 										<td class="text-center">
-                                            @foreach ($student->studentEnrollment as $studentEnrollment)
-
-                                            {{ $studentEnrollment->sewingLine->label }}
-                                            @endforeach
-                                        </td>
-
+											@foreach ($student->studentEnrollment as $studentEnrollment)
+												{{ $studentEnrollment->sewingLine->label }}
+											@endforeach
+										</td>
 
 									</tr>
 								@endforeach
@@ -144,4 +136,4 @@
 
 		</div>
 	</div>
-	@endsection
+@endsection
