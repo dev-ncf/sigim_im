@@ -368,10 +368,10 @@ class WebController extends Controller
     public function home(){
         $student = Student::with('studentEnrollment')->where('user_id', '=', auth()->user()->id)->first();
         $lastEnrollmentPeriod=EnrollmentPeriod::latest('end')->first();
-        $lastEnrollment = StudentEnrollment::where('student_id','=',$student->studentEnrollment->student_id)->latest()->first();
-        $movements = MovementStudent::where('student_id','=',$student->studentEnrollment->student_id,'and','semestre','=',$lastEnrollment->semestre)->latest()->get();
+        $lastEnrollment = StudentEnrollment::where('student_id','=',$student->id)->latest()->first();
+        $movements = MovementStudent::where('student_id','=',$student->id,'and','semestre','=',$lastEnrollment->semestre)->latest()->get();
         // dd($movements->count());
-        $enrollments = StudentEnrollment::where('student_id', '=', $student->studentEnrollment->student_id)->get();
+        $enrollments = StudentEnrollment::where('student_id', '=', $student->id)->get();
         return view('web.student.home', compact('student','enrollments','lastEnrollment','lastEnrollmentPeriod','movements'));
     }
 
