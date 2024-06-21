@@ -120,8 +120,8 @@ class PrintController extends Controller
                             font-size: 12pt;
                         }
                         .recepient-header{
-                            margin-top: 20px;
-                            margin-bottom: 20px;
+                            margin-top: 10px;
+                            margin-bottom: 10px;
                             width: 100%;
                             text-align: center;
                         }
@@ -132,7 +132,7 @@ class PrintController extends Controller
                         }
 
                         .recepient-header h1, h2{
-                            line-height: 20px;
+                            line-height: 16px;
                         }
 
                         .recepient-body{
@@ -146,7 +146,7 @@ class PrintController extends Controller
 
                         .recepient-body h4{
                             font-size: 10pt;
-                            line-height: 23px;
+                            line-height: 20px;
                         }
 
                         /* Estilizando a tabela */
@@ -175,7 +175,7 @@ class PrintController extends Controller
                 <body style="padding: 0 100px">
                     <br>
                     <div class="recepient-header">
-                        <img src="http://160.242.40.149/img/logo.jpg" style="width: 70px;">
+                        <img src="http://160.242.40.149/img/logo.jpg" style="width: 60px;">
                         <h1>Universidade Rovuma</h1>
                         <h2>Direcção do Registo Académico</h2>
                         <h2>Comprovativo de Pagamento</h2>
