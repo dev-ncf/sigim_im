@@ -223,7 +223,7 @@ class PrintController extends Controller
                         </div>
 
                         <div style="width: 100%; margin-top: 15px;">
-                        <span style="font-size: 10pt; font-weight: 800;">$movement->mes º Mês</span>
+                        <span style="font-size: 10pt; font-weight: 800;">$movement->month º Mês</span>
                             <table style="width: 100%;">
                                 <tr>
                                     <th>Ordem</th>
@@ -298,7 +298,7 @@ class PrintController extends Controller
                         </div>
 
                         <div style="width: 100%; margin-top: 15px;">
-                        <span style="font-size: 10pt; font-weight: 800;">$movement->mes º Mês</span>
+                        <span style="font-size: 10pt; font-weight: 800;">$movement->month º Mês</span>
                             <table style="width: 100%;">
                                 <tr>
                                     <th>Ordem</th>
