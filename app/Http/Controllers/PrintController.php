@@ -56,7 +56,7 @@ class PrintController extends Controller
             # code...
             $course = $enrollment->course->label;
         }
-        dd($course);
+        // dd($course);
 
         $total = number_format($movement->total_amount, 2, '.', ',');
 
