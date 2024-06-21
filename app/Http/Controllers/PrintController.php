@@ -52,7 +52,7 @@ class PrintController extends Controller
 
         $student = $movement->student;
         $enrollment = $student->studentEnrollment;
-        $course = $student->studentEnrollment->course->label;
+        $course = $enrollment->course->label;
 
         $total = number_format($movement->total_amount, 2, '.', ',');
 
