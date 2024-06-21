@@ -50,9 +50,13 @@ class PrintController extends Controller
         $payment = $movement->payment;
         $items = $movement->items;
 
-        $student = $movement->student;
+        $student = Student::find($movement->student_id);
         $enrollment = $student->studentEnrollment;
-        $course = $enrollment->course->label;
+        foreach ($student->studentEnrollment as $enrollment) {
+            # code...
+            $course = $enrollment->course->label;
+        }
+        dd($course);
 
         $total = number_format($movement->total_amount, 2, '.', ',');
 
