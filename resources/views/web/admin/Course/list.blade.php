@@ -7,7 +7,7 @@
 				<div class="page-sub-header">
 					<h3 class="page-title">Cursos</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="students.html">Curso</a></li>
+						<li class="breadcrumb-item"><a href="{{ route('course-list') }}">Curso</a></li>
 						<li class="breadcrumb-item active">Todos Cursos</li>
 					</ul>
 				</div>
@@ -16,7 +16,7 @@
 	</div>
 
 	<div class="student-group-form">
-		<form class="row" action="{{ route('faculty-search') }}" method="POST">
+		<form class="row" action="{{ route('course-search') }}" method="POST">
 			@csrf
 			<div class="col-lg-3 col-md-6">
 				<div class="form-group">
@@ -25,11 +25,11 @@
 			</div>
 			<div class="col-lg-3 col-md-6">
 				<div class="form-group">
-					<select type="text" class="form-control" name="course_id">
+					<select type="text" class="form-control" name="faculty_id">
 						<option value="">Selecione a Faculdade ...</option>
-						{{-- @foreach ($cursos as $curso)
-							<option value="{{ $curso->id }}">{{ $curso->label }}</option>
-						@endforeach --}}
+						@foreach ($faculties as $faculty)
+							<option value="{{ $faculty->id }}">{{ $faculty->label }}</option>
+						@endforeach
 					</select>
 				</div>
 			</div>

@@ -20,15 +20,24 @@ class CourseController extends Controller
         $dadosUsuario = Manager::find(Auth::id());
         return $dadosUsuario;
     }
-    public function index()
+    public function index(Request $request)
     {
         //
-        $dadosUsuario = Manager::find(Auth::id());
-        $courses = Course::all();
-        // dd($courses);
-        $courses->load('faculty');
 
-        return view('web.admin.Course.list',compact(['courses','dadosUsuario']));
+        $dadosUsuario = Manager::find(Auth::id());
+        $query = Course::query();
+        // dd($courses);
+        if(isset($request->nome) && !empty($request->nome)){
+            $query->where('label','like','%'.$request->nome.'%');
+        }
+        if(isset($request->faculty_id) && !empty($request->faculty_id)){
+            $query->where('faculty_id','=',$request->faculty_id);
+        }
+        $courses  = $query->get();
+        $courses->load('faculty');
+        $faculties = Faculty::all();
+
+        return view('web.admin.Course.list',compact(['courses','dadosUsuario','faculties']));
     }
 
     /**
