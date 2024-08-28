@@ -20,7 +20,7 @@
 				<input class="input-begin" type="password" name="password" id="" required>
 				<div class="div-100 div-btn-login">
 
-					<a href="{{ route('register') }}" class="register" style="">Registar-se</a>
+					{{-- <a href="{{ route('register') }}" class="register" style="">Registar-se</a> --}}
 
 					<button class="btn-login" id="btn-login" type="submit">
 						Iniciar-sessão
