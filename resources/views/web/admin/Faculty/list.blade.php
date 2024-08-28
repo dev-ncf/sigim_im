@@ -5,10 +5,10 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="page-sub-header">
-					<h3 class="page-title">Estudantes</h3>
+					<h3 class="page-title">Faculdades</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="students.html">Estudante</a></li>
-						<li class="breadcrumb-item active">Todos Estudantes</li>
+						<li class="breadcrumb-item"><a href="students.html">Faculdade</a></li>
+						<li class="breadcrumb-item active">Todas Faculdades</li>
 					</ul>
 				</div>
 			</div>
@@ -16,26 +16,27 @@
 	</div>
 
 	<div class="student-group-form">
-		<form class="row" method="GET" action="{{ route('student-search') }}">
+		<form class="row" action="{{ route('faculty-search') }}" method="POST">
 			@csrf
 			<div class="col-lg-3 col-md-6">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Pesquisar por Código ..." name="student_code">
+					<input type="text" class="form-control" placeholder="Pesquisar por Nome ..." name="nome">
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-6">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Pesquisar por Nome ..." name="student_name">
+					<select type="text" class="form-control" name="extension_id">
+						<option value="">Selecione o Extensão ...</option>
+						@foreach ($extensaos as $extensao)
+							<option value="{{ $extensao->id }}">{{ $extensao->city }}</option>
+						@endforeach
+					</select>
 				</div>
 			</div>
-			<div class="col-lg-4 col-md-6">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Pesquisar por Email ..." name="student_email">
-				</div>
-			</div>
+
 			<div class="col-lg-2">
 				<div class="search-student-btn">
-					<button type="submit" class="btn btn-primary">Search</button>
+					<button type="submit" class="btn btn-primary">Pesquisar</button>
 				</div>
 			</div>
 		</form>
@@ -49,22 +50,12 @@
 							{{ session('success') }}
 						</div>
 					@endif
-					@if ($errors->any())
-						<div class="alert alert-danger">
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
-
 					<div class="page-header">
 						<div class="row align-items-center">
 
 							<div class="float-end download-grp col-auto ms-auto text-end">
 
-								<a href="{{ route('student-add') }}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+								<a href="{{ route('faculty-add') }}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
 							</div>
 						</div>
 					</div>
@@ -74,55 +65,43 @@
 							<thead class="student-thread">
 								<tr>
 
-									<th>Code</th>
-									<th>Name</th>
-									<th>Local of study</th>
-									<th>Mobile Number</th>
-									<th>E-mail</th>
+									<th>Nome</th>
+									<th>Extensao</th>
+
 									<th class="text-end">Action</th>
 								</tr>
 							</thead>
 							<tbody>
-								@php
-									$count = 1;
-								@endphp
-								@foreach ($students as $student)
+
+								@foreach ($faculties as $faculty)
 									<tr>
 
 										<td>
-											[ {{ $student->code }} ]
-										</td>
-										<td>
 											<h2 class="table-avatar">
 
-												<a
-													href="{{ route('student-show', ['student_id' => $student->id]) }}">{{ $student->first_name . ' ' . $student->last_name }}</a>
+												<a href="">{{ $faculty->label }}</a>
 											</h2>
+
 										</td>
 										<td>
-											@foreach ($student->studentEnrollment as $enrollment)
-												{{ $enrollment->extension->city }} <!-- Acessando a propriedade 'city' de 'extension' -->
-											@endforeach
+
+											{{ $faculty->extensao->city }}
+
 										</td>
-										<td>{{ $student->phone }}</td>
-										<td>{{ $student->email }}</td>
+
 										<td class="text-end">
 											<div class="actions">
-												<a href="{{ route('student-show', ['student_id' => $student->id]) }}"
-													class="btn btn-sm bg-success-light me-2">
+
+												<a href="{{ route('faculty-show', $faculty->id) }}" class="btn btn-sm bg-success-light me-2">
 													<i class="feather-eye"></i>
 												</a>
-												<a href="{{ route('student-edit', ['studente_code' => $student->code]) }}"
-													class="btn btn-sm bg-danger-light">
+												<a href="{{ route('faculty-edit', $faculty->id) }}" class="btn btn-sm bg-danger-light">
 
 													<i class="feather-edit"></i>
 												</a>
-												<a href="{{ route('student-active-deactive', $student->id) }}" class="btn btn-sm bg-success-light me-2">
-													<i class="{{ $student->estado == 'Activo' ? 'feather-slash' : 'feather-check' }}"></i>
-												</a>
 												@if ($dadosUsuario->nivel == 'A')
-													<a href="#" id="delete-{{ $student->id }}" onclick="return confirmDeletion(event)"
-														class="btn btn-sm bg-danger" student-code='{{ $student->id }}'>
+													<a href="javascript:;" id="delete-{{ $faculty->id }}" onclick="return confirmDeletion(event)"
+														class="btn btn-sm bg-danger" faculty-id='{{ $faculty->id }}'>
 														<i class="feather-delete"></i>
 													</a>
 												@endif
@@ -133,6 +112,7 @@
 							</tbody>
 						</table>
 					</div>
+
 				</div>
 			</div>
 		</div>
@@ -140,8 +120,8 @@
 	<div id="modal"
 		style="width: 100%; height:100%; top: 0; left:0; background-color: #00000030; display: none; position: fixed; z-index: 100; justify-content: center; align-items: center;">
 		<div style="background-color: white; padding:40px; box-shadow: 1px 5px 10px white; border-radius: 10px">
-			{{-- <input type="text" id="student-code"> --}}
-			<h3>Queres mesmo apagar este estudante?</h3>
+
+			<h3>Queres mesmo apagar esta Faculdade?</h3>
 			<div style="display: flex; justify-content: space-between">
 				<a href="#" id="confirm-delete" class="btn btn-primary">Confirmar</a>
 				<button class="btn btn-danger" onclick="closeModal()">Cancelar</button>
@@ -156,12 +136,12 @@
 			document.getElementById('modal').style.display = 'flex';
 
 			// Obtém o código do estudante a partir do botão clicado
-			var studentCode = event.currentTarget.getAttribute('student-code');
+			var enrollmentId = event.currentTarget.getAttribute('faculty-id');
 			var confirmLink = document.getElementById('confirm-delete');
-			confirmLink.href = "{{ route('student-delete', '') }}/" + studentCode;
+			confirmLink.href = "{{ route('faculty-delete', '') }}/" + enrollmentId;
 
 			// Define o código no campo do modal
-			document.getElementById('student-code').value = studentCode;
+			document.getElementById('faculty-id').value = enrollmentId;
 
 		}
 

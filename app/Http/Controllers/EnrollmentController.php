@@ -3,21 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Course;
+use App\Models\Faculty;
 use App\Models\Manager;
+use App\Models\SewingLine;
 use App\Models\StudentEnrollment;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class EnrollmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         $dadosUsuario = Manager::find(Auth::id());
+        $query = Student::query();
         if (!function_exists('truncate_name')) {
             function truncate_name($name)
             {
@@ -28,8 +34,26 @@ class EnrollmentController extends Controller
                 return $name;
             }
         }
-        $enrollments = Student::with('studentEnrollment')->get();
-      return view('web.admin.Enrolment.list', compact('enrollments','dadosUsuario'));
+        $query->with('studentEnrollment');
+        if(isset($request->nome) && !empty($request->nome)){
+            $query->where('first_name','like','%'.$request->nome.'%')->orWhere('last_name','like','%'.$request->nome.'%');
+        }
+        if(isset($request->course_id) && !empty($request->course_id)){
+
+        }
+        if(isset($request->semestre) && !empty($request->semestre)){
+            // $query->load('studentEnrollment');
+            // $query->where('semestre','=',$request->semestre);
+        }
+        if($dadosUsuario->nivel!='A'){
+
+            $query->where('extension_id','=',$dadosUsuario->extension_id);
+        }
+       $query->with('studentEnrollment');
+        $enrollments = $query->get();
+        $students = $query->get();
+        $cursos = Course::all();
+      return view('web.admin.Enrolment.list', compact('enrollments','dadosUsuario','cursos','students'));
 
     }
 
@@ -95,6 +119,13 @@ class EnrollmentController extends Controller
     public function edit(StudentEnrollment $enrollment)
     {
         //
+        $dadosUsuario = Manager::find(Auth::id());
+        $faculdades = Faculty::get();
+        $linhasPesquisa = SewingLine::get();
+        $cursos = Course::get();
+        $estudantes = Student::get();
+        $student = Student::find($enrollment->student_id);
+        return view('web.admin.Enrolment.edit',compact(['student','dadosUsuario','faculdades','linhasPesquisa','cursos','estudantes','enrollment']));
     }
 
     /**
@@ -103,6 +134,15 @@ class EnrollmentController extends Controller
     public function update(Request $request, StudentEnrollment $enrollment)
     {
         //
+        DB::beginTransaction();
+        try {
+            $enrollment->update($request->all());
+            return redirect()->route('enrollment-list')->with(['success'=>'Inscricao actualizada!']);
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
     }
 
     /**
@@ -111,5 +151,30 @@ class EnrollmentController extends Controller
     public function destroy(StudentEnrollment $enrollment)
     {
         //
+        DB::beginTransaction();
+        try {
+            $enrollment->delete();
+            DB::commit();
+            return redirect()->route('enrollment-list')->with(['success'=>'Inscricao excluida com sucesso!']);
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
+    }
+    public function approve(StudentEnrollment $enrollment)
+    {
+        //
+        // dd($enrollment);
+        DB::beginTransaction();
+        try {
+            $enrollment->update(['enrollment_status'=>'2']);
+            DB::commit();
+            return redirect()->route('enrollment-list')->with(['success'=>'Inscrição aprovada com sucesso!']);
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
     }
 }

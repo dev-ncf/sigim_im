@@ -19,20 +19,20 @@
 				<div class="row align-items-center">
 					<div class="profile-image col-auto">
 						<a href="#">
-							<img class="rounded-circle" alt="User Image" src="assets/img/profiles/avatar-02.jpg">
+							<img class="rounded-circle" alt="User Image" src="{{ asset('img/logo.jpg') }}">
 						</a>
 					</div>
 					@foreach ($student->studentEnrollment as $enrollment)
 						<div class="col ms-md-n2 profile-user-info">
 							<h4 class="user-name mb-0">{{ $student->first_name . ' ' . $student->last_name }}</h4>
 							<h6 class="text-muted">{{ $enrollment->course->label }}</h6>
-							<div class="user-Location"><i class="fas fa-map-marker-alt"></i> {{ $enrollment->faculty->label }}</div>
-							<div class="about-text">{{ $enrollment->sewingLine->label }}</div>
+							<div class="user-Location"><i class="fas fa-school"></i> {{ $enrollment->faculty->label }}</div>
+							<div class="about-text"><i class="fas fa-book"></i> {{ $enrollment->sewingLine->label }}</div>
 						</div>
 					@endforeach
 
 					<div class="profile-btn col-auto">
-						<a href="" class="btn btn-primary">
+						<a href="{{ route('student-edit', $student->code) }}" class="btn btn-primary">
 							Edit
 						</a>
 					</div>
@@ -42,7 +42,7 @@
 				<ul class="nav nav-tabs nav-tabs-solid">
 
 					<li class="nav-item">
-						<a class="nav-link active" data-bs-toggle="tab" href="#enrollments_tab">Iscrições</a>
+						<a class="nav-link active" data-bs-toggle="tab" href="#enrollments_tab">Inscrições</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" data-bs-toggle="tab" href="#movements_tab">Propinas</a>
@@ -55,6 +55,20 @@
 					</li>
 				</ul>
 			</div>
+			@if ($errors->any())
+				<div class="alert alert-danger">
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+						@endforeach
+					</ul>
+				</div>
+			@endif
+			@if (session('success'))
+				<div class="alert alert-success">
+					{{ session('success') }}
+				</div>
+			@endif
 			<div class="tab-content profile-tab-cont">
 
 				<div class="tab-pane fade" id="per_details_tab">
@@ -65,33 +79,32 @@
 								<div class="card-body">
 									<h5 class="card-title d-flex justify-content-between">
 										<span>Dados Pessoais</span>
-										<a class="edit-link" data-bs-toggle="modal" href="#edit_personal_details"><i
-												class="far fa-edit me-1"></i>Edit</a>
+
 									</h5>
 									<div class="row">
-										<p class="col-sm-3 text-muted text-sm-end mb-sm-3 mb-0">Name</p>
-										<p class="col-sm-9">John Doe</p>
+										<p class="col-sm-3 text-muted text-sm-end mb-sm-3 mb-0">Nome</p>
+										<p class="col-sm-9">{{ $student->first_name . ' ' . $student->last_name }}</p>
 									</div>
 									<div class="row">
-										<p class="col-sm-3 text-muted text-sm-end mb-sm-3 mb-0">Date of Birth</p>
-										<p class="col-sm-9">24 Jul 1983</p>
+										<p class="col-sm-3 text-muted text-sm-end mb-sm-3 mb-0">Data de Nacimento</p>
+										<p class="col-sm-9">{{ $student->birth_date }}</p>
 									</div>
 									<div class="row">
-										<p class="col-sm-3 text-muted text-sm-end mb-sm-3 mb-0">Email ID</p>
-										<p class="col-sm-9"><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-												data-cfemail="a1cbcec9cfc5cec4e1c4d9c0ccd1cdc48fc2cecc">[email&#160;protected]</a>
+										<p class="col-sm-3 text-muted text-sm-end mb-sm-3 mb-0">Email </p>
+										<p class="col-sm-9">
+											{{ $student->email }}
 										</p>
 									</div>
 									<div class="row">
-										<p class="col-sm-3 text-muted text-sm-end mb-sm-3 mb-0">Mobile</p>
-										<p class="col-sm-9">305-310-5857</p>
+										<p class="col-sm-3 text-muted text-sm-end mb-sm-3 mb-0">Contacto</p>
+										<p class="col-sm-9">{{ $student->phone }}</p>
 									</div>
 									<div class="row">
-										<p class="col-sm-3 text-muted text-sm-end mb-0">Address</p>
-										<p class="col-sm-9 mb-0">4663 Agriculture Lane,<br>
-											Miami,<br>
-											Florida - 33165,<br>
-											United States.</p>
+										<p class="col-sm-3 text-muted text-sm-end mb-0">Endereco</p>
+										<p class="col-sm-9 mb-0">{{ $student->address->province->label }},<br>
+											{{ $student->address->district->label }},<br>
+											{{ $student->address->neighborhood }}<br>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -101,30 +114,11 @@
 							<div class="card">
 								<div class="card-body">
 									<h5 class="card-title d-flex justify-content-between">
-										<span>Account Status</span>
-										<a class="edit-link" href="#"><i class="far fa-edit me-1"></i> Edit</a>
+										<span>Estado da Conta</span>
+
 									</h5>
 									<button class="btn btn-success" type="button"><i class="fe fe-check-verified"></i>
-										Active</button>
-								</div>
-							</div>
-
-							<div class="card">
-								<div class="card-body">
-									<h5 class="card-title d-flex justify-content-between">
-										<span>Skills </span>
-										<a class="edit-link" href="#"><i class="far fa-edit me-1"></i> Edit</a>
-									</h5>
-									<div class="skill-tags">
-										<span>Html5</span>
-										<span>CSS3</span>
-										<span>WordPress</span>
-										<span>Javascript</span>
-										<span>Android</span>
-										<span>iOS</span>
-										<span>Angular</span>
-										<span>PHP</span>
-									</div>
+										{{ $student->estado }}</button>
 								</div>
 							</div>
 
@@ -138,7 +132,7 @@
 						<div class="card-body">
 							<h5 class="card-title d-flex justify-content-between">
 								<span>Inscrições</span>
-								<a class="btn btn-primary" data-bs-toggle="modal" href="#enrollments_tab"><i class="fa fa-plus me-1"></i>Add</a>
+								<a class="btn btn-primary" href="{{ route('enrollment-add') }}"><i class="fa fa-plus me-1"></i>Add</a>
 							</h5>
 							<div class="table-responsive">
 								<table class="star-student table-hover table-center datatable table-striped mb-0 table border-0">
@@ -185,11 +179,11 @@
 												</td>
 												<td class="text-end">
 													<div class="actions">
-														<a href="javascript:;" class="btn btn-sm bg-success-light me-2">
+														<a href="{{ route('enrollment-print', ['code' => $student->code, 'id' => $enrollment->id]) }}"
+															class="btn btn-sm bg-success-light me-2">
 															<i class="feather-eye"></i>
 														</a>
-														<a href="{{ route('student-edit', ['studente_code' => $student->code]) }}"
-															class="btn btn-sm bg-danger-light">
+														<a href="{{ route('enrollment-edit', $enrollment->id) }}" class="btn btn-sm bg-danger-light">
 
 															<i class="feather-edit"></i>
 														</a>
@@ -259,11 +253,11 @@
 
 												<td class="text-end">
 													<div class="actions">
-														<a href="javascript:;" class="btn btn-sm bg-success-light me-2">
+														<a href="{{ route('propina-print', ['number' => $propina->code]) }}"
+															class="btn btn-sm bg-success-light me-2">
 															<i class="feather-eye"></i>
 														</a>
-														<a href="{{ route('student-edit', ['studente_code' => $propina->id]) }}"
-															class="btn btn-sm bg-danger-light">
+														<a href="{{ route('propina-edit', $propina->id) }}" class="btn btn-sm bg-danger-light">
 
 															<i class="feather-edit"></i>
 														</a>
@@ -286,20 +280,17 @@
 							<h5 class="card-title">Change Password</h5>
 							<div class="row">
 								<div class="col-md-10 col-lg-6">
-									<form>
+									<form action="{{ route('student-update-password', $student->id) }}" method="POST">
+										@csrf
 										<div class="form-group">
-											<label>Old Password</label>
-											<input type="password" class="form-control">
+											<label>Nova Password</label>
+											<input type="password" class="form-control" name="password" required>
 										</div>
 										<div class="form-group">
-											<label>New Password</label>
-											<input type="password" class="form-control">
+											<label>Confirmar Password</label>
+											<input type="password" class="form-control" name="confir_password">
 										</div>
-										<div class="form-group">
-											<label>Confirm Password</label>
-											<input type="password" class="form-control">
-										</div>
-										<button class="btn btn-primary" type="submit">Save Changes</button>
+										<button class="btn btn-primary" type="submit">Salvar</button>
 									</form>
 								</div>
 							</div>

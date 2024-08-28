@@ -28,10 +28,9 @@
 				<a href="index.html" class="logo">
 					<img src="{{ asset('img/logo.png') }}" alt="Logo">
 
-					<span style="font-weight: bold; margin-left: 15px; font-size: larger">Unirovuma</span>
+					<span style="font-weight: bold; margin-left: 15px; font-size: 20pt">Unirovuma</span>
 
-					<span
-						style="font-size: xx-small;display: block;margin-left: 60px; margin-top:-47px; color: rgb(231, 72, 14)">Registo
+					<span style="font-size: 12pt;display: block;margin-left: 60px; margin-top:-43px; color: rgb(231, 72, 14)">Registo
 						Académico</span>
 
 				</a>
@@ -58,8 +57,9 @@
 				<li class="nav-item dropdown has-arrow new-user-menus">
 					<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
 						<span class="user-img">
-							<img class="rounded-circle" src="{{ asset('assets/img/profiles/avatar-01.jpg') }}" width="31"
-								alt="NCF">
+							<img class="rounded-circle"
+								src="{{ $dadosUsuario->first_name == 'Ntwali Chance' ? asset('assets/img/profiles/avatar-01.jpg') : asset('img/logo.jpg') }}"
+								width="31" alt="NCF">
 							<div class="user-text">
 								<h6>{{ $dadosUsuario->first_name . ' ' . $dadosUsuario->last_name }}</h6>
 								<p class="text-muted mb-0">{{ $dadosUsuario->funcao }}</p>
@@ -69,14 +69,16 @@
 					<div class="dropdown-menu">
 						<div class="user-header">
 							<div class="avatar avatar-sm">
-								<img src="{{ asset('assets/img/profiles/avatar-01.jpg') }}" alt="User Image" class="avatar-img rounded-circle">
+								<img
+									src="{{ $dadosUsuario->first_name == 'Ntwali Chance' ? asset('assets/img/profiles/avatar-01.jpg') : asset('img/logo.jpg') }}"
+									alt="User Image" class="avatar-img rounded-circle">
 							</div>
 							<div class="user-text">
 								<h6>{{ $dadosUsuario->first_name . ' ' . $dadosUsuario->last_name }}</h6>
 								<p class="text-muted mb-0">{{ $dadosUsuario->funcao }}</p>
 							</div>
 						</div>
-						<a class="dropdown-item" href="">Meu Perfil</a>
+						<a class="dropdown-item" href="{{ route('user-show') }}">Meu Perfil</a>
 						<form action="{{ route('logout') }}" method="POST">
 							@csrf
 							<button type="submit" class="dropdown-item">Logout</button>
@@ -95,7 +97,7 @@
 						<li class="menu-title">
 							<span>Main Menu</span>
 						</li>
-						<li class="submenu active">
+						<li class="submenu {{ request()->routeIs('home-admin') || request()->routeIs('user-show') ? 'active' : '' }}">
 							<a href="#"><i class="feather-grid"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
 							<ul>
 								<li><a href="{{ route('home-admin') }}"
@@ -104,17 +106,21 @@
 							</ul>
 
 						</li>
-						<li class="submenu">
-							<a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>
-									Gestores</span> <span class="menu-arrow"></span></a>
-							<ul>
-								<li><a href="{{ route('manager-list') }}" class="{{ request()->routeIs('manager-list') ? 'active' : '' }}">
-										Lista</a></li>
-								<li><a href="{{ route('manager-add') }}"
-										class="{{ request()->routeIs('manager-add') ? 'active' : '' }}">Add</a></li>
-							</ul>
-						</li>
-						<li class="submenu">
+						@if ($dadosUsuario->nivel == 'A')
+							<li
+								class="submenu {{ request()->routeIs('manager-list') || request()->routeIs('manager-add') || request()->routeIs('manager-edit') || request()->routeIs('manager-show') || request()->routeIs('manager-search') ? 'active' : '' }}">
+								<a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>
+										Gestores</span> <span class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="{{ route('manager-list') }}" class="{{ request()->routeIs('manager-list') ? 'active' : '' }}">
+											Lista</a></li>
+									<li><a href="{{ route('manager-add') }}"
+											class="{{ request()->routeIs('manager-add') ? 'active' : '' }}">Add</a></li>
+								</ul>
+							</li>
+						@endif
+						<li
+							class="submenu {{ request()->routeIs('student-list') || request()->routeIs('student-add') || request()->routeIs('student-edit') || request()->routeIs('student-show') || request()->routeIs('student-search') ? 'active' : '' }}">
 							<a href="#"><i class="fas fa-graduation-cap"></i> <span> Estudantes</span>
 								<span class="menu-arrow"></span></a>
 							<ul>
@@ -125,7 +131,8 @@
 							</ul>
 						</li>
 
-						<li class="submenu">
+						<li
+							class="submenu {{ request()->routeIs('enrollment-list') || request()->routeIs('enrollment-add') || request()->routeIs('enrollment-edit') || request()->routeIs('enrollment-search') ? 'active' : '' }}">
 							<a href="#"><i class="fa fa-sticky-note"></i> <span>Inscrições</span>
 								<span class="menu-arrow"></span></a>
 							<ul>
@@ -139,19 +146,9 @@
 								</li>
 							</ul>
 						</li>
-						{{-- <li class="submenu">
-							<a href="#"><i class="fas fa-cogs"></i> <span> Admins</span> <span
-									class="menu-arrow"></span></a>
-							<ul>
-								<li><a href="{{ route('admin-list') }}"
-										class="{{ request()->routeIs('admin-list') ? 'active' : '' }}">Admin List</a>
-								</li>
-								<li><a href="{{ route('admin-add') }}"
-										class="{{ request()->routeIs('admin-add') ? 'active' : '' }}">Admin Add</a>
-								</li>
-							</ul>
-						</li> --}}
-						<li class="submenu">
+
+						<li
+							class="submenu {{ request()->routeIs('propina-list') || request()->routeIs('propina-add') || request()->routeIs('propina-edit') || request()->routeIs('propina-search') ? 'active' : '' }}">
 							<a href="#"><i class="fas fa-coins"></i> <span> Propinas</span> <span class="menu-arrow"></span></a>
 							<ul>
 								<li><a href="{{ route('propina-list') }}"
@@ -159,6 +156,45 @@
 								</li>
 							</ul>
 						</li>
+						@if ($dadosUsuario->nivel == 'A')
+							<li
+								class="submenu {{ request()->routeIs('faculty-list') || request()->routeIs('faculty-add') || request()->routeIs('faculty-edit') || request()->routeIs('faculty-search') || request()->routeIs('faculty-show') ? 'active' : '' }}">
+								<a href="#"><i class="fa fa-school"></i> <span> Faculdades</span> <span class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="{{ route('faculty-list') }}"
+											class="{{ request()->routeIs('faculty-list') ? 'active' : '' }}">List</a>
+									</li>
+									<li><a href="{{ route('faculty-add') }}"
+											class="{{ request()->routeIs('faculty-add') ? 'active' : '' }}">Add</a>
+									</li>
+								</ul>
+							</li>
+							<li
+								class="submenu {{ request()->routeIs('course-list') || request()->routeIs('course-add') || request()->routeIs('course-edit') || request()->routeIs('course-search') || request()->routeIs('course-show') ? 'active' : '' }}">
+								<a href="#"><i class="fa fa-book"></i> <span> Cursos</span> <span class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="{{ route('course-list') }}"
+											class="{{ request()->routeIs('course-list') ? 'active' : '' }}">List</a>
+									</li>
+									<li><a href="{{ route('course-add') }}"
+											class="{{ request()->routeIs('course-add') ? 'active' : '' }}">Add</a>
+									</li>
+								</ul>
+							</li>
+							<li
+								class="submenu {{ request()->routeIs('periodo-list') || request()->routeIs('periodo-add') || request()->routeIs('periodo-edit') ? 'active' : '' }}">
+								<a href="#"><i class="fa fa-book"></i> <span> Periodos de Inscrições</span> <span
+										class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="{{ route('periodo-list') }}"
+											class="{{ request()->routeIs('periodo-list') ? 'active' : '' }}">List</a>
+									</li>
+									<li><a href="{{ route('periodo-add') }}"
+											class="{{ request()->routeIs('periodo-add') ? 'active' : '' }}">Add</a>
+									</li>
+								</ul>
+							</li>
+						@endif
 
 					</ul>
 				</div>

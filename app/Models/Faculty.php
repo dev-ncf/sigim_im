@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Faculty extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'label',
+        'extension_id'
+    ];
+
     public function extensao(){
-        return $this->belongsToMany(Extension::class);
+        return $this->belongsTo(Extension::class,'extension_id');
     }
 }

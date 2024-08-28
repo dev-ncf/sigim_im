@@ -3,16 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Faculty;
+use App\Models\Manager;
+use App\Models\StudentEnrollment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    private function dadosUsuario(){
+        $dadosUsuario = Manager::find(Auth::id());
+        return $dadosUsuario;
+    }
     public function index()
     {
         //
+        $dadosUsuario = Manager::find(Auth::id());
+        $courses = Course::all();
+        // dd($courses);
+        $courses->load('faculty');
+
+        return view('web.admin.Course.list',compact(['courses','dadosUsuario']));
     }
 
     /**
@@ -21,6 +37,10 @@ class CourseController extends Controller
     public function create()
     {
         //
+         $dadosUsuario = Manager::find(Auth::id());
+        $faculties = Faculty::all();
+        // dd($courses);
+        return view('web.admin.Course.add',compact(['dadosUsuario','faculties']));
     }
 
     /**
@@ -29,6 +49,17 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         //
+        DB::beginTransaction();
+        try {
+            //code...
+            Course::create($request->all());
+            DB::commit();
+            return back()->with(['success'=>'Curso registado com sucesso!']);
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
     }
 
     /**
@@ -37,6 +68,10 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         //
+        $dadosUsuario = $this->dadosUsuario();
+         $students = StudentEnrollment::where('course_id','=',$course->id)->where('semestre','=','1')->get();
+        //  dd($students);
+         return view('web.admin.course.show',compact(['dadosUsuario','course','students']));
     }
 
     /**
@@ -45,6 +80,11 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         //
+        $dadosUsuario = Manager::find(Auth::id());
+        $faculties = Faculty::all();
+        // dd($courses);
+        return view('web.admin.Course.edit',compact(['dadosUsuario','faculties','course']));
+
     }
 
     /**
@@ -53,6 +93,17 @@ class CourseController extends Controller
     public function update(Request $request, Course $course)
     {
         //
+         DB::beginTransaction();
+        try {
+            //code...
+            $course->update($request->all());
+            DB::commit();
+            return back()->with(['success'=>'Curso actualizado com sucesso!']);
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
     }
 
     /**
@@ -61,5 +112,16 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         //
+        DB::beginTransaction();
+        try {
+            //code...
+            $course->delete();
+            DB::commit();
+            return back()->with(['success'=>'Curso excluido com sucesso!']);
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
     }
 }

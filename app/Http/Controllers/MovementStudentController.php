@@ -8,6 +8,8 @@ use App\Models\MovementStudent;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class MovementStudentController extends Controller
 {
@@ -69,7 +71,8 @@ class MovementStudentController extends Controller
      */
     public function edit(MovementStudent $movementStudent)
     {
-        //
+         $dadosUsuario = Manager::find(Auth::id());
+        return view('web.admin.Movement.edit',compact('movementStudent','dadosUsuario'));
     }
 
     /**
@@ -78,6 +81,17 @@ class MovementStudentController extends Controller
     public function update(Request $request, MovementStudent $movementStudent)
     {
         //
+        DB::beginTransaction();
+        $dados = $request->all();
+        try {
+            //code...
+            $movementStudent->update($dados);
+            return back()->with(['success'=>'Propina actualizada com sucesso!']);
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
     }
 
     /**
@@ -86,5 +100,17 @@ class MovementStudentController extends Controller
     public function destroy(MovementStudent $movementStudent)
     {
         //
+
+         DB::beginTransaction();
+        try {
+            //code...
+            $movementStudent->delete();
+            return back()->with(['success'=>'Propina excluida com sucesso!']);
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
+
     }
 }

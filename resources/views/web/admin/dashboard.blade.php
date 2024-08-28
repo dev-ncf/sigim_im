@@ -60,14 +60,7 @@
 						<div class="col-6">
 							<h5 class="card-title">Numero de Estudantes </h5>
 						</div>
-						<div class="col-6">
-							<ul class="chart-list-out">
-								<li><span class="circle-blue"></span>Homens</li>
-								<li><span class="circle-green"></span>Mulheres</li>
-								<li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
-								</li>
-							</ul>
-						</div>
+
 					</div>
 				</div>
 				<div class="card-body">

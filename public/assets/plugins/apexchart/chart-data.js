@@ -40,8 +40,8 @@ if($('#school-area').length>0){var options={chart:{height:350,type:"area",toolba
         }, stroke: {
             show: true, width: 2, colors: ['transparent']
         }, series: [{
-            name: "Boys", color: '#70C4CF', data: boysData,
-        }, { name: "Girls", color: '#3D5EE1', data: girlsData, }],
+            name: "Feminino", color: '#70C4CF', data: boysData,
+        }, { name: "Masculino", color: '#3D5EE1', data: girlsData, }],
         labels: anos, xaxis: {
             labels: { show: false }, axisBorder: { show: false }, axisTicks: { show: false },
         }, yaxis: { axisBorder: { show: false }, axisTicks: { show: false }, labels: { style: { colors: '#777' } } }, title: { text: '', align: 'left', style: { fontSize: '18px' } }

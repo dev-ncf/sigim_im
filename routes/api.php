@@ -14,6 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/users', function (Request $request) {
+    // $user = $request->user();
+
+
+    return response()->json([
+        [
+        'id' => '01',
+        'name' => "Ntwali Chance Filme",
+        'email' => 'ntwalichancefilme@gmail.com',
+        ],
+        [
+        'id' => '02',
+        'name' => "Ntwali Chance Filme",
+        'email' => 'ntwalichancefilme@gmail.com',
+        ],
+
+        // Adicione outros campos que você queira retornar
+    ]);
 });

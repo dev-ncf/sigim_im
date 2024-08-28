@@ -25,7 +25,8 @@ class Manager extends Authenticatable
         'expiration_date',
         'issue_place',
         'email',
-        'extension_id'
+        'extension_id',
+        'estado'
 
     ];
 

@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Course;
+use App\Models\DocumentType;
 use App\Models\Extension;
+use App\Models\Faculty;
 use App\Models\Manager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Sabberworm\CSS\Property\AtRule;
+use Throwable;
 
 class ManagerController extends Controller
 {
@@ -59,6 +65,14 @@ class ManagerController extends Controller
     public function show(Manager $manager)
     {
         //
+        $dadosUsuario = Manager::find(Auth::id());
+        return view('web.admin.manager.show',compact('dadosUsuario','manager'));
+    }
+    public function userShow()
+    {
+        //
+        $dadosUsuario = Manager::find(Auth::id());
+        return view('web.admin.show',compact('dadosUsuario'));
     }
 
     /**
@@ -67,6 +81,12 @@ class ManagerController extends Controller
     public function edit(Manager $manager)
     {
         //
+        $dadosUsuario = Manager::find(Auth::id());
+        $faculdades = Faculty::get();
+        $extensions = Extension::get();
+        $cursos = Course::get();
+        $documentTypes = DocumentType::get();
+        return view('web.admin.manager.edit',compact('documentTypes','extensions','dadosUsuario','manager'));
     }
 
     /**
@@ -75,6 +95,69 @@ class ManagerController extends Controller
     public function update(Request $request, Manager $manager)
     {
         //
+        $dados = $request->all();
+        DB::beginTransaction();
+        try {
+            $manager->update($dados);
+            DB::commit();
+            return redirect()->route('manager-list')->with(['success'=>'Dados actualizados com sucesso!']);
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
+    }
+    public function updatePassword(Request $request, Manager $manager)
+    {
+        //
+
+        $dados = $request->all();
+
+        DB::beginTransaction();
+        try {
+            if($request->password==$request->confir_password){
+                $dados['password']=bcrypt($request->password);
+                $manager->update($dados);
+            }else{
+                return back()->withErrors(['error'=>'Senhas não idênticas!']);
+            }
+
+
+            DB::commit();
+            return redirect()->route('manager-show',$manager->id)->with(['success'=>'Senha actualizada com sucesso!']);
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
+    }
+    public function userUpdatePassword(Request $request, Manager $manager)
+    {
+        //
+
+        $dados = $request->all();
+       if(Auth::guard('manager')->attempt(['id'=>$manager->id,'password'=>$request->old_password])){
+            DB::beginTransaction();
+            try {
+                if($request->password==$request->confir_password){
+                    $dados['password']=bcrypt($request->password);
+                    $manager->update($dados);
+                }else{
+                    return back()->withErrors(['error'=>'Senhas não idênticas!']);
+                }
+
+
+                DB::commit();
+                return redirect()->route('manager-show',$manager->id)->with(['success'=>'Senha actualizada com sucesso!']);
+            } catch (Throwable $th) {
+                //throw $th;
+                DB::rollBack();
+                return back()->withErrors(['error'=>$th->getMessage()]);
+            }
+        }else{
+             return back()->withErrors(['error'=>'Senha antiga incorrecta!']);
+        }
+
     }
 
     /**
@@ -83,5 +166,39 @@ class ManagerController extends Controller
     public function destroy(Manager $manager)
     {
         //
+        DB::beginTransaction();
+        try {
+            $manager->delete();
+            DB::commit();
+            return redirect()->route('manager-list')->with(['success'=>'Gestor excuido com sucesso!']);
+        }catch (Throwable $th){
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+
+        }
+    }
+    public function activeDeactive(Manager $manager)
+    {
+        //
+        DB::beginTransaction();
+        try {
+            //code...
+            if( $manager->estado=='Activo'){
+                $manager->update(['estado'=>'Inactivo']);
+
+
+            }else{
+
+                $manager->update(['estado'=>'Activo']);
+
+            }
+
+
+            DB::commit();
+            return back()->with(['success'=>$manager->estado=='Activo'?'Manager '.$manager->first_name.' fio activado com sucesso!':'Manager '.$manager->first_name.' foi desactivado com sucesso!']);
+        } catch (Throwable $th) {
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
     }
 }

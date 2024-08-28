@@ -22,8 +22,8 @@
 					<form>
 						<div class="row">
 							<div class="col-12">
-								<h5 class="form-title student-info">Student Information <span><a
-											href="javascript:;"><i class="feather-more-vertical"></i></a></span></h5>
+								<h5 class="form-title student-info">Student Information <span><a href="javascript:;"><i
+												class="feather-more-vertical"></i></a></span></h5>
 							</div>
 							<div class="col-12 col-sm-4">
 								<div class="form-group local-forms">
@@ -56,11 +56,17 @@
 										value="{{ $student->birth_date }}">
 								</div>
 							</div>
+							@php
+								$faculty = '';
+								foreach ($student->studentEnrollment as $key) {
+								    # code...
+								    $faculty = $key->faculty->label;
+								}
+							@endphp
 							<div class="col-12 col-sm-4">
 								<div class="form-group local-forms">
 									<label>Faculty </label>
-									<input class="form-control" type="text"
-										value="{{ $student->studentEnrollment->faculty->label }}">
+									<input class="form-control" type="text" value="{{ $faculty }}">
 								</div>
 							</div>
 
@@ -76,8 +82,7 @@
 
 									<select class="form-control select">
 										@foreach ($courses as $index => $course)
-											<option
-												{{ $index + 1 == $student->studentEnrollment->course_id ? 'selected' : '' }}>
+											<option {{ $index + 1 == $student->studentEnrollment[0]->course_id ? 'selected' : '' }}>
 												{{ $course->label }}</option>
 										@endforeach
 									</select>

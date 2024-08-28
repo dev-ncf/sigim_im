@@ -514,14 +514,14 @@ class PrintController extends Controller
                             </h4>
                             <table style="width: 100%;">
                                 <tr>
-                                    <th>Numero </th>
+                                    <th>Numero de inscrição </th>
                                     <th>Código do estudante</th>
                                     <th>Nome do estudante</th>
                                     <th>Data</th>
                                     <th>Estado</th>
                                 </tr>
                                 <tr>
-                                    <td>$student->id</td>
+                                    <td>$enrollment->id</td>
                                     <td>
                                         $student->code
                                     </td>
@@ -578,6 +578,7 @@ class PrintController extends Controller
         $str_itemsPre='';
         $taxaPorDisciplinas = ($enrollment->taxa) * ($enrollment->numero_disciplinas);
         $taxaLabel = "Taxa de inscrição por disciplina ( $enrollment->numero_disciplinas x $enrollment->taxa,00)";
+        $total = $taxaPorDisciplinas+1750;
         $str_itemsPre = $str_itemsPre."
         <div style='margin-top: 5px;'>
                                 <table style='width: 100%;'>
@@ -603,7 +604,7 @@ class PrintController extends Controller
                                  <div style='margin-left: 453px;border: 1px solid; border-top:none; align-items:center; text-align: center; margin-bottom:20px;'>
 
                                     <strong>Total</strong>
-                                    <strong>$enrollment->valor,00</strong>
+                                    <strong>$total,00</strong>
                                 </div>
 
              </div>
@@ -697,7 +698,7 @@ class PrintController extends Controller
                                     <th>Estado</th>
                                 </tr>
                                 <tr>
-                                    <td>$student->id</td>
+                                    <td>$enrollment->id</td>
                                     <td>
                                         $student->code
                                     </td>

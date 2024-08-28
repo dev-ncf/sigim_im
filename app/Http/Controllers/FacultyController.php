@@ -2,17 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\Extension;
 use App\Models\Faculty;
+use App\Models\Manager;
+use App\Models\StudentEnrollment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class FacultyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+     private function dadosUsuario(){
+        $dadosUsuario = Manager::find(Auth::id());
+        return $dadosUsuario;
+    }
+    public function index(Request $request)
     {
         //
+        $query = Faculty::query();
+        $dadosUsuario = $this->dadosUsuario();
+        // dd($faculties);
+
+        if(isset($request->nome) && !empty($request->nome)){
+            $query->where('label','like','%'.$request->nome.'%');
+        }
+        if(isset($request->extension_id) && !empty($request->extension_id)){
+            $query->where('extension_id','=',$request->extension_id);
+        }
+        $faculties =  $query->get();
+        $faculties->load('extensao');
+        $extensaos =Extension::all();
+        return view('web.admin.Faculty.list',compact(['faculties','dadosUsuario','extensaos']));
     }
 
     /**
@@ -21,6 +46,9 @@ class FacultyController extends Controller
     public function create()
     {
         //
+         $extensaos = Extension::all();
+         $dadosUsuario = $this->dadosUsuario();
+         return view('web.admin.Faculty.add',compact(['extensaos','dadosUsuario']));
     }
 
     /**
@@ -28,7 +56,18 @@ class FacultyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['label'=>'required','extension_id'=>'required']);
+        DB::beginTransaction();
+        try {
+            //code...
+            Faculty::create($request->all());
+            DB::commit();
+            return back()->with(['success'=>'Faculdade registada com sucesso!']);
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
     }
 
     /**
@@ -37,6 +76,12 @@ class FacultyController extends Controller
     public function show(Faculty $faculty)
     {
         //
+        $extensaos = Extension::all();
+         $dadosUsuario = $this->dadosUsuario();
+         $courses = Course::where('faculty_id','=',$faculty->id)->get();
+         $students = StudentEnrollment::where('faculty_id','=',$faculty->id)->where('semestre','=','1')->get();
+        //  dd($students);
+         return view('web.admin.Faculty.show',compact(['extensaos','dadosUsuario','faculty','courses','students']));
     }
 
     /**
@@ -45,6 +90,9 @@ class FacultyController extends Controller
     public function edit(Faculty $faculty)
     {
         //
+        $extensaos = Extension::all();
+         $dadosUsuario = $this->dadosUsuario();
+         return view('web.admin.Faculty.edit',compact(['extensaos','dadosUsuario','faculty']));
     }
 
     /**
@@ -53,6 +101,18 @@ class FacultyController extends Controller
     public function update(Request $request, Faculty $faculty)
     {
         //
+        //  $request->validate(['label'=>'required','extension_id'=>'required']);
+        DB::beginTransaction();
+        try {
+            //code...
+            $faculty->update($request->all());
+            DB::commit();
+            return back()->with(['success'=>'Faculdade actualizada com sucesso!']);
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
     }
 
     /**
@@ -61,5 +121,16 @@ class FacultyController extends Controller
     public function destroy(Faculty $faculty)
     {
         //
+        DB::beginTransaction();
+        try {
+            //code...
+            $faculty->delete();
+            DB::commit();
+            return back()->with(['success'=>'Faculdade excluida com sucesso!']);
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
     }
 }

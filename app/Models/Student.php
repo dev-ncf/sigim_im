@@ -36,7 +36,8 @@ class Student extends Model
         'id_file',
         'nuit_file',
         'manager_response_id',
-        'registration_status'
+        'registration_status',
+        'estado',
     ];
 
 

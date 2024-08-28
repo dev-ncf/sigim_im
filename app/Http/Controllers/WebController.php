@@ -70,15 +70,18 @@ class WebController extends Controller
                     return redirect()->route('home-admin');
                 }
                 return redirect()->route('home-manager');
+            }else{
+                 return back()->withErrors([
+                'message' => 'Credencias invalidas tenta novamente!'
+            ]);
+
             }
             // else if (Auth::guard('admin')->attempt($credential)) {
             //     $request->session()->regenerate();
             //     return redirect()->route('home-admin');
             // }
 
-            return back()->withErrors([
-                'message' => 'Credencias invalidas tenta novamente!'
-            ]);
+
         } else {
             if (Auth::attempt($credential)) {
                 $student = Student::where('user_id', '=', auth()->user()->id)->first();
