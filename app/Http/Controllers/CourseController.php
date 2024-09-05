@@ -23,6 +23,7 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         //
+        if(LoginController::logado()){
 
         $dadosUsuario = Manager::find(Auth::id());
         $query = Course::query();
@@ -38,6 +39,9 @@ class CourseController extends Controller
         $faculties = Faculty::all();
 
         return view('web.admin.Course.list',compact(['courses','dadosUsuario','faculties']));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -45,11 +49,15 @@ class CourseController extends Controller
      */
     public function create()
     {
+        if(LoginController::logado()){
         //
          $dadosUsuario = Manager::find(Auth::id());
         $faculties = Faculty::all();
         // dd($courses);
         return view('web.admin.Course.add',compact(['dadosUsuario','faculties']));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -77,10 +85,14 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         //
+        if(LoginController::logado()){
         $dadosUsuario = $this->dadosUsuario();
          $students = StudentEnrollment::where('course_id','=',$course->id)->where('semestre','=','1')->get();
         //  dd($students);
          return view('web.admin.course.show',compact(['dadosUsuario','course','students']));
+         }else{
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -89,10 +101,14 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         //
+         if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         $faculties = Faculty::all();
         // dd($courses);
         return view('web.admin.Course.edit',compact(['dadosUsuario','faculties','course']));
+        }else{
+            return redirect()->route('login');
+        }
 
     }
 

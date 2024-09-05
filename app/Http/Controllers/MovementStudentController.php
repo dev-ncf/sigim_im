@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Manager;
 use App\Models\MovementStudent;
 use App\Models\Student;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,7 @@ class MovementStudentController extends Controller
      */
     public function index(Request $request)
     {
+        if(LoginController::logado()){
         $query = MovementStudent::query();
         if($request->has('receipt_number') && !empty($request->receipt_number)){
             $query->where('receipt_number','like','%'.$request->receipt_number.'%');
@@ -37,9 +39,13 @@ class MovementStudentController extends Controller
 
         }
         $dadosUsuario = Manager::find(Auth::id());
+        $query->orderBy('id','desc');
         $propinas = $query->get();
         return view('web.admin.Movement.list', compact('dadosUsuario', 'propinas'));
         //
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -71,8 +77,12 @@ class MovementStudentController extends Controller
      */
     public function edit(MovementStudent $movementStudent)
     {
+        if(LoginController::logado()){
          $dadosUsuario = Manager::find(Auth::id());
         return view('web.admin.Movement.edit',compact('movementStudent','dadosUsuario'));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     /**

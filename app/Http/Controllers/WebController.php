@@ -44,6 +44,7 @@ class WebController extends Controller
 
     public function viewLogin()
     {
+
     	return view('web.auth.login');
     }
 
@@ -369,6 +370,7 @@ class WebController extends Controller
 
     //Home de inscricao completa
     public function home(){
+        if(LoginController::logado()){
         $student = Student::with('studentEnrollment')->where('user_id', '=', auth()->user()->id)->first();
         $lastEnrollmentPeriod=EnrollmentPeriod::latest('end')->first();
         $lastEnrollment = StudentEnrollment::where('student_id','=',$student->id)->latest()->first();
@@ -376,14 +378,21 @@ class WebController extends Controller
         // dd($movements->count());
         $enrollments = StudentEnrollment::where('student_id', '=', $student->id)->get();
         return view('web.student.home', compact('student','enrollments','lastEnrollment','lastEnrollmentPeriod','movements'));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     //Exibir perfil
     public function perfil(){
+         if(LoginController::logado()){
         $student = Student::with(['studentEnrollment', 'document', 'gender', 'maritalStatus', 'address'])->where('user_id', '=', auth()->user()->id)->first();
 
         //dd($student->document->documentType);
         return view('web.student.perfil', compact('student'));
+         }else{
+            return redirect()->route('login');
+        }
     }
 
 
@@ -445,6 +454,7 @@ class WebController extends Controller
     /* Trabalhando com Setor do Registo Academico */
     public function homeManager($student_code = null)
     {
+        if(LoginController::logado()){
         if (isset($_GET['student_code']) && !empty($_GET['student_code'])) {
             $student = Student::where('code','=',$_GET['student_code'])->where('extension_id', '=', auth()->user()->extension_id)->first();
             if($student){
@@ -460,9 +470,13 @@ class WebController extends Controller
         //  dd($studentEnrollment);
 
         return view('web.manager.home', compact('studentEnrollment'));
+         }else{
+            return redirect()->route('login');
+        }
     }
     public function homeAdmin()
     {
+        if(LoginController::logado()){
         $students = Student::all();
         $managers  = Manager::all();
         $faculties = Faculty::all();
@@ -477,6 +491,9 @@ $studentsByYear = Student::select(DB::raw('YEAR(updated_at) as ano'), 'gender_id
 
 
         return view('web.admin.dashboard', compact('students','managers','studentsByYear','dadosUsuario','courses','faculties'));
+         }else{
+            return redirect()->route('login');
+        }
     }
     public function managerDashboard()
     {

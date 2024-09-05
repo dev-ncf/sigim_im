@@ -84,6 +84,9 @@ class AdminController extends Controller
     }
     public function adminEstudanteAdicionar()
     {
+        if(LoginController::logado()){
+
+
         $dadosUsuario = Manager::find(Auth::id());
         $provincias = Province::get();
         $distritos = District::get();
@@ -93,6 +96,9 @@ class AdminController extends Controller
         $documentTypes = DocumentType::get();
 
         return view('web.admin.student.add',compact('provincias','distritos','gestores','extensoes','dadosUsuario','estadosCivil','documentTypes'));
+        }else{
+            return redirect()->route('login');
+        }
     }
     public function adminEstudanteStore(Request $request)
     {
@@ -176,12 +182,16 @@ class AdminController extends Controller
     }
     public function adminInscricaoAdicionar()
     {
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         $faculdades = Faculty::get();
         $linhasPesquisa = SewingLine::get();
         $cursos = Course::get();
         $estudantes = Student::get();
         return view('web.admin.Enrolment.add',compact('faculdades','linhasPesquisa','cursos','dadosUsuario','estudantes'));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     public function adminInscricaoStore(Request $request)
@@ -220,12 +230,16 @@ class AdminController extends Controller
     }
     public function AdminGestorAdicionar()
     {
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         $faculdades = Faculty::get();
         $extensions = Extension::get();
         $cursos = Course::get();
         $documentTypes = DocumentType::get();
         return view('web.admin.manager.add',compact('documentTypes','extensions','dadosUsuario'));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     public function AdminGestorStore(Request $request)
@@ -387,6 +401,7 @@ class AdminController extends Controller
     }
     public function AdminPropinaAdicionar($student_id)
     {
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         $estudante = Student::find($student_id);
         $extensions = Extension::get();
@@ -394,6 +409,9 @@ class AdminController extends Controller
         $documentTypes = DocumentType::get();
         $servicos = MovementStudentItem::get();
         return view('web.admin.Movement.add',compact('estudante','dadosUsuario','servicos'));
+        }else{
+            return redirect()->route('login');
+        }
     }
     public function AdminPropinaStore(Request $request)
     {

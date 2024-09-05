@@ -22,6 +22,7 @@ class ManagerController extends Controller
     public function index(Request $request)
 
     {
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         $query = Manager::query();
         if($request->has('manager_name') && !empty($request->manager_name)){
@@ -41,6 +42,9 @@ class ManagerController extends Controller
 
         return view('web.admin.manager.list',compact('managers','extensoes','dadosUsuario'));
         //
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -65,14 +69,23 @@ class ManagerController extends Controller
     public function show(Manager $manager)
     {
         //
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         return view('web.admin.manager.show',compact('dadosUsuario','manager'));
+        }else{
+            return redirect()->route('login');
+        }
+
     }
     public function userShow()
     {
         //
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         return view('web.admin.show',compact('dadosUsuario'));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -81,12 +94,16 @@ class ManagerController extends Controller
     public function edit(Manager $manager)
     {
         //
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         $faculdades = Faculty::get();
         $extensions = Extension::get();
         $cursos = Course::get();
         $documentTypes = DocumentType::get();
         return view('web.admin.manager.edit',compact('documentTypes','extensions','dadosUsuario','manager'));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     /**

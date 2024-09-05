@@ -17,9 +17,13 @@ class PeriodoController extends Controller
     public function index()
 
     {
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         $periodos = EnrollmentPeriod::all();
         return view('web.admin.Periodo.list',compact(['periodos','dadosUsuario']));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -28,8 +32,12 @@ class PeriodoController extends Controller
     public function create()
     {
         //
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         return view('web.admin.Periodo.add',compact(['dadosUsuario']));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -66,8 +74,12 @@ class PeriodoController extends Controller
     public function edit(EnrollmentPeriod $periodo)
     {
         //
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         return view('web.admin.Periodo.edit',compact(['dadosUsuario','periodo']));
+        }else{
+            return redirect()->route('login');
+        }
 
     }
 

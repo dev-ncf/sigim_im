@@ -22,6 +22,7 @@ class EnrollmentController extends Controller
     public function index(Request $request)
     {
         //
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         $query = Student::query();
         if (!function_exists('truncate_name')) {
@@ -50,10 +51,14 @@ class EnrollmentController extends Controller
             $query->where('extension_id','=',$dadosUsuario->extension_id);
         }
        $query->with('studentEnrollment');
+       $query->orderBy('id','desc');
         $enrollments = $query->get();
         $students = $query->get();
         $cursos = Course::all();
       return view('web.admin.Enrolment.list', compact('enrollments','dadosUsuario','cursos','students'));
+      }else{
+            return redirect()->route('login');
+        }
 
     }
 
@@ -119,6 +124,7 @@ class EnrollmentController extends Controller
     public function edit(StudentEnrollment $enrollment)
     {
         //
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         $faculdades = Faculty::get();
         $linhasPesquisa = SewingLine::get();
@@ -126,6 +132,9 @@ class EnrollmentController extends Controller
         $estudantes = Student::get();
         $student = Student::find($enrollment->student_id);
         return view('web.admin.Enrolment.edit',compact(['student','dadosUsuario','faculdades','linhasPesquisa','cursos','estudantes','enrollment']));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     /**

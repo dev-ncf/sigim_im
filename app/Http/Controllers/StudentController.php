@@ -19,6 +19,7 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
             $query = Student::query();
             if($request->has('student_code') && !empty($request->student_code)){
@@ -39,6 +40,9 @@ class StudentController extends Controller
             $students = $query->with('studentEnrollment')->get();
 
         return view('web.admin.student.list',compact('students','dadosUsuario'));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -46,9 +50,13 @@ class StudentController extends Controller
      */
     public function show($student_id)
     {
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         $student = Student::find($student_id);
         return view('web.admin.student.show',compact('dadosUsuario','student'));
+        }else{
+            return redirect()->route('login');
+        }
 
     }
 
@@ -57,7 +65,11 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        if(LoginController::logado()){
         return view('web.admin.student.add');
+        }else{
+            return redirect()->route('login');
+        }
     }
 
 
@@ -66,6 +78,7 @@ class StudentController extends Controller
      */
     public function edit($student_code = null)
     {
+        if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
          if (isset($student_code) && !empty($student_code)) {
             $student = Student::with('studentEnrollment')->where('code', '=', $student_code)->first();
@@ -77,6 +90,9 @@ class StudentController extends Controller
         }else{
             return view('web.admin.student.list');
 
+        }
+        }else{
+            return redirect()->route('login');
         }
     }
 

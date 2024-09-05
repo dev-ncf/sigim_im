@@ -24,6 +24,7 @@ class FacultyController extends Controller
     public function index(Request $request)
     {
         //
+        if(LoginController::logado()){
         $query = Faculty::query();
         $dadosUsuario = $this->dadosUsuario();
         // dd($faculties);
@@ -38,6 +39,9 @@ class FacultyController extends Controller
         $faculties->load('extensao');
         $extensaos =Extension::all();
         return view('web.admin.Faculty.list',compact(['faculties','dadosUsuario','extensaos']));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -46,9 +50,13 @@ class FacultyController extends Controller
     public function create()
     {
         //
+        if(LoginController::logado()){
          $extensaos = Extension::all();
          $dadosUsuario = $this->dadosUsuario();
          return view('web.admin.Faculty.add',compact(['extensaos','dadosUsuario']));
+         }else{
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -76,12 +84,16 @@ class FacultyController extends Controller
     public function show(Faculty $faculty)
     {
         //
+        if(LoginController::logado()){
         $extensaos = Extension::all();
          $dadosUsuario = $this->dadosUsuario();
          $courses = Course::where('faculty_id','=',$faculty->id)->get();
          $students = StudentEnrollment::where('faculty_id','=',$faculty->id)->where('semestre','=','1')->get();
         //  dd($students);
          return view('web.admin.Faculty.show',compact(['extensaos','dadosUsuario','faculty','courses','students']));
+         }else{
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -90,9 +102,13 @@ class FacultyController extends Controller
     public function edit(Faculty $faculty)
     {
         //
+        if(LoginController::logado()){
         $extensaos = Extension::all();
          $dadosUsuario = $this->dadosUsuario();
          return view('web.admin.Faculty.edit',compact(['extensaos','dadosUsuario','faculty']));
+         }else{
+            return redirect()->route('login');
+        }
     }
 
     /**

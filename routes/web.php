@@ -61,8 +61,9 @@ Route::post('/logout', function(){
 
 #Rotas para gestores do Registo academico
 Route::get('/manager/home/{student_code?}', [WebController::class, 'homeManager'])->name('home-manager')->middleware('auth:manager');
+
 Route::prefix('admin')->middleware('auth:manager')->group(function () {
-    Route::get('/home', [WebController::class, 'homeAdmin'])->name('home-admin');
+    Route::get('', [WebController::class, 'homeAdmin'])->name('home-admin');
     Route::get('/manager', [WebController::class, 'managerDashboard'])->name('manager-dashboard');
     Route::get('/student', [WebController::class, 'studentDashboard'])->name('student-dashboard');
     Route::prefix('/students')->group(function(){

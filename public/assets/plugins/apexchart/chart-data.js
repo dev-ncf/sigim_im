@@ -41,12 +41,12 @@ if($('#school-area').length>0){var options={chart:{height:350,type:"area",toolba
             show: true, width: 2, colors: ['transparent']
         },series: [{
             name: "Masculino",
-            color: '#70C4CF', // Cor para "Masculino" (Turquesa)
+            color: '#3D5EE1', // Cor para "Masculino" (Turquesa)
             data: boysData,   // Dados para "Masculino"
 
         }, {
             name: "Feminino",
-            color: '#3D5EE1', // Cor para "Feminino" (Azul)
+            color: '#70C4CF', // Cor para "Feminino" (Azul)
             data: girlsData,  // Dados para "Feminino"
 
         }],
