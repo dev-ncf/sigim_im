@@ -161,3 +161,5 @@ Route::post('/manager/student/aprovated', [WebController::class, 'studentAprovat
 Route::get('manager/student/receipt-payment/{number}', [PrintController::class, 'receiptPayment'])->middleware('auth:manager');
 
 Route::get('/printer/recipient-inscription/{code}/{id}', [PrintController::class, 'print']);
+
+Route::get('/teste',function(){dd('Ola mundo');});

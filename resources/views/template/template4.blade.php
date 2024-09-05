@@ -25,7 +25,7 @@
 		<div class="header">
 
 			<div class="header-left">
-				<a href="index.html" class="logo">
+				<a href="{{ route('home-admin') }}" class="logo">
 					<img src="{{ asset('img/logo.png') }}" alt="Logo">
 
 					<span style="font-weight: bold; margin-left: 15px; font-size: 20pt">Unirovuma</span>
@@ -98,12 +98,8 @@
 							<span>Main Menu</span>
 						</li>
 						<li class="submenu {{ request()->routeIs('home-admin') || request()->routeIs('user-show') ? 'active' : '' }}">
-							<a href="#"><i class="feather-grid"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
-							<ul>
-								<li><a href="{{ route('home-admin') }}"
-										class="{{ request()->routeIs('home-admin') ? 'active' : '' }}">Admin</a></li>
-
-							</ul>
+							<a href="{{ route('home-admin') }}"><i class="feather-grid"></i> <span> Dashboard</span> <span
+									class="menu-arrow"></span></a>
 
 						</li>
 						@if ($dadosUsuario->nivel == 'A')

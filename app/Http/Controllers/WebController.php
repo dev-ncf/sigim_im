@@ -465,6 +465,8 @@ class WebController extends Controller
     {
         $students = Student::all();
         $managers  = Manager::all();
+        $faculties = Faculty::all();
+        $courses = Course::all();
     $dadosUsuario = Manager::find(Auth::id());
     // dd($dadosUsuario);
 
@@ -474,7 +476,7 @@ $studentsByYear = Student::select(DB::raw('YEAR(updated_at) as ano'), 'gender_id
     ->get();
 
 
-        return view('web.admin.dashboard', compact('students','managers','studentsByYear','dadosUsuario'));
+        return view('web.admin.dashboard', compact('students','managers','studentsByYear','dadosUsuario','courses','faculties'));
     }
     public function managerDashboard()
     {

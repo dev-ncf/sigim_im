@@ -35,7 +35,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0px 0px 8px #000000;
+    box-shadow: 0px 0px 8px #0000ff;
 }
 
 .card .img-logo{
@@ -44,8 +44,15 @@ body{
 }
 
 .card-login .img-logo{
-    width: 80px;
+    width: 100px;
     border-radius: 50%;
+}
+.bemvindo{
+    margin-top: 20px;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: #17178d;
+    text-shadow: 2px 2px 4px rgba(0, 0, 255, 0.5);
 }
 
 .card .title{
@@ -142,14 +149,20 @@ body{
     flex-direction: column;
     margin-bottom: 10px;
 }
+.input-label{
+    font-size: 16pt;
+}
 
 .input-begin{
     height: 30px;
     border: 1px solid #3997bc;
     border-radius: 5px;
     padding: 5px;
+    font-size: 16pt;
     margin-top: 5px;
     width: 100%;
+    height: 40px;
+    outline: none;
 }
 
 .div-btn-login{

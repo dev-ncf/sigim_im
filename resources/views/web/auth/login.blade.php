@@ -3,6 +3,7 @@
 @section('content')
 	<div class="card-login">
 		<img class="img-logo" src="{{ asset('img/logo.jpg') }}" alt="" srcset="">
+		<p class="bemvindo">Bem-vindo ao SIGIM</p>
 
 		<form class="div-form-login" id="form-login" method="POST" action="{{ route('authenticate') }}">
 			@csrf
@@ -12,11 +13,11 @@
 						<p style="font-size: 9pt; color: #d60000;">{{ $message }}</p>
 					</div>
 				@enderror
-				<label for="">Email</label>
+				<label for="" class="input-label">Email</label>
 				<input class="input-begin" type="email" name="email" required>
 			</div>
 			<div class="form-group div-100">
-				<label for="">Senha</label>
+				<label for="" class="input-label">Senha</label>
 				<input class="input-begin" type="password" name="password" id="" required>
 				<div class="div-100 div-btn-login">
 

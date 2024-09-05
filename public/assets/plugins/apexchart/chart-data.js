@@ -13,7 +13,7 @@ if($('#school-area').length>0){var options={chart:{height:350,type:"area",toolba
 
     studentsByYear.forEach(function(student) {
         var ano = student.ano;
-        var genero = student.gender_id === 1 ? 'M' : 'F'; // assumindo que 1 é masculino e 2 é feminino
+        var genero = student.gender_id === 1 ? 'F' : 'M'; // assumindo que 1 é masculino e 2 é feminino
         var total = student.total;
 
         if (!data[ano]) {
@@ -39,10 +39,18 @@ if($('#school-area').length>0){var options={chart:{height:350,type:"area",toolba
             bar: { columnWidth: '55%', endingShape: 'rounded' },
         }, stroke: {
             show: true, width: 2, colors: ['transparent']
-        }, series: [{
-            name: "Feminino", color: '#70C4CF', data: boysData,
-        }, { name: "Masculino", color: '#3D5EE1', data: girlsData, }],
-        
+        },series: [{
+            name: "Masculino",
+            color: '#70C4CF', // Cor para "Masculino" (Turquesa)
+            data: boysData,   // Dados para "Masculino"
+
+        }, {
+            name: "Feminino",
+            color: '#3D5EE1', // Cor para "Feminino" (Azul)
+            data: girlsData,  // Dados para "Feminino"
+
+        }],
+
         labels: anos, xaxis: {
             labels: { show: false }, axisBorder: { show: false }, axisTicks: { show: false },
         }, yaxis: { axisBorder: { show: false }, axisTicks: { show: false }, labels: { style: { colors: '#777' } } }, title: { text: '', align: 'left', style: { fontSize: '18px' } }
@@ -65,8 +73,54 @@ if($('#s-col-stacked').length>0){var sColStacked={chart:{height:350,type:'bar',s
     var chart = new ApexCharts(document.querySelector("#s-col-stacked"), sColStacked); chart.render();
 }
 
-if($('#s-bar').length>0){var sBar={chart:{height:350,type:'bar',toolbar:{show:false,}},plotOptions:{bar:{horizontal:true,}},dataLabels:{enabled:false},series:[{data:[400,430,448,470,540,580,690,1100,1200,1380]}],xaxis:{categories:['South Korea','Canada','United Kingdom','Netherlands','Italy','France','Japan','United States','China','Germany'],}}
-    var chart = new ApexCharts(document.querySelector("#s-bar"), sBar); chart.render();
+function calcularIdade(dataNascimento) {
+    var hoje = new Date();
+    var nascimento = new Date(dataNascimento);
+    var idade = hoje.getFullYear() - nascimento.getFullYear();
+    var mes = hoje.getMonth() - nascimento.getMonth();
+    if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
+        idade--;
+    }
+    return idade;
+}
+
+// Calcula as idades de todos os estudantes
+ var dados = document.getElementById('s-bar');
+var estudantes = JSON.parse(dados.getAttribute('students'));
+// console.log(estudantes);
+var idades = estudantes.map(function(estudante) {
+    return calcularIdade(estudante.birth_date);
+});
+var faixasEtarias = [0, 0, 0, 0, 0]; // Exemplo: [10-15, 16-20, 21-25, 26-30, 31+]
+idades.forEach(function(idade) {
+    if (idade >= 30 && idade <= 35) faixasEtarias[0]++;
+    else if (idade >= 36 && idade <= 40) faixasEtarias[1]++;
+    else if (idade >= 41 && idade <= 45) faixasEtarias[2]++;
+    else if (idade >= 46 && idade <= 50) faixasEtarias[3]++;
+    else faixasEtarias[4]++;
+});
+
+if ($('#s-bar').length > 0) {
+    var sBar = {
+        chart: {
+            height: 350,
+            type: 'bar',
+            toolbar: { show: false }
+        },
+        plotOptions: {
+            bar: { horizontal: true }
+        },
+        dataLabels: { enabled: false },
+        series: [{
+            name: 'Número de Estudantes', // Nome da série
+            data: faixasEtarias // Dados das faixas etárias
+        }],
+        xaxis: {
+            categories: ['De 30 à 35', 'De 36 à  40', 'De 41 à 45', 'De 46 à 50', 'De 51 à +'] // Faixas etárias como categorias
+        }
+    };
+    var chart = new ApexCharts(document.querySelector("#s-bar"), sBar);
+    chart.render();
 }
 
 if($('#mixed-chart').length>0){var options={chart:{height:350,type:'line',toolbar:{show:false,}},series:[{name:'Website Blog',type:'column',data:[440,505,414,671,227,413,201,352,752,320,257,160]},{name:'Social Media',type:'line',data:[23,42,35,27,43,22,17,31,22,22,12,16]}],stroke:{width:[0,4]},title:{text:'Traffic Sources'},labels:['01 Jan 2001','02 Jan 2001','03 Jan 2001','04 Jan 2001','05 Jan 2001','06 Jan 2001','07 Jan 2001','08 Jan 2001','09 Jan 2001','10 Jan 2001','11 Jan 2001','12 Jan 2001'],xaxis:{type:'datetime'},yaxis:[{title:{text:'Website Blog',},},{opposite:true,title:{text:'Social Media'}}]}
@@ -82,5 +136,7 @@ if($('#radial-chart').length>0){var radialChart={chart:{height:350,type:'radialB
 }
  var dataContainer = document.getElementById('bar');
         var studentsByYear = JSON.parse(dataContainer.getAttribute('estudantes'));
+
+
 var data = [];
 

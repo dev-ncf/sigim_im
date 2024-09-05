@@ -230,13 +230,142 @@ class AdminController extends Controller
 
     public function AdminGestorStore(Request $request)
     {
+       $request->validate([
+    'first_name' => [
+        'required',
+        'string',
+        'min:3',
+        'max:255',
+        'regex:/^[\pL\s\-]+$/u' // Permite letras e hífens
+    ],
+    'last_name' => [
+        'required',
+        'string',
+        'min:3',
+        'max:255',
+        'regex:/^[A-Za-z]+$/' // Permite apenas letras, sem espaços
+    ],
+    'extension_id' => [
+        'required',
+        'integer',
+        'exists:extensions,id' // Verifica se o ID existe na tabela 'extensions'
+    ],
+    'document_type_id' => [
+        'required',
+        'integer',
+        'exists:document_types,id' // Verifica se o ID existe na tabela 'document_types'
+    ],
+    'document_number' => [
+        'required',
+        'string',
+        'max:20',
+        'regex:/^[A-Z0-9\-]+$/', // Permite letras maiúsculas, números e hífens
+        'unique:student_documents,document_number' // Garante que o número do documento seja único
+    ],
+    'issue_place' => [
+        'required',
+        'string',
+        'max:255'
+    ],
+    'issue_date' => [
+        'required',
+        'date',
+        'before_or_equal:expiration_date' // A data de emissão deve ser anterior ou igual à data de expiração
+    ],
+    'expiration_date' => [
+        'required',
+        'date',
+        'after_or_equal:issue_date' // A data de expiração deve ser posterior ou igual à data de emissão
+    ],
+    'phone' => [
+        'required',
+        'numeric',
+        'regex:/^8\d{8}$/' // Deve começar com 8 e ter exatamente 9 dígitos
+    ],
+    'phone_secondary' => [
+        'nullable',
+        'numeric',
+        'regex:/^8\d{8}$/' // Deve começar com 8 e ter exatamente 9 dígitos (opcional)
+    ],
+    'email' => [
+        'required',
+        'string',
+        'email',
+        'max:255',
+        'unique:managers,email' // Garante que o e-mail seja único na tabela 'managers'
+    ],
+    'foto' => [
+        'nullable',
+        'image', // Garante que o arquivo seja uma imagem
+        'mimes:jpeg,png,jpg,gif', // Tipos de imagem permitidos
+        'max:5120' // Tamanho máximo da imagem em kilobytes (5 MB)
+    ]
+    ],
+[
+    'first_name.required' => 'O nome é obrigatório.',
+    'first_name.string' => 'O nome deve ser uma string.',
+    'first_name.min' => 'O nome não pode ter menos de 3 caracteres.',
+    'first_name.max' => 'O nome não pode ter mais de 255 caracteres.',
+    'first_name.regex' => 'O nome deve conter apenas letras e hífens.',
+
+    'last_name.required' => 'O sobrenome é obrigatório.',
+    'last_name.string' => 'O sobrenome deve ser uma string.',
+    'last_name.min' => 'O nome não pode ter menos de 3 caracteres.',
+    'last_name.max' => 'O sobrenome não pode ter mais de 255 caracteres.',
+    'last_name.regex' => 'O sobrenome deve conter apenas letras, sem espaços, ou seja, único nome.',
+
+    'extension_id.required' => 'O ID da extensão é obrigatório.',
+    'extension_id.integer' => 'O ID da extensão deve ser um número inteiro.',
+    'extension_id.exists' => 'O ID da extensão deve existir na tabela de extensões.',
+
+    'document_type_id.required' => 'O ID do tipo de documento é obrigatório.',
+    'document_type_id.integer' => 'O ID do tipo de documento deve ser um número inteiro.',
+    'document_type_id.exists' => 'O ID do tipo de documento deve existir na tabela de tipos de documentos.',
+
+    'document_number.required' => 'O número do documento é obrigatório.',
+    'document_number.string' => 'O número do documento deve ser uma string.',
+    'document_number.max' => 'O número do documento não pode ter mais de 20 caracteres.',
+    'document_number.regex' => 'O número do documento deve conter apenas letras maiúsculas, números e hífens.',
+    'document_number.unique' => 'O número do documento deve ser único.',
+
+    'issue_place.required' => 'O local de emissão é obrigatório.',
+    'issue_place.string' => 'O local de emissão deve ser uma string.',
+    'issue_place.max' => 'O local de emissão não pode ter mais de 255 caracteres.',
+
+    'issue_date.required' => 'A data de emissão é obrigatória.',
+    'issue_date.date' => 'A data de emissão deve ser uma data válida.',
+    'issue_date.before_or_equal' => 'A data de emissão deve ser anterior ou igual à data de expiração.',
+
+    'expiration_date.required' => 'A data de expiração é obrigatória.',
+    'expiration_date.date' => 'A data de expiração deve ser uma data válida.',
+    'expiration_date.after_or_equal' => 'A data de expiração deve ser posterior ou igual à data de emissão.',
+
+    'phone.required' => 'O número de telefone é obrigatório.',
+    'phone.numeric' => 'O número de telefone deve ser um conjunto de só números.',
+    'phone.regex' => 'O número de telefone deve começar com 8 e ter exatamente 9 dígitos.',
+
+    'phone_secondary.nullable' => 'O número de telefone secundário é opcional.',
+    'phone_secondary.numeric' => 'O número de telefone secundário deve ser um conjunto de só números..',
+    'phone_secondary.regex' => 'Se fornecido, o número de telefone secundário deve começar com 8 e ter exatamente 9 dígitos.',
+
+    'email.required' => 'O e-mail é obrigatório.',
+    'email.string' => 'O e-mail deve ser uma string.',
+    'email.email' => 'O e-mail deve ser um endereço de e-mail válido.',
+    'email.max' => 'O e-mail não pode ter mais de 255 caracteres.',
+    'email.unique' => 'O e-mail deve ser único.',
+
+    'foto.nullable' => 'A foto é opcional.',
+    'foto.image' => 'O arquivo deve ser uma imagem.',
+    'foto.mimes' => 'A imagem deve ser nos formatos JPEG, PNG, JPG ou GIF.',
+    'foto.max' => 'A imagem não pode ter mais de 5 MB.'
+]);
         $dados = $request->all();
         $dados['password']=bcrypt('12345678');
         $dados['phone_secondary']='+258 '.$request->phone_secondary;
         // dd($dados);
         $gestor = Manager::where('first_name','like','%'.$request->first_name.'%')->Where('last_name','like','%'.$request->last_name.'%')->orWhere('email','like','%'.$request->email.'%')->first();
         if($gestor){
-            return redirect()->back()->withErrors(['error'=>'Gestor já registado']);
+            return back()->withErrors(['error'=>'Gestor já registado']);
         }
 
         DB::beginTransaction();
