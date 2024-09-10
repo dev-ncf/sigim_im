@@ -70,7 +70,7 @@ class WebController extends Controller
 
                     return redirect()->route('home-admin');
                 }
-                return redirect()->route('home-manager');
+                return redirect()->route('home-admin');
             }else{
                  return back()->withErrors([
                 'message' => 'Credencias invalidas tenta novamente!'
