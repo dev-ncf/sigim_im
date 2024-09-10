@@ -15,6 +15,7 @@ use App\Models\Admin;
 use App\Models\MovementStudent;
 use App\Models\Student;
 use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 Route::get('/', [WebController::class, 'viewLogin'])->name('login')->middleware('guest');
@@ -53,8 +54,11 @@ Route::post('/user/password/update', [WebController::class, 'passwordUpdate'])->
 Route::post('/user/contact/update', [WebController::class, 'contactUpdate'])->middleware(['auth']);
 
 Route::post('/logout', function(){
-	auth()->logout();
+    if(Auth::user()){
+auth()->logout();
 	request()->session()->invalidate();
+    }
+
 	return redirect()->route('login');
 })->name('logout');
 
