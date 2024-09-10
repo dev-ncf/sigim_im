@@ -131,7 +131,7 @@
 											<div class="actions">
 												<a href="{{ route('propina-print', ['number' => $propina->code]) }}"
 													class="btn btn-sm bg-success-light me-2">
-													<i class="feather-eye"></i>
+													<i class="feather-printer"></i>
 												</a>
 												<a href="{{ route('propina-edit', $propina->id) }}" class="btn btn-sm bg-danger-light">
 
