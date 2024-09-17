@@ -102,6 +102,18 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         //
+        DB::beginTransaction();
+        try {
+            //code...
+            $student->update($request->all());
+            DB::commit();
+            return  back()->with(['success'=>'Actualização feita com sucesso!']);
+
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
 
     }
 

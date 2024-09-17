@@ -72,6 +72,7 @@ Route::prefix('admin')->middleware('auth:manager')->group(function () {
         Route::post('/store',[AdminController::class,'adminEstudanteStore'])->name('admin-student-store');
          Route::post('/update-password/{student?}',[StudentController::class,'updatePassword'])->name('student-update-password');
         Route::get('/edit/{studente_code?}',[StudentController::class,'edit'])->name('student-edit');
+        Route::put('/update/{student?}',[StudentController::class,'update'])->name('student-update');
         Route::get('/delete/{student?}',[StudentController::class,'destroy'])->name('student-delete');
         Route::get('/active-deactive/{student?}',[StudentController::class,'activeDeactive'])->name('student-active-deactive');
     });
