@@ -95,6 +95,7 @@ class WebController extends Controller
                 $request->session()->regenerate();
 
                 if ($student) {
+
                 $count = count(StudentEnrollment::where('student_id','=',$student->id)->get());
 
 
@@ -105,8 +106,16 @@ class WebController extends Controller
                         'message' => 'O estudante deve ter no mínimo uma inscrição para poder acessar o sistema!'
                     ]);
                     }else{
+                        if($student->estado=='Activo'){
 
-                        return redirect()->route('home');
+                            return redirect()->route('home');
+                        }else{
+                            return back()->withErrors([
+                        'message' => 'O estudante está Inactivo!'
+                    ]);
+
+                        }
+
                     }
                 }else{
                     return redirect()->route('registration');

@@ -95,11 +95,11 @@
 				<div id="sidebar-menu" class="sidebar-menu">
 					<ul>
 						<li class="menu-title">
-							<span>Main Menu</span>
+							<span>Menu Principal</span>
 						</li>
-						<li class="submenu {{ request()->routeIs('home-admin') || request()->routeIs('user-show') ? 'active' : '' }}">
-							<a href="{{ route('home-admin') }}"><i class="feather-grid"></i> <span> Dashboard</span> <span
-									class="menu-arrow"></span></a>
+						<li >
+							<a class="submenu {{ request()->routeIs('home-admin') || request()->routeIs('user-show') ? 'active' : '' }}"
+								href="{{ route('home-admin') }}"><i class="feather-grid"></i> <span> Dashboard</span></span></a>
 
 						</li>
 						@if ($dadosUsuario->nivel == 'A')
