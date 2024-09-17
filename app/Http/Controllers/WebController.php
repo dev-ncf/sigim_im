@@ -44,6 +44,8 @@ class WebController extends Controller
 
     public function viewLogin()
     {
+         auth()->logout();
+        request()->session()->invalidate();
 
     	return view('web.auth.login');
     }
