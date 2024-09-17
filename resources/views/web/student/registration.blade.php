@@ -38,7 +38,7 @@
                 </select>
             </div>
             <div class="div-100" style="text-align: center;">
-                <button class="btn-next" id="btn-hide-form1" type="submit">
+                <button class="btn-next" id="btn-hide-form1" type="submit" style="border: solid 1px blue; color:blue">
                     Próximo <i class="bi bi-chevron-double-right"></i>
                 </button>
             </div>

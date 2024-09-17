@@ -89,15 +89,29 @@ class WebController extends Controller
                 $request->session()->regenerate();
 
                 if ($student) {
-                    return redirect()->route('home');
+                $count = count(StudentEnrollment::where('student_id','=',$student->id)->get());
+
+
+                    if($count =='0'){
+                    // auth()->logout();
+                    request()->session()->invalidate();
+                    return back()->withErrors([
+                        'message' => 'O estudante deve ter no mínimo uma inscrição para poder acessar o sistema!'
+                    ]);
+                    }else{
+
+                        return redirect()->route('home');
+                    }
                 }else{
                     return redirect()->route('registration');
                 }
+            }else{
+
+                return back()->withErrors([
+                    'message' => 'Credencias invalidas tenta novamente!'
+                ]);
             }
 
-            return back()->withErrors([
-                'message' => 'Credencias invalidas tenta novamente!'
-            ]);
         }
 
 

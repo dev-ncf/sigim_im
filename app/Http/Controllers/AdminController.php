@@ -102,6 +102,17 @@ class AdminController extends Controller
     }
     public function adminEstudanteStore(Request $request)
     {
+        $request->validate(
+            [
+                'email' => 'required|email|unique:users,email',
+
+            ],
+             [
+            'email.required' => 'O campo email é obrigatório.',
+            'email.email' => 'Por favor, insira um endereço de email válido.',
+            'email.unique' => 'Este email já está em uso, escolha outro.',
+            ]
+        );
         DB::beginTransaction();
         $extension = Extension::find($request->extension_id);
         $code = $this->generateCodeStudent($extension->code);
@@ -132,26 +143,26 @@ class AdminController extends Controller
         $user = User::create($dados);
         $dados['user_id']=$user->id;
 
-            if($request->has('foto') && !empty($request->foto)){
+            if($request->hasFile('foto') && !empty($request->foto)){
 
                 $foto = $request->file('foto')->store('public/foto');
                 $dados['foto']=$foto;
             }
-            if($request->has('bi') && !empty($request->bi)){
+            if($request->hasFile('bi') && !empty($request->bi)){
 
                 $bi = $request->file('bi')->store('public/bi');
                 $dados['id_file']=$bi;
             }
-            if($request->has('nuit') && !empty($request->nuit)){
+            if($request->hasFile('nuit') && !empty($request->nuit)){
 
                 $nuit = $request->file('nuit')->store('public/nuit');
                 $dados['nuit_file']=$nuit;
 
             }
 
-            if($request->has('certificado') && !empty($request->certificado)){
+            if($request->hasFile('certificado') && !empty($request->certificado)){
 
-                $certificate = $request->file('certificate')->store('public/certificate');
+                $certificate = $request->file('certificado')->store('public/certificate');
                 $dados['certificate_file']=$certificate;
             }
 
