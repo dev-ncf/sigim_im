@@ -17,6 +17,7 @@ use App\Models\Student;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', [WebController::class, 'viewLogin'])->name('login')->middleware('guest');
 Route::post('/', [WebController::class, 'auth'])->name('authenticate');
@@ -53,14 +54,7 @@ Route::get('user/perfil', [WebController::class, 'perfil'])->name('perfil')->mid
 Route::post('/user/password/update', [WebController::class, 'passwordUpdate'])->middleware(['auth']);
 Route::post('/user/contact/update', [WebController::class, 'contactUpdate'])->middleware(['auth']);
 
-Route::post('/logout', function(){
-    if(Auth::user()){
-auth()->logout();
-	request()->session()->invalidate();
-    }
-
-	return redirect()->route('login');
-})->name('logout');
+Route::post('/logout',[WebController::class, 'logout'])->name('logout');
 
 
 #Rotas para gestores do Registo academico

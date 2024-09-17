@@ -37,6 +37,7 @@ use App\Models\SewingLine;
 use App\Models\Service;
 use App\Support\Mail;
 use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Session;
 
 class WebController extends Controller
 {
@@ -44,8 +45,11 @@ class WebController extends Controller
 
     public function viewLogin()
     {
-         auth()->logout();
-        request()->session()->invalidate();
+        if(LoginController::logado()){
+
+            auth()->logout();
+            request()->session()->invalidate();
+        }
 
     	return view('web.auth.login');
     }
@@ -632,4 +636,12 @@ $studentsByYear = Student::select(DB::raw('YEAR(updated_at) as ano'), 'gender_id
             ]);
         }
     }
+    public function logout()
+{
+    // Limpar os dados da middleware
+    Session::flush();
+
+    // Redirecionar para a rota de login
+    return redirect()->route('login');
+}
 }
