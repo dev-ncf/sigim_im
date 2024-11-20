@@ -6,7 +6,7 @@
 				<div class="page-sub-header">
 					<h3 class="page-title">Bem vindo Sr(a). {{ $dadosUsuario->last_name }}!</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+						<li class="breadcrumb-item"><a href="{{route('home-admin')}}">Home</a></li>
 						<li class="breadcrumb-item active">Admin</li>
 					</ul>
 				</div>
@@ -15,7 +15,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-xl-3 col-sm-6 col-12 d-flex">
+		<a href="{{ route('student-list') }}" class="col-xl-3 col-sm-6 col-12 d-flex">
 			<div class="card bg-comman w-100">
 				<div class="card-body">
 					<div class="db-widgets d-flex justify-content-between align-items-center">
@@ -31,8 +31,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-xl-3 col-sm-6 col-12 d-flex">
+		</a>
+		<a href="{{ route('manager-list') }}" class="col-xl-3 col-sm-6 col-12 d-flex">
 			<div class="card bg-comman w-100">
 				<div class="card-body">
 					<div class="db-widgets d-flex justify-content-between align-items-center">
@@ -51,8 +51,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-xl-3 col-sm-6 col-12 d-flex">
+		</a>
+		<a href="{{ route('course-list') }}" class="col-xl-3 col-sm-6 col-12 d-flex">
 			<div class="card bg-comman w-100">
 				<div class="card-body">
 					<div class="db-widgets d-flex justify-content-between align-items-center">
@@ -67,8 +67,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-xl-3 col-sm-6 col-12 d-flex">
+		</a>
+		<a href="{{ route('faculty-list') }}" class="col-xl-3 col-sm-6 col-12 d-flex">
 			<div class="card bg-comman w-100">
 				<div class="card-body">
 					<div class="db-widgets d-flex justify-content-between align-items-center">
@@ -87,7 +87,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</a>
 
 	</div>
 

@@ -7,7 +7,7 @@
 				<div class="page-sub-header">
 					<h3 class="page-title">Estudantes</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="students.html">Estudante</a></li>
+						<li class="breadcrumb-item"><a href="{{route('student-list')}}">Estudante</a></li>
 						<li class="breadcrumb-item active">Todos Estudantes</li>
 					</ul>
 				</div>

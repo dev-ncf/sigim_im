@@ -7,7 +7,7 @@
 				<div class="page-sub-header">
 					<h3 class="page-title">Faculdades</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="students.html">Faculdade</a></li>
+						<li class="breadcrumb-item"><a href="{{route('faculty-list')}}">Faculdades</a></li>
 						<li class="breadcrumb-item active">Todas Faculdades</li>
 					</ul>
 				</div>

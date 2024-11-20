@@ -7,7 +7,7 @@
 				<div class="page-sub-header">
 					<h3 class="page-title">Inscrições</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="students.html">Inscrição</a></li>
+						<li class="breadcrumb-item"><a href="{{route('enrollment-list')}}">Inscrições</a></li>
 						<li class="breadcrumb-item active">Todas Inscrições</li>
 					</ul>
 				</div>

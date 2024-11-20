@@ -7,8 +7,8 @@
 				<div class="page-sub-header">
 					<h3 class="page-title">Periodos de Inscrições</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="students.html">Periodo de Inscrição</a></li>
-						<li class="breadcrumb-item active">Todos Periodos de Inscrições</li>
+						<li class="breadcrumb-item"><a href="{{ route('periodo-list') }}">Periodos de Inscrição</a></li>
+
 					</ul>
 				</div>
 			</div>

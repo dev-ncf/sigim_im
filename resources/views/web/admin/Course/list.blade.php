@@ -7,7 +7,7 @@
 				<div class="page-sub-header">
 					<h3 class="page-title">Cursos</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="{{ route('course-list') }}">Curso</a></li>
+						<li class="breadcrumb-item"><a href="{{ route('course-list') }}">Cursos</a></li>
 						<li class="breadcrumb-item active">Todos Cursos</li>
 					</ul>
 				</div>

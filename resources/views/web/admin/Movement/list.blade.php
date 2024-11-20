@@ -7,7 +7,7 @@
 				<div class="page-sub-header">
 					<h3 class="page-title">Propinas</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="students.html">Propina</a></li>
+						<li class="breadcrumb-item"><a href="{{route('propina-list')}}">Propinas</a></li>
 						<li class="breadcrumb-item active">Todas Propinas</li>
 					</ul>
 				</div>

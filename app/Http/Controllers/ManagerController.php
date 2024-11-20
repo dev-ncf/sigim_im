@@ -11,6 +11,7 @@ use App\Models\Manager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Sabberworm\CSS\Property\AtRule;
 use Throwable;
 
@@ -153,7 +154,8 @@ class ManagerController extends Controller
         //
 
         $dados = $request->all();
-       if(Auth::guard('manager')->attempt(['id'=>$manager->id,'password'=>$request->old_password])){
+
+       if(Hash::check($request->old_password,$manager->password)){
             DB::beginTransaction();
             try {
                 if($request->password==$request->confir_password){
