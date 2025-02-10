@@ -110,7 +110,7 @@
                 <input class="input-begin" type="text" name="nationality" id="student-nationality" required>
             </div>
             <div class="div-100" style="text-align: center;">
-                <button class="btn-prev" id="btn-show-form1" onclick="hideDivForm('div-form2', 'div-form1')">
+                <button class="btn-prev" id="btn-show-form1" type="button" onclick="hideDivForm('div-form2', 'div-form1')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
                 <button class="btn-next" id="btn-hide-form2" type="button" style="border: solid 1px blue; color:blue"
@@ -204,7 +204,7 @@
                 {{-- <input class="input-begin" type="text" name="" id=""> --}}
             </div>
             <div class="div-100" style="text-align: center;">
-                <button class="btn-prev" id="btn-show-form2" onclick="hideDivForm('div-form3', 'div-form2')">
+                <button class="btn-prev" id="btn-show-form2" type="button" onclick="hideDivForm('div-form3', 'div-form2')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
                 <button class="btn-next" id="btn-hide-form3" type="button" style="border: solid 1px blue; color:blue"
@@ -263,7 +263,7 @@
                 <input class="input-begin" type="email" id="student-email" name="email" value="" required>
             </div>
             <div class="div-100" style="text-align: center;">
-                <button class="btn-prev" id="btn-show-form3" onclick="hideDivForm('div-form4', 'div-form3')">
+                <button class="btn-prev" id="btn-show-form3" type="button" onclick="hideDivForm('div-form4', 'div-form3')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
                 <button class="btn-next" id="btn-hide-form4" type="button" style="border: solid 1px blue; color:blue"
@@ -309,7 +309,7 @@
                     id="student-previous-license-end-year" name="end_year" required>
             </div>
             <div class="div-100" style="text-align: center;">
-                <button class="btn-prev" id="btn-show-form4" onclick="hideDivForm('div-form5', 'div-form4')">
+                <button class="btn-prev" id="btn-show-form4" type="button" onclick="hideDivForm('div-form5', 'div-form4')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
                 <button class="btn-next" id="btn-hide-form5" type="button" style="border: solid 1px blue; color:blue"
@@ -344,7 +344,7 @@
                 <input class="input-begin" type="text" name="role" id="student-professional-career-role">
             </div>
             <div class="div-100" style="text-align: center;">
-                <button class="btn-prev" id="btn-show-form5" onclick="hideDivForm('div-form6', 'div-form5')">
+                <button class="btn-prev" id="btn-show-form5" type="button" onclick="hideDivForm('div-form6', 'div-form5')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
                 <button class="btn-next" id="btn-hide-form6" type="button" style="border: solid 1px blue; color:blue"
@@ -385,7 +385,7 @@
                     required>
             </div>
             <div class="div-100" style="text-align: center;">
-                <button class="btn-prev" id="btn-show-form6" onclick="hideDivForm('div-form7', 'div-form6')">
+                <button class="btn-prev" id="btn-show-form6" type="button" onclick="hideDivForm('div-form7', 'div-form6')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
                 <button class="btn-next" id="btn-hide-form7" type="button" style="border: solid 1px blue; color:blue"
@@ -442,7 +442,7 @@
                 </select>
             </div>
             <div class="div-100" style="text-align: center;">
-                <button class="btn-prev" id="btn-show-form7" onclick="hideDivForm('div-form8', 'div-form7')">
+                <button class="btn-prev" id="btn-show-form7" type="button" onclick="hideDivForm('div-form8', 'div-form7')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
                 <button class="btn-next" id="btn-hide-form8" type="button" style="border: solid 1px blue; color:blue"
@@ -478,7 +478,7 @@
                     name="certificate" required />
             </div>
             <div class="div-100" style="text-align: center;">
-                <button class="btn-prev" id="btn-show-form8" onclick="hideDivForm('div-form9', 'div-form8')">
+                <button class="btn-prev" id="btn-show-form8" type="button" onclick="hideDivForm('div-form9', 'div-form8')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
                 <button class="btn-begin" type="submit" onclick="subscribe()"
