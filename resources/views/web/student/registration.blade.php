@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <form class="card" action="{{ route('student-registration') }}" method="POST" enctype="multipart/form-data">
+    <form class="card" action="{{ route('student-registration') }}" method="POST" enctype="multipart/form-data" onsubmit="subscribe()">
 
         @csrf
         <img class="img-logo" src="{{ asset('img/logo.jpg') }}" alt="" srcset="">
