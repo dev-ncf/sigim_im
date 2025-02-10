@@ -43,7 +43,7 @@ Route::post('/address/districts', [WebController::class, 'districts'])->middlewa
 
 
 //Rota para criar uma inscricao
-Route::post('/user/student/registration', [WebController::class, 'createStudent'])->middleware(['auth']);
+Route::post('/user/student/registration', [WebController::class, 'createStudent'])->name('student-registration');
 Route::get('user/home', [WebController::class, 'home'])->name('home')->middleware(['auth']);
 
 //adicao de nova inscrição

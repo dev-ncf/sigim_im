@@ -220,6 +220,10 @@ class WebController extends Controller
     {
  		// $name = auth()->user()->name;
  		$extensions = Extension::all();
+ 		$faculties = Faculty::all();
+ 		$courses = Course::all();
+ 		$sewinglines = SewingLine::all();
+ 		$districts = District::all();
         $provinces = Province::all();
         $document_types = DocumentType::all();
         $genders = Gender::All();
@@ -229,7 +233,7 @@ class WebController extends Controller
         $course_annoucement_sources = CourseAnnouncementSource::all();
         // $email = auth()->user()->email;
 
-    	return view('web.student.registration', compact(['extensions', 'provinces', 'document_types', 'genders', 'civil_statuses', 'academic_levels', 'scholarship_modality', 'course_annoucement_sources']));
+    	return view('web.student.registration', compact(['extensions','faculties','districts','courses','sewinglines', 'provinces', 'document_types', 'genders', 'civil_statuses', 'academic_levels', 'scholarship_modality', 'course_annoucement_sources']));
     }
 
 
@@ -260,27 +264,88 @@ class WebController extends Controller
 
     //Cadastrar um estudante
     public function createStudent(Request $request, Student $student, StudentCourseKnowledge $studentCourseKnowledge, StudentDocument $studentDocument, StudentProfessionalCareer $studentProfessionalCareer, StudentScholarship $studentScholarship, StudentEnrollment $studentEnrollment, StudentAddress $studentAddress, PreviousSkill $previousSkill){
+        $validatedDatas = $request->validate([
+    'name' => 'required|string|max:255',
+    'extension_id' => 'required|integer|exists:extensions,id',
+    'faculty_id' => 'required|integer|exists:faculties,id',
+    'course_id' => 'required|integer|exists:courses,id',
+    'sewing_line_id' => 'required|integer|exists:sewing_lines,id',
+    'last_name' => 'required|string|max:255',
+    'first_name' => 'required|string|max:255',
+    'father_name' => 'required|string|max:255',
+    'mother_name' => 'required|string|max:255',
+    'birth_date' => 'required|date|before:today',
+    'province_birth_id' => 'required|integer|exists:provinces,id',
+    'birth_local' => 'required|string|max:255',
+    'nationality' => 'required|string|max:255',
+    'document_type_id' => 'required|integer|exists:document_types,id',
+    'document_number' => 'required|string|max:20|unique:student_documents,document_number',
+    'place_issue' => 'required|string|max:255',
+    'issue_date' => 'required|date',
+    'expiration_date' => 'required|date|after:place_issue',
+    'gender_id' => 'required|integer|in:1,2',
+    'marital_status_id' => 'required|integer|in:1,2,3,4,5',
+    'special_need' => 'required|integer',
+    'special' => 'nullable|string|max:255',
+    'province_id' => 'required|integer|exists:provinces,id',
+    'district_id' => 'required|integer|exists:districts,id',
+    'neighborhood' => 'required|string|max:255',
+    'house_number' => 'nullable|string|max:10',
+    'phone' => 'required|string|regex:/^8[2-9][0-9]{7}$/',
+    'phone_secondary' => 'nullable|string|regex:/^8[2-9][0-9]{7}$/',
+    'email' => 'required|email|max:255|unique:users,email',
+    'academic_level_id' => 'required|integer|exists:academic_levels,id',
+    'local' => 'required|string|max:255',
+    'institution' => 'required|string|max:255',
+    'start_year' => 'required|integer|min:1900|max:' . date('Y'),
+    'end_year' => 'required|integer|min:1900|max:' . date('Y') . '|after_or_equal:start_year',
+    'career_institution' => 'nullable|string|max:255',
+    'career_start_year' => 'nullable|integer|min:1900|max:' . date('Y'),
+    'completion_year' => 'nullable|integer|min:1900|max:' . date('Y').'|after_or_equal:career_start_year',
+    'role' => 'required|string|max:255',
+    'father_profession' => 'required|string|max:255',
+    'mother_profession' => 'required|string|max:255',
+    'family_type' => 'required|string|max:255',
+    'household' => 'required|string|max:255',
+    'block' => 'required|integer|min:1',
+    'scholarship' => 'required|integer',
+    'modality' => 'nullable|string|max:255',
+    'modality_type' => 'nullable|string|max:255',
+    'scholarship_institution' => 'nullable|string|max:255',
+    'means_knowledge' => 'required|integer|in:1,2,3,4,5,6,7',
+    'bi' => 'required|file|mimes:pdf|max:2048',
+    'nuit' => 'required|file|mimes:pdf|max:2048',
+    'certificate' => 'required|file|mimes:pdf|max:2048',
+]);
 
-        //dd($request);
-        $extension = Extension::find($request->student_enrollments['extension_id']);
+
+        $extension = Extension::find($validatedDatas['extension_id']);
 
         $code = $this->generateCodeStudent($extension->code);
 
+        DB::beginTransaction();
         try{
 
-            DB::beginTransaction();
             //extraindo as necessidades especias educativas
-            $special_education_need = '';
+            // $special_education_need = '';
 
-            if (array_key_exists('special_education_need', $request->student)) {
-                for ($i=0; $i < count($request->student['special_education_need']); $i++) {
-                    $special_education_need = $special_education_need. $request->student['special_education_need'][$i];
-                    if ($i < count($request->student['special_education_need']) - 1) {
-                        $special_education_need = $special_education_need. ', ';
-                    }else{
-                        $special_education_need = $special_education_need. '.';
-                    }
-                }
+            // if (array_key_exists('special_education_need', $request->student)) {
+            //     $special_education_need= $request->student['special_education_need'];
+            //     return response()->json(['sms'=>$request->student['special_education_need']]);
+            //     for ($i=0; $i < count($request->student['special_education_need']); $i++) {
+            //         $special_education_need = $special_education_need. $request->student['special_education_need'][$i];
+            //         if ($i < count($request->student['special_education_need']) - 1) {
+            //             $special_education_need = $special_education_need. ', ';
+            //         }else{
+            //             $special_education_need = $special_education_need. '.';
+            //         }
+            //     }
+            // }
+            $special_education_need=null;
+
+            if($validatedDatas['special_need']==1){
+                $special_education_need = $validatedDatas['special'];
+
             }
 
             //Fazendo Upload
@@ -288,101 +353,111 @@ class WebController extends Controller
             $nuit = $request->file('nuit')->store('public/nuit');
             $certificate = $request->file('certificate')->store('public/certificate');
 
+            //criar usuario
+            $new_user = User::create([
+                'name'=>$validatedDatas['name'],
+                'email'=>$validatedDatas['email'],
+                'password'=>bcrypt('12345678'),
+            ]);
+
+            $manager = Manager::where('extension_id','=',$validatedDatas['extension_id'])->first();
             //criar estudante
             $new_student = $student->create([
                 'code' => $code,
-                'first_name' => $request->student['first_name'],
-                'last_name' => $request->student['last_name'],
-                'province_birth_id' => $request->student['province_birth_id'],
-                'birth_local' => $request->student['birth_local'],
-                'gender_id' => $request->student['gender_id'],
-                'marital_status_id' => $request->student['marital_status_id'],
-                'birth_date' => $request->student['birth_date'],
-                'father_name' => $request->student['father_name'],
-                'father_profession' => $request->student['father_profession'],
-                'mother_name' => $request->student['mother_name'],
-                'mother_profession' => $request->student['mother_profession'],
-                'nationality' => $request->student['nationality'],
-                'email' => $request->student['email'],
-                'phone' => $request->student['phone'],
+                'first_name' => $validatedDatas['first_name'],
+                'last_name' => $validatedDatas['last_name'],
+                'province_birth_id' => $validatedDatas['province_birth_id'],
+                'birth_local' => $validatedDatas['birth_local'],
+                'gender_id' => $validatedDatas['gender_id'],
+                'marital_status_id' => $validatedDatas['marital_status_id'],
+                'birth_date' => $validatedDatas['birth_date'],
+                'father_name' => $validatedDatas['father_name'],
+                'father_profession' => $validatedDatas['father_profession'],
+                'mother_name' => $validatedDatas['mother_name'],
+                'mother_profession' => $validatedDatas['mother_profession'],
+                'nationality' => $validatedDatas['nationality'],
+                'email' => $validatedDatas['email'],
+                'phone' => $validatedDatas['phone'],
                 'special_educational_need' => $special_education_need,
-                'phone_secondary' => $request->student['phone_secondary'],
-                'family_type' => $request->student['family_type'],
-                'household' => $request->student['household'],
-                "extension_id" => $request->student_enrollments['extension_id'],
-                'user_id' => auth()->user()->id,
+                'phone_secondary' => $validatedDatas['phone_secondary'],
+                'family_type' => $validatedDatas['family_type'],
+                'household' => $validatedDatas['household'],
+                "extension_id" => $validatedDatas['extension_id'],
+                'manager_response_id'=>$manager->id,
+                'user_id' => $new_user->id,
                 'certificate_file' => str_replace('public/', '', $certificate),
                 'id_file' => str_replace('public/', '', $bi),
                 'nuit_file' => str_replace('public/', '', $nuit),
                 'registration_status' => '1'
 
             ]);
-
+            // dd($request->all());
             $new_student_course_knowledge = $studentCourseKnowledge->create([
-                'ad_source' => $request->student_course_knowledge['ad_source'],
+                'ad_source' => $validatedDatas['means_knowledge'],
                 'student_id' => $new_student->id
             ]);
 
             $new_student_document = $studentDocument->create([
-                'document_type_id' => $request->student_documents['document_type_id'],
-                'document_number' => $request->student_documents['document_number'],
-                'issue_date' => $request->student_documents['issue_date'],
-                'expiration_date' => $request->student_documents['expiration_date'],
-                'issue_place' => $request->student_documents['issue_place'],
+                'document_type_id' => $validatedDatas['document_type_id'],
+                'document_number' => $validatedDatas['document_number'],
+                'issue_date' => $validatedDatas['issue_date'],
+                'expiration_date' => $validatedDatas['expiration_date'],
+                'issue_place' => $validatedDatas['place_issue'],
                 'student_id' => $new_student->id
             ]);
 
 
             $new_student_professional_career = $studentProfessionalCareer->create([
-                "institution" => $request->student_professional_careers['institution'],
-                "start_year" => $request->student_professional_careers['start_year'],
-                "completion_year" => $request->student_professional_careers['completion_year'],
-                "role" => $request->student_professional_careers['role'],
+                "institution" => $validatedDatas['career_institution'],
+                "start_year" => $validatedDatas['start_year'],
+                "completion_year" => $validatedDatas['completion_year'],
+                "role" => $validatedDatas['role'],
                 'student_id' => $new_student->id
             ]);
 
             $new_student_scholarship = $studentScholarship->create([
-                "scholarship" => $request->student_scholarship['scholarship'],
-                "institution" => $request->student_scholarship['institution'],
-                "modality" => $request->student_scholarship['modality'],
+                "scholarship" => $validatedDatas['scholarship'],
+                "institution" => $validatedDatas['scholarship_institution'],
+                "modality" => $validatedDatas['modality'],
                 'student_id' => $new_student->id
             ]);
 
 
             $new_student_enrollment = $studentEnrollment->create([
                 'academic_level_id' => 2,
-                "faculty_id" => $request->student_enrollments['faculty_id'],
-                "course_id" => $request->student_enrollments['course_id'],
-                "extension_id" => $request->student_enrollments['extension_id'],
-                "sewing_line_id" => $request->student_enrollments['sewing_line_id'],
+                "faculty_id" => $validatedDatas['faculty_id'],
+                "course_id" => $validatedDatas['course_id'],
+                "extension_id" => $validatedDatas['extension_id'],
+                "sewing_line_id" => $validatedDatas['sewing_line_id'],
                 'student_id' => $new_student->id
             ]);
 
             $new_student_address = $studentAddress->create([
-                "province_id" => $request->student_addresses['province_id'],
-                "district_id" => $request->student_addresses['district_id'],
-                "neighborhood" => $request->student_addresses['neighborhood'],
-                "block" => $request->student_addresses['block'],
-                "house_number" => $request->student_addresses['house_number'],
+                "province_id" => $validatedDatas['province_id'],
+                "district_id" => $validatedDatas['district_id'],
+                "neighborhood" => $validatedDatas['neighborhood'],
+                "block" => $validatedDatas['block'],
+                "house_number" => $validatedDatas['house_number'],
                 'student_id' => $new_student->id
             ]);
 
             $new_previous_skill = $previousSkill->create([
-                "academic_level_id" => $request->previous_skills['academic_level_id'],
-                "local" => $request->previous_skills['local'],
-                "institution" => $request->previous_skills['institution'],
-                "start_year" => $request->previous_skills['start_year'],
-                "completion_year" => $request->previous_skills['completion_year'],
+                "academic_level_id" => $validatedDatas['academic_level_id'],
+                "local" => $validatedDatas['local'],
+                "institution" => $validatedDatas['institution'],
+                "start_year" => $validatedDatas['career_start_year'],
+                "completion_year" => $validatedDatas['completion_year'],
                 'student_id' => $new_student->id
             ]);
+            DB::commit();
+        return redirect()->route('login')->with(['success'=>'Estudante cadastrado com sucesso!']);
 
         }catch(\Exception $e){
             DB::rollBack();
-            return response()->json(false);
+            return back()->withErrors(['error'=>$e->getMessage()]);
         }
 
-        DB::commit();
-        return response()->json(true);
+
     }
 
 
