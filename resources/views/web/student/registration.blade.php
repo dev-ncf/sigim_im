@@ -8,6 +8,7 @@
         <img class="img-logo" src="{{ asset('img/logo.jpg') }}" alt="" srcset="">
         <h1 class="title">UNIVERSIDADE ROVUMA</h1>
         <h1 class="sub-title">DIRECÇÃO DO REGISTO ACADÉMICO</h1>
+        <p>Atenção! Preenche todos campos obrigatorios indicados pelo caratere < <span style="color: #ff0000">*</span> >. </p>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -19,11 +20,11 @@
         @endif
         <div class="div-form-begin registration-begin" id="div-form1">
             <div class="form-group div-100">
-                <label for="">Nome Completo</label>
-                <input class="input-begin" type="text" name="name" id="name" value="">
+                <label for="">Nome Completo <span style="color: #ff0000">*</span></label>
+                <input class="input-begin" type="text" name="name" id="name" value="" required>
             </div>
             <div class="form-group div-30">
-                <label for="">Local de estudo</label>
+                <label for="">Local de estudo <span style="color: #ff0000">*</span></label>
                 <select id="extensions" class="input-begin" name="extension_id" required>
                     <option value="">escolha...</option>
                     @foreach ($extensions as $extension)
@@ -32,7 +33,7 @@
                 </select>
             </div>
             <div class="form-group div-40">
-                <label for="">Faculdade</label>
+                <label for="">Faculdade <span style="color: #ff0000">*</span></label>
                 <select name="faculty_id" id="faculty" class="input-begin" required>
                     <option value="" selected disabled>escolha...</option>
                     @foreach ($faculties as $faculty)
@@ -41,7 +42,7 @@
                 </select>
             </div>
             <div class="form-group div-30">
-                <label for="">Curso</label>
+                <label for="">Curso <span style="color: #ff0000">*</span></label>
                 <select name="course_id" id="courses" class="input-begin" required>
                     <option value="" selected disabled>escolha...</option>
                     @foreach ($courses as $course)
@@ -50,7 +51,7 @@
                 </select>
             </div>
             <div class="form-group div-100">
-                <label for="">Linha de Pesguisa</label>
+                <label for="">Linha de Pesguisa <span style="color: #ff0000">*</span></label>
                 <select name="sewing_line_id" id="sewing-lines" class="input-begin" required>
                     <option value="" selected disabled>escolha...</option>
                     @foreach ($sewinglines as $sewingline)
@@ -71,29 +72,29 @@
                 <legend style="font-size: 12pt; text-align: center; font-weight: 600; color: #fff;">Perfil</legend>
             </div>
             <div class="form-group div-40">
-                <label for="">Apelido</label>
+                <label for="">Apelido <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="text" name="last_name" id="student-last-name" required>
             </div>
             <div class="form-group div-60">
-                <label for="">Nome (<span style="color: red;">Atenção:</span> <span
+                <label for="">Nome <span style="color: #ff0000">*</span> (<span style="color: red;">Atenção:</span> <span
                         style="font-size: 8pt; font-weight: 400;">não preencha o seu apelido</span>)</label>
                 <input class="input-begin" type="text" name="first_name" id="student-first-name" required>
             </div>
             <div class="form-group div-50">
-                <label for="">Nome completo do Pai</label>
+                <label for="">Nome completo do Pai <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="text" name="father_name" id="student-father" required>
             </div>
             <div class="form-group div-50">
-                <label for="">Nome completo da Mãe</label>
+                <label for="">Nome completo da Mãe <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="text" name="mother_name" id="student-mother" required>
             </div>
             <div class="form-group div-30">
-                <label for="">Data de Nascimento</label>
+                <label for="">Data de Nascimento <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="date" name="birth_date" max="2000-01-01" id="student-birth-date"
                     required>
             </div>
             <div class="form-group div-30">
-                <label for="">Província de Nasc</label>
+                <label for="">Província de Nasc <span style="color: #ff0000">*</span></label>
                 <select name="province_birth_id" id="student-birth-province" class="input-begin" required>
                     <option value="">escolha...</option>
                     @foreach ($provinces as $province)
@@ -102,11 +103,11 @@
                 </select>
             </div>
             <div class="form-group div-40">
-                <label for="">Local de Nascimento</label>
+                <label for="">Local de Nascimento <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="text" name="birth_local" id="student-birth-local" required>
             </div>
             <div class="form-group div-100">
-                <label for="">Nacionalidade</label>
+                <label for="">Nacionalidade <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="text" name="nationality" id="student-nationality" required>
             </div>
             <div class="div-100" style="text-align: center;">
@@ -126,7 +127,7 @@
                 <legend style="font-size: 12pt; text-align: center; font-weight: 600; color: #fff;">Perfil</legend>
             </div>
             <div class="form-group div-40">
-                <label for="">Tipo de documento</label>
+                <label for="">Tipo de documento <span style="color: #ff0000">*</span></label>
                 <select name="document_type_id" id="student-document-type" class="input-begin" required>
                     <option value="">escolha...</option>
                     @foreach ($document_types as $document_type)
@@ -135,23 +136,23 @@
                 </select>
             </div>
             <div class="form-group div-60">
-                <label for="">Número do documento</label>
+                <label for="">Número do documento <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="text" name="document_number" id="student-document-number" required>
             </div>
             <div class="form-group div-40">
-                <label for="">Local de emissão</label>
+                <label for="">Local de emissão <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="text" name="place_issue" id="student-place-issue" required>
             </div>
             <div class="form-group div-30">
-                <label for="">Data de emissão</label>
+                <label for="">Data de emissão <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="date" name="issue_date" id="student-issue-date" required>
             </div>
             <div class="form-group div-30">
-                <label for="">Data de Validade</label>
+                <label for="">Data de Validade <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="date" name="expiration_date" id="student-expiration-date" required>
             </div>
             <div class="form-group div-50">
-                <label for="">Gênero</label>
+                <label for="">Gênero <span style="color: #ff0000">*</span></label>
                 <select name="gender_id" id="student-gender" class="input-begin" required>
                     <option value="">escolha...</option>
                     @foreach ($genders as $gender)
@@ -160,7 +161,7 @@
                 </select>
             </div>
             <div class="form-group div-50">
-                <label for="">Estado Civil</label>
+                <label for="">Estado Civil <span style="color: #ff0000">*</span></label>
                 <select name="marital_status_id" id="student-marital-status" class="input-begin" required>
                     <option value="">escolha...</option>
                     @foreach ($civil_statuses as $civil_status)
@@ -221,7 +222,7 @@
                 <legend style="font-size: 12pt; text-align: center; font-weight: 600; color: #fff;">Endereço</legend>
             </div>
             <div class="form-group div-50">
-                <label for="">Província</label>
+                <label for="">Província <span style="color: #ff0000">*</span></label>
                 <select name="province_id" id="province" class="input-begin" required>
                     <option value="">escolha...</option>
                     @foreach ($provinces as $province)
@@ -230,7 +231,7 @@
                 </select>
             </div>
             <div class="form-group div-50">
-                <label for="">Distrito/Cidade</label>
+                <label for="">Distrito/Cidade <span style="color: #ff0000">*</span></label>
                 <select name="district_id" id="districts" class="input-begin" required>
                     <option value="" selected disabled>escolha...</option>
                     @foreach ($districts as $district)
@@ -251,7 +252,7 @@
                 <input class="input-begin" type="number" min="1" name="house_number" id="student-house-number">
             </div>
             <div class="form-group div-50">
-                <label for="">Telefone</label>
+                <label for="">Telefone <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="number" min="1" minlength="9" maxlength="9" name="phone"
                     id="student-main-phone" required>
             </div>
@@ -261,7 +262,7 @@
                     name="phone_secondary" id="student-secondary-phone">
             </div>
             <div class="form-group div-100">
-                <label for="">Email</label>
+                <label for="">Email <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="email" id="student-email" name="email" value="" required>
             </div>
             <div class="div-100" style="text-align: center;">
@@ -282,7 +283,7 @@
                 </legend>
             </div>
             <div class="form-group div-40">
-                <label for="">Habilitação anterior</label>
+                <label for="">Habilitação anterior <span style="color: #ff0000">*</span></label>
                 <select name="academic_level_id" id="student-previous-license" class="input-begin" required>
                     <option value="">escolha...</option>
                     @foreach ($academic_levels as $level)
@@ -293,21 +294,21 @@
                 </select>
             </div>
             <div class="form-group div-60">
-                <label for="">Local onde frequentou (Cidade/Distrito)</label>
+                <label for="">Local onde frequentou (Cidade/Distrito) <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="text" name="local" id="student-previous-license-local" required>
             </div>
             <div class="form-group div-100">
-                <label for="">Nome da instituição</label>
+                <label for="">Nome da instituição <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="text" name="institution" id="student-previous-license-institution"
                     required>
             </div>
             <div class="form-group div-50">
-                <label for="">Periodo de frequência (Ano de inicio)</label>
+                <label for="">Periodo de frequência (Ano de inicio) <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="number" min="1970" max="{{ date('Y') - 4 }}"
                     id="student-previous-license-start-year" name="start_year" required>
             </div>
             <div class="form-group div-50">
-                <label for="">Ano de termino</label>
+                <label for="">Ano de termino <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="number" min="1970" max="{{ date('Y') }}"
                     id="student-previous-license-end-year" name="end_year" required>
             </div>
@@ -329,22 +330,22 @@
                 </legend>
             </div>
             <div class="form-group div-100">
-                <label for="">Instituição</label>
+                <label for="">Instituição <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="text" name="career_institution"
                     id="student-professional-career-institution">
             </div>
             <div class="form-group div-50">
-                <label for="">Período (Ano de inicio)</label>
+                <label for="">Período (Ano de inicio) <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="number" min="1970" max="{{ date('Y') }}"
                     name="career_start_year" id="student-professional-career-start-year">
             </div>
             <div class="form-group div-50">
-                <label for="">Ano de termino</label>
+                <label for="">Ano de termino <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="number" min="1970" max="{{ date('Y') }}"
                     name="completion_year" id="student-professional-career-end-year">
             </div>
             <div class="form-group div-100">
-                <label for="">Actividades/funções desenvolvidas</label>
+                <label for="">Actividades/funções desenvolvidas <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="text" name="role" id="student-professional-career-role">
             </div>
             <div class="div-100" style="text-align: center;">
@@ -365,7 +366,7 @@
                 </legend>
             </div>
             <div class="form-group div-50">
-                <label for="">Profissão do Pai</label>
+                <label for="">Profissão do Pai </label>
                 <input class="input-begin" type="text" name="father_profession" id="student-father-profession">
             </div>
             <div class="form-group div-50">
@@ -377,7 +378,7 @@
                     Familiar</legend>
             </div>
             <div class="form-group div-60">
-                <label for="">Tipo de Familia</label>
+                <label for="">Tipo de Familia <span style="color: #ff0000">*</span></label>
                 <select name="family_type" id="student-family-type" class="input-begin" required>
                     <option value="">escolha...</option>
                     <option value="Família Alargada">Família Alargada</option>
@@ -385,7 +386,7 @@
                 </select>
             </div>
             <div class="form-group div-40">
-                <label for="">Número de Agregado</label>
+                <label for="">Número de Agregado <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="number" min="1" name="household" id="student-household"
                     required>
             </div>
@@ -438,7 +439,7 @@
                     do Curso</legend>
             </div>
             <div class="form-group div-100" style="margin-top: 10px;">
-                <label for="">Meio</label>
+                <label for="">Meio <span style="color: #ff0000">*</span></label>
                 <select name="means_knowledge" id="student-means-knowledge" class="input-begin" required>
                     <option value="">escolha...</option>
                     @foreach ($course_annoucement_sources as $course_annoucement_source)
@@ -470,17 +471,17 @@
                     autenticados(Certificado e Bilhete de Identidade), Declaração Militar e NUIT</p>
             </div>
             <div class="form-group div-50">
-                <label for="">Anexar BI/DIRE</label>
+                <label for="">Anexar BI/DIRE <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-bi" accept=".pdf,.PDF" name="bi"
                     required />
             </div>
             <div class="form-group div-50">
-                <label for="">Anexar Nuit</label>
+                <label for="">Anexar Nuit <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-nuit" accept=".pdf,.PDF" name="nuit"
                     required />
             </div>
             <div class="form-group div-50">
-                <label for="">Anexar Certificado</label>
+                <label for="">Anexar Certificado <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-certificate" accept=".pdf,.PDF"
                     name="certificate" required />
             </div>
