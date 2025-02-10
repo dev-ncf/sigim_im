@@ -97,9 +97,9 @@
                         <li class="menu-title">
                             <span>Menu Principal</span>
                         </li>
-                        <li>
-                            <a class="submenu {{ request()->routeIs('home-admin') || request()->routeIs('user-show') ? 'active' : '' }}"
-                                href="{{ route('home-admin') }}"><i class="feather-grid"></i> <span>
+                        <li
+                            class="submenu {{ request()->routeIs('home-admin') || request()->routeIs('user-show') ? 'active' : '' }}">
+                            <a href="{{ route('home-admin') }}"><i class="feather-grid"></i> <span>
                                     Dashboard</span></span></a>
 
                         </li>

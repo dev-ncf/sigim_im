@@ -353,11 +353,12 @@ class WebController extends Controller
             $nuit = $request->file('nuit')->store('public/nuit');
             $certificate = $request->file('certificate')->store('public/certificate');
 
+
             //criar usuario
             $new_user = User::create([
                 'name'=>$validatedDatas['name'],
                 'email'=>$validatedDatas['email'],
-                'password'=>bcrypt('12345678'),
+                'password'=>bcrypt(str_replace('-','',$validatedDatas['birth_date'])    ),
             ]);
 
             $manager = Manager::where('extension_id','=',$validatedDatas['extension_id'])->first();
