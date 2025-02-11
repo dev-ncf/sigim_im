@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\http\Controllers;
 
 use App\Models\MovementStudent;
 use App\Models\StudentEnrollment;
@@ -175,7 +175,7 @@ class PrintController extends Controller
                 <body style="padding: 0 100px">
                     <br>
                     <div class="recepient-header">
-                        <img src="http://sigim.unirovuma.ac.mz/img/logo.png" style="width: 60px;">
+                        <img src="https://sigim.unirovuma.ac.mz/img/logo.png" style="width: 60px;">
                         <h1>Universidade Rovuma</h1>
                         <h2>Direcção do Registo Académico</h2>
                         <h2>Comprovativo de Pagamento</h2>
@@ -250,7 +250,7 @@ class PrintController extends Controller
                         <div style="border-top: 1px solid #000000; border-top-style: dashed; position: absolute; width: 100%; left:0;"></div>
                     <br><br>
                     <div class="recepient-header">
-                        <img src="http://sigim.unirovuma.ac.mz/img/logo.png" style="width: 70px;">
+                        <img src="https://sigim.unirovuma.ac.mz/img/logo.png" style="width: 70px;">
                         <h1>Universidade Rovuma</h1>
                         <h2>Direcção do Registo Académico</h2>
                         <h2>Comprovativo de Pagamento</h2>
@@ -502,7 +502,7 @@ class PrintController extends Controller
                 </head>
                 <body style="padding: 0 100px; font-family: "Open-sans", sans-serif;">
                     <div class="recepient-header">
-                        <img src="http://sigim.unirovuma.ac.mz/img/logo.png" style="width: 70px;">
+                        <img src="https://sigim.unirovuma.ac.mz/img/logo.png" style="width: 70px;">
                         <h1>Universidade Rovuma</h1>
                         <h2>Direcção do Registo Académico</h2>
                         <h1 style="text-decoration:underline;text-transform:uppercase">Ficha de Pré-inscrição Semestral</h2>
@@ -679,7 +679,7 @@ class PrintController extends Controller
                 </head>
                 <body style="padding: 0 100px; font-family: "Open-sans", sans-serif;">
                     <div class="recepient-header">
-                        <img src="http://sigim.unirovuma.ac.mz/img/logo.png" style="width: 70px;">
+                        <img src="https://sigim.unirovuma.ac.mz/img/logo.png" style="width: 70px;">
                         <h1>Universidade Rovuma</h1>
                         <h2>Direcção do Registo Académico</h2>
                         <h1 style="text-decoration:underline;text-transform:uppercase">Ficha de Inscrição Semestral</h2>
