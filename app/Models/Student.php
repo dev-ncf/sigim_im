@@ -35,6 +35,9 @@ class Student extends Model
         'military_declaration_file',
         'id_file',
         'nuit_file',
+        'cv_file',
+        'foto_file',
+        'declaracao_file',
         'manager_response_id',
         'registration_status',
         'estado',
@@ -46,6 +49,9 @@ class Student extends Model
     }
     public function studentMovement(){
         return $this->hasMany(MovementStudent::class);
+    }
+    public function studentPreviousSkills(){
+        return $this->hasMany(PreviousSkill::class);
     }
 
     public function document()

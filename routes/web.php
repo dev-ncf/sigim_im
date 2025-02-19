@@ -48,6 +48,7 @@ Route::get('user/home', [WebController::class, 'home'])->name('home')->middlewar
 
 //adicao de nova inscrição
 Route::post('user/home/enrollment/add', [EnrollmentController::class, 'store'])->name('enrollment-store')->middleware(['auth']);
+Route::put('user/home/enrollment/matricular/{enrollment}', [EnrollmentController::class, 'matricular'])->name('enrollment-matricular')->middleware(['auth']);
 
 Route::get('user/perfil', [WebController::class, 'perfil'])->name('perfil')->middleware(['auth']);
 

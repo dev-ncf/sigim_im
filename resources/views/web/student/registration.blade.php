@@ -2,13 +2,15 @@
 
 @section('content')
 
-    <form class="card" action="{{ route('student-registration') }}" method="POST" enctype="multipart/form-data" onsubmit="subscribe()">
+    <form class="card" action="{{ route('student-registration') }}" method="POST" enctype="multipart/form-data"
+        onsubmit="subscribe()">
 
         @csrf
         <img class="img-logo" src="{{ asset('img/logo.jpg') }}" alt="" srcset="">
         <h1 class="title">UNIVERSIDADE ROVUMA</h1>
         <h1 class="sub-title">DIRECÇÃO DO REGISTO ACADÉMICO</h1>
-        <p>Atenção! Preenche todos campos obrigatorios indicados pelo caratere < <span style="color: #ff0000">*</span> >. </p>
+        <p>Atenção! Preenche todos campos obrigatórios indicados pelo caractere < <span style="color: #ff0000">*</span> >.
+        </p>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -50,7 +52,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group div-100">
+            {{-- <div class="form-group div-100">
                 <label for="">Linha de Pesguisa <span style="color: #ff0000">*</span></label>
                 <select name="sewing_line_id" id="sewing-lines" class="input-begin" required>
                     <option value="" selected disabled>escolha...</option>
@@ -58,7 +60,7 @@
                         <option value="{{ $sewingline->id }}">{{ $sewingline->label }}</option>
                     @endforeach
                 </select>
-            </div>
+            </div> --}}
             <div class="div-100" style="text-align: center;">
                 <button class="btn-next" id="btn-hide-form1" type="button" style="border: solid 1px blue; color:blue"
                     onclick="hideDivForm('div-form1', 'div-form2')">
@@ -76,8 +78,8 @@
                 <input class="input-begin" type="text" name="last_name" id="student-last-name" required>
             </div>
             <div class="form-group div-60">
-                <label for="">Nome <span style="color: #ff0000">*</span> (<span style="color: red;">Atenção:</span> <span
-                        style="font-size: 8pt; font-weight: 400;">não preencha o seu apelido</span>)</label>
+                <label for="">Nome <span style="color: #ff0000">*</span> (<span style="color: red;">Atenção:</span>
+                    <span style="font-size: 8pt; font-weight: 400;">não preencha o seu apelido</span>)</label>
                 <input class="input-begin" type="text" name="first_name" id="student-first-name" required>
             </div>
             <div class="form-group div-50">
@@ -219,7 +221,8 @@
 
         <div class="div-form-begin registration-begin" id="div-form4">
             <div class="div-100" style="margin: 10px 0; padding: 5px;  background-color:#3997bc;">
-                <legend style="font-size: 12pt; text-align: center; font-weight: 600; color: #fff;">Endereço</legend>
+                <legend style="font-size: 12pt; text-align: center; font-weight: 600; color: #fff;">Endereço Actual
+                </legend>
             </div>
             <div class="form-group div-50">
                 <label for="">Província <span style="color: #ff0000">*</span></label>
@@ -265,6 +268,15 @@
                 <label for="">Email <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="email" id="student-email" name="email" value="" required>
             </div>
+            <div class="form-group div-100">
+                <label for="">Senha <span style="color: #ff0000">*</span></label>
+                <input class="input-begin" type="password" id="student-email" name="senha" value="" required>
+            </div>
+            <div class="form-group div-100">
+                <label for="">Confirmar Senha <span style="color: #ff0000">*</span></label>
+                <input class="input-begin" type="password" id="student-email" name="confir_senha" value=""
+                    required>
+            </div>
             <div class="div-100" style="text-align: center;">
                 <button class="btn-prev" id="btn-show-form3" type="button" style="background-color: gray;"
                     onclick="hideDivForm('div-form4', 'div-form3')">
@@ -287,14 +299,13 @@
                 <select name="academic_level_id" id="student-previous-license" class="input-begin" required>
                     <option value="">escolha...</option>
                     @foreach ($academic_levels as $level)
-                        @if ($level->code == 00001)
-                            <option value="{{ $level->id }}">{{ $level->label }}</option>
-                        @endif
+                        <option value="{{ $level->id }}">{{ $level->label }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="form-group div-60">
-                <label for="">Local onde frequentou (Cidade/Distrito) <span style="color: #ff0000">*</span></label>
+                <label for="">Local onde frequentou (Cidade/Distrito) <span
+                        style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="text" name="local" id="student-previous-license-local" required>
             </div>
             <div class="form-group div-100">
@@ -330,22 +341,22 @@
                 </legend>
             </div>
             <div class="form-group div-100">
-                <label for="">Instituição <span style="color: #ff0000">*</span></label>
+                <label for="">Instituição </label>
                 <input class="input-begin" type="text" name="career_institution"
                     id="student-professional-career-institution">
             </div>
             <div class="form-group div-50">
-                <label for="">Período (Ano de inicio) <span style="color: #ff0000">*</span></label>
+                <label for="">Período (Ano de inicio) </label>
                 <input class="input-begin" type="number" min="1970" max="{{ date('Y') }}"
                     name="career_start_year" id="student-professional-career-start-year">
             </div>
             <div class="form-group div-50">
-                <label for="">Ano de termino <span style="color: #ff0000">*</span></label>
+                <label for="">Ano de termino </label>
                 <input class="input-begin" type="number" min="1970" max="{{ date('Y') }}"
                     name="completion_year" id="student-professional-career-end-year">
             </div>
             <div class="form-group div-100">
-                <label for="">Actividades/funções desenvolvidas <span style="color: #ff0000">*</span></label>
+                <label for="">Actividades/funções desenvolvidas </label>
                 <input class="input-begin" type="text" name="role" id="student-professional-career-role">
             </div>
             <div class="div-100" style="text-align: center;">
@@ -468,12 +479,29 @@
             <div class="form-group div-100">
                 <p style="font-size: 10pt; margin: 10px 0; color:#3d3c3c;"><span
                         style="color: #ff0000; font-weight: 700;">Atenção:</span> Anexar os seguintes documentos
-                    autenticados(Certificado e Bilhete de Identidade), Declaração Militar e NUIT</p>
+                    autenticados(Certificado e Bilhete de Identidade), Foto tipo passe, Curricu lum Vetae, NUIT e Declaração
+                    de Compromisso de Honra</p>
             </div>
             <div class="form-group div-50">
                 <label for="">Anexar BI/DIRE <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-bi" accept=".pdf,.PDF" name="bi"
                     required />
+            </div>
+            <div class="form-group div-50">
+                <label for="">Anexar Foto tamanho 4.5x3.5<span style="color: #ff0000">*</span></label>
+                <input class="input-begin" type="file" id="student-file-bi" accept=".png,.jpeg,.jpg,.JPG"
+                    name="foto" required />
+            </div>
+            <div class="form-group div-50">
+                <label for="">Anexar CV <span style="color: #ff0000">*</span></label>
+                <input class="input-begin" type="file" id="student-file-nuit" accept=".pdf,.PDF" name="cv"
+                    required />
+            </div>
+            <div class="form-group div-50">
+                <label for="">Anexar Declaração de comprmisso assinada<span
+                        style="color: #ff0000">*</span></label>
+                <input class="input-begin" type="file" id="student-file-nuit" accept=".pdf,.PDF"
+                    name="declaracao_compromisso" required />
             </div>
             <div class="form-group div-50">
                 <label for="">Anexar Nuit <span style="color: #ff0000">*</span></label>

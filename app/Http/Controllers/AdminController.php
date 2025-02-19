@@ -415,11 +415,12 @@ class AdminController extends Controller
         if(LoginController::logado()){
         $dadosUsuario = Manager::find(Auth::id());
         $estudante = Student::find($student_id);
+        $enrollment = StudentEnrollment::where('student_id','=',$student_id)->first();
         $extensions = Extension::get();
         $cursos = Course::get();
         $documentTypes = DocumentType::get();
         $servicos = MovementStudentItem::get();
-        return view('web.admin.Movement.add',compact('estudante','dadosUsuario','servicos'));
+        return view('web.admin.Movement.add',compact(['estudante','dadosUsuario','servicos','enrollment']));
         }else{
             return redirect()->route('login');
         }
@@ -427,19 +428,57 @@ class AdminController extends Controller
     public function AdminPropinaStore(Request $request)
     {
         $dados = $request->all();
+
         $dados['code']=date('dmYHms');
         $dados['payment_id']='1';
         $dados['status']='2';
         $dados['manager_id']=Auth::id();
         // dd($dados);
+        $valor = null;
         $dadosUsuario = Manager::find(Auth::id());
         DB::beginTransaction();
         try {
-            $mov = MovementStudent::create($dados);
-            if($mov){
+             $mov = MovementStudent::create($dados);
+
+                if($dados['taxa_matricula']==!null){
+                    $valor =($dados['taxa_matricula']);
+                    MovementStudentItem::create([
+                        'description'=>'Taxa de Matrícula',
+                        'amount'=>$valor,
+                        'movement_id'=>$mov->id
+                    ]);
+                }
+                if($dados['taxa_inscricao_disciplina']==!null){
+                    $valor = ($dados['taxa_inscricao_disciplina']*$dados['numero_disciplinas']);
+                    MovementStudentItem::create([
+                        'description'=>'Taxa de Inscricao por disciplina',
+                        'amount'=>$valor,
+                        'movement_id'=>$mov->id
+                    ]);
+                }
+                if($dados['propina_mensal']==!null){
+                      $valor = ($dados['propina_mensal']);
+
+                    MovementStudentItem::create([
+                        'description'=>'Propina Mensal',
+                        'amount'=>$valor,
+                        'movement_id'=>$mov->id
+                    ]);
+                }
+                if($dados['taxa_servicos_semestrais']==!null){
+                    $valor = ($dados['taxa_servicos_semestrais']);
+                    MovementStudentItem::create([
+                        'description'=>'Taxa de Servicos Semestrais',
+                        'amount'=>$valor,
+                        'movement_id'=>$mov->id
+                    ]);
+                }
+
+
+
                 DB::commit();
-                return redirect()->back()->with(['success'=>'Propina adicionada com sucesso!']);
-            }
+                return redirect()->back()->with(['success'=>'Movimento registado com sucesso!']);
+
         } catch (Throwable $th) {
             DB::rollBack();
             return redirect()->back()->withErrors(['error'=>$th->getMessage()]);

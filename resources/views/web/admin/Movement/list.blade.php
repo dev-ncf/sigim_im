@@ -5,10 +5,10 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="page-sub-header">
-					<h3 class="page-title">Propinas</h3>
+					<h3 class="page-title">Serviços</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="{{route('propina-list')}}">Propinas</a></li>
-						<li class="breadcrumb-item active">Todas Propinas</li>
+						<li class="breadcrumb-item"><a href="{{route('propina-list')}}">Serviço</a></li>
+						<li class="breadcrumb-item active">Todas Serviços</li>
 					</ul>
 				</div>
 			</div>

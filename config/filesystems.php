@@ -13,16 +13,16 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'local'),
+    'default' => env('FILESYSTEM_DISK', 'public'),
 
     /*
     |--------------------------------------------------------------------------
     | Filesystem Disks
     |--------------------------------------------------------------------------
     |
-    | Here you may configure as many filesystem "disks" as you wish, and you
-    | may even configure multiple disks of the same driver. Defaults have
-    | been set up for each driver as an example of the required values.
+    | Below you may configure as many filesystem disks as necessary, and you
+    | may even configure multiple disks for the same driver. Examples for
+    | most supported storage drivers are configured here for reference.
     |
     | Supported Drivers: "local", "ftp", "sftp", "s3"
     |
@@ -32,17 +32,18 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => public_path('storage'),
             'throw' => false,
         ],
 
         'public' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public',
-            'throw' => false,
-        ],
+        'driver' => 'local',
+        'root' => public_path(),
+        'url' => env('APP_URL').'/public',
+        'visibility' => 'public',
+        'throw' => false,
+    ],
+
 
         's3' => [
             'driver' => 's3',
@@ -70,7 +71,7 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        public_path() => storage_path('public/storage'),
     ],
 
 ];

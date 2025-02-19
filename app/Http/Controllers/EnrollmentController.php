@@ -40,11 +40,18 @@ class EnrollmentController extends Controller
             $query->where('first_name','like','%'.$request->nome.'%')->orWhere('last_name','like','%'.$request->nome.'%');
         }
         if(isset($request->course_id) && !empty($request->course_id)){
+            $query->whereHas('studentEnrollment', function ($q) use ($request) {
+             $q->where('course_id', '=', $request->course_id);
 
+            });
         }
         if(isset($request->semestre) && !empty($request->semestre)){
-            // $query->load('studentEnrollment');
-            // $query->where('semestre','=',$request->semestre);
+            $query->whereHas('studentEnrollment', function ($q) use ($request) {
+             $q->where('semestre', '=', $request->semestre);
+
+            });
+
+
         }
         if($dadosUsuario->nivel!='A'){
 
@@ -107,6 +114,44 @@ class EnrollmentController extends Controller
             ]);
             // dd($newEnrollment);
          return redirect()->route('home');
+
+    }
+     public function matricular(Request $request, StudentEnrollment $enrollment)
+    {
+        // dd($request);
+
+        $validatedDatas=$request->validate([
+            'taxa_matricula'=>'required|numeric|min:4850|max:15000',
+            'taxa_inscricao_disciplina'=>'required|numeric|min:1000|max:2650',
+            'numero_disciplinas'=>'required|numeric|min:5|max:9',
+            'primeira_propina_mensal'=>'nullable|numeric|min:8000|max:19000',
+            'taxa_servico_semestrais'=>'required|numeric|min:1750|max:4000'
+        ]);
+        $primeiraPropina= $validatedDatas['primeira_propina_mensal']!=null?$validatedDatas['primeira_propina_mensal']:0;
+
+        $semestre = 1;
+        $numeroDisciplinas=$validatedDatas['numero_disciplinas'];
+        $taxa = $validatedDatas['taxa_inscricao_disciplina'];
+        $valor =($validatedDatas['taxa_matricula']+$validatedDatas['taxa_servico_semestrais']+($taxa*$numeroDisciplinas)+$primeiraPropina);
+        // dd($valor);
+        DB::beginTransaction();
+        try {
+            //code...
+            $enrollmentU = $enrollment->update([
+                'semestre' => $semestre,
+                'numero_disciplinas' => $numeroDisciplinas,
+                'valor' => $valor,
+                'taxa' => $taxa,
+                'enrollment_status'=>'1'
+            ]);
+            // dd($enrollment);
+            DB::commit();
+         return back()->with(['success'=>'Matricula feita com sucesso!, Por favor baixe o pdf para obter informações para o pagamento!']);
+        } catch (\Throwable $th) {
+             DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
+
 
     }
 

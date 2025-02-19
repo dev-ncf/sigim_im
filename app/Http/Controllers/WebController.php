@@ -96,16 +96,6 @@ class WebController extends Controller
 
                 if ($student) {
 
-                $count = count(StudentEnrollment::where('student_id','=',$student->id)->get());
-
-
-                    if($count =='0'){
-                    // auth()->logout();
-                    request()->session()->invalidate();
-                    return back()->withErrors([
-                        'message' => 'O estudante deve ter no mínimo uma inscrição para poder acessar o sistema!'
-                    ]);
-                    }else{
                         if($student->estado=='Activo'){
 
                             return redirect()->route('home');
@@ -116,7 +106,7 @@ class WebController extends Controller
 
                         }
 
-                    }
+
                 }else{
                     return redirect()->route('registration');
                 }
@@ -269,7 +259,6 @@ class WebController extends Controller
     'extension_id' => 'required|integer|exists:extensions,id',
     'faculty_id' => 'required|integer|exists:faculties,id',
     'course_id' => 'required|integer|exists:courses,id',
-    'sewing_line_id' => 'required|integer|exists:sewing_lines,id',
     'last_name' => 'required|string|max:255',
     'first_name' => 'required|string|max:255',
     'father_name' => 'required|string|max:255',
@@ -294,6 +283,8 @@ class WebController extends Controller
     'phone' => 'required|string|regex:/^8[2-9][0-9]{7}$/',
     'phone_secondary' => 'nullable|string|regex:/^8[2-9][0-9]{7}$/',
     'email' => 'required|email|max:255|unique:users,email',
+    'senha' => 'required|string|min:8|max:16',
+    'confir_senha' => 'required|string|min:8|max:16|same:senha',
     'academic_level_id' => 'required|integer|exists:academic_levels,id',
     'local' => 'required|string|max:255',
     'institution' => 'required|string|max:255',
@@ -302,7 +293,7 @@ class WebController extends Controller
     'career_institution' => 'nullable|string|max:255',
     'career_start_year' => 'nullable|integer|min:1900|max:' . date('Y'),
     'completion_year' => 'nullable|integer|min:1900|max:' . date('Y').'|after_or_equal:career_start_year',
-    'role' => 'required|string|max:255',
+    'role' => 'nullable|string|max:255',
     'father_profession' => 'required|string|max:255',
     'mother_profession' => 'required|string|max:255',
     'family_type' => 'required|string|max:255',
@@ -312,12 +303,15 @@ class WebController extends Controller
     'modality' => 'nullable|string|max:255',
     'modality_type' => 'nullable|string|max:255',
     'scholarship_institution' => 'nullable|string|max:255',
-    'means_knowledge' => 'required|integer|in:1,2,3,4,5,6,7',
+    'means_knowledge' => 'required|integer|in:1,2,3,4,5,6,7,8',
+    'foto' => 'required|file|mimes:png,jpg,jpeg,JPG|max:2048',
+    'cv' => 'required|file|mimes:pdf|max:2048',
+    'declaracao_compromisso' => 'required|file|mimes:pdf|max:2048',
     'bi' => 'required|file|mimes:pdf|max:2048',
     'nuit' => 'required|file|mimes:pdf|max:2048',
     'certificate' => 'required|file|mimes:pdf|max:2048',
 ]);
-
+    // dd($validatedDatas);
 
         $extension = Extension::find($validatedDatas['extension_id']);
 
@@ -352,13 +346,16 @@ class WebController extends Controller
             $bi = $request->file('bi')->store('public/bi');
             $nuit = $request->file('nuit')->store('public/nuit');
             $certificate = $request->file('certificate')->store('public/certificate');
+            $foto = $request->file('foto')->store('public/foto');
+            $cv = $request->file('cv')->store('public/cv');
+            $declaracao = $request->file('declaracao_compromisso')->store('public/declaracao');
 
 
             //criar usuario
             $new_user = User::create([
                 'name'=>$validatedDatas['name'],
                 'email'=>$validatedDatas['email'],
-                'password'=>bcrypt(str_replace('-','',$validatedDatas['birth_date'])    ),
+                'password'=>bcrypt($validatedDatas['senha']),
             ]);
 
             $manager = Manager::where('extension_id','=',$validatedDatas['extension_id'])->first();
@@ -387,9 +384,12 @@ class WebController extends Controller
                 'manager_response_id'=>$manager->id,
                 'user_id' => $new_user->id,
                 'certificate_file' => str_replace('public/', '', $certificate),
+                'cv_file' => str_replace('public/', '', $cv),
+                'foto_file' => str_replace('public/', '', $foto),
+                'declaracao_file' => str_replace('public/', '', $declaracao),
                 'id_file' => str_replace('public/', '', $bi),
                 'nuit_file' => str_replace('public/', '', $nuit),
-                'registration_status' => '1'
+                'registration_status' => '2'
 
             ]);
             // dd($request->all());
@@ -410,7 +410,7 @@ class WebController extends Controller
 
             $new_student_professional_career = $studentProfessionalCareer->create([
                 "institution" => $validatedDatas['career_institution'],
-                "start_year" => $validatedDatas['start_year'],
+                "start_year" => $validatedDatas['career_start_year'],
                 "completion_year" => $validatedDatas['completion_year'],
                 "role" => $validatedDatas['role'],
                 'student_id' => $new_student->id
@@ -429,8 +429,9 @@ class WebController extends Controller
                 "faculty_id" => $validatedDatas['faculty_id'],
                 "course_id" => $validatedDatas['course_id'],
                 "extension_id" => $validatedDatas['extension_id'],
-                "sewing_line_id" => $validatedDatas['sewing_line_id'],
-                'student_id' => $new_student->id
+                // "sewing_line_id" => $validatedDatas['sewing_line_id'],
+                'student_id' => $new_student->id,
+                'enrollment_status'=>'0'
             ]);
 
             $new_student_address = $studentAddress->create([
@@ -446,12 +447,12 @@ class WebController extends Controller
                 "academic_level_id" => $validatedDatas['academic_level_id'],
                 "local" => $validatedDatas['local'],
                 "institution" => $validatedDatas['institution'],
-                "start_year" => $validatedDatas['career_start_year'],
-                "completion_year" => $validatedDatas['completion_year'],
+                "start_year" => $validatedDatas['start_year'],
+                "completion_year" => $validatedDatas['end_year'],
                 'student_id' => $new_student->id
             ]);
             DB::commit();
-        return redirect()->route('login')->with(['success'=>'Estudante cadastrado com sucesso!']);
+        return redirect()->route('login')->with(['success'=>'O seu cadastrado foi realizadocom sucesso! Por favor inicie sessão para prosseguir com a matricula!' ]);
 
         }catch(\Exception $e){
             DB::rollBack();
@@ -476,11 +477,16 @@ class WebController extends Controller
     //Home de inscricao completa
     public function home(){
         if(LoginController::logado()){
-        $student = Student::with('studentEnrollment')->where('user_id', '=', auth()->user()->id)->first();
+        $student = Student::with(['studentEnrollment','studentPreviousSkills'])->where('user_id', '=', auth()->user()->id)->first();
         $lastEnrollmentPeriod=EnrollmentPeriod::latest('end')->first();
         $lastEnrollment = StudentEnrollment::where('student_id','=',$student->id)->latest()->first();
-        $movements = MovementStudent::where('student_id','=',$student->id,'and','semestre','=',$lastEnrollment->semestre)->latest()->get();
-        // dd($movements->count());
+
+         $movements =null;
+        if($lastEnrollment){
+
+            $movements = MovementStudent::where('student_id','=',$student->id,'and','semestre','=',$lastEnrollment->semestre)->latest()->get();
+        }
+        // dd($lastEnrollment->id);
         $enrollments = StudentEnrollment::where('student_id', '=', $student->id)->get();
         return view('web.student.home', compact('student','enrollments','lastEnrollment','lastEnrollmentPeriod','movements'));
         }else{

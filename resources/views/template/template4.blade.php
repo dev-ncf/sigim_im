@@ -98,7 +98,7 @@
                             <span>Menu Principal</span>
                         </li>
                         <li
-                            class="submenu {{ request()->routeIs('home-admin') || request()->routeIs('user-show') ? 'active' : '' }}">
+                            class="{{ request()->routeIs('home-admin') || request()->routeIs('user-show') ? 'active' : '' }}">
                             <a href="{{ route('home-admin') }}"><i class="feather-grid"></i> <span>
                                     Dashboard</span></span></a>
 
@@ -150,7 +150,7 @@
 
                         <li
                             class="submenu {{ request()->routeIs('propina-list') || request()->routeIs('propina-add') || request()->routeIs('propina-edit') || request()->routeIs('propina-search') ? 'active' : '' }}">
-                            <a href="#"><i class="fas fa-coins"></i> <span> Propinas</span> <span
+                            <a href="#"><i class="fas fa-coins"></i> <span> Serviços</span> <span
                                     class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="{{ route('propina-list') }}"
