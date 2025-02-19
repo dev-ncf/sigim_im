@@ -224,7 +224,9 @@
                     <th>Curso</th>
                     <th>Semestre</th>
                     <th>Estado de Inscrição</th>
+
                     <th>Acção</th>
+
                 </tr>
                 @foreach ($enrollments as $enrollment)
                     <tr>
@@ -246,10 +248,12 @@
                             @endif
                         </td>
                         <td>
-                            <a
-                                href="{{ url('/printer/recipient-inscription/' . $enrollment->student->code . '/' . $enrollment->id) }}">
-                                <i class="bi bi-printer"></i>
-                            </a>
+                            @if ($enrollment->enrollment_status > '0')
+                                <a
+                                    href="{{ url('/printer/recipient-inscription/' . $enrollment->student->code . '/' . $enrollment->id) }}">
+                                    <i class="bi bi-printer"></i>
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -332,30 +336,37 @@
     </section>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            console.log('Ola')
-            document.getElementById('novaInscricaoLink').addEventListener('click', function(event) {
-                event.preventDefault(); // Evita a execução do link diretamente
 
-                if (confirm('Deseja realmente criar uma nova inscrição?')) {
-                    document.getElementById('enrollmentform').style.display = 'flex';
-                }
-            });
-            document.getElementById('novaMatricula').addEventListener('click', function(event) {
-                // alert('ola')
-                event.preventDefault(); // Evita a execução do link diretamente
+            if (document.getElementById('novaInscricaoLink')) {
+                // Adicionar o listener de clique apenas se o botão existir
+                document.getElementById('novaInscricaoLink').addEventListener('click', function(event) {
+                    event.preventDefault(); // Evita a execução do link diretamente
+
+                    if (confirm('Deseja realmente criar uma nova inscrição?')) {
+                        document.getElementById('enrollmentform').style.display = 'flex';
+                    }
+                });
+            }
+            if (document.getElementById('novaMatricula')) {
+                document.getElementById('novaMatricula').addEventListener('click', function(event) {
+                    // alert('ola')
+                    event.preventDefault(); // Evita a execução do link diretamente
 
 
-                document.getElementById('matriculaform').style.display = 'flex';
+                    document.getElementById('matriculaform').style.display = 'flex';
 
-            });
+                });
+            }
 
 
             document.getElementById('enrollmentCancel').addEventListener('click', function(event) {
+
                 event.preventDefault(); // Evita a execução do link diretamente
 
                 document.getElementById('enrollmentform').style.display = 'none';
 
             });
+
             document.getElementById('matriculaCancel').addEventListener('click', function(event) {
                 event.preventDefault(); // Evita a execução do link diretamente
 
