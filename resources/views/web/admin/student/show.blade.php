@@ -20,7 +20,7 @@
                     <div class="profile-image col-auto">
                         <a href="#">
                             <img class="rounded-circle" alt="User Image"
-                                src="{{ $student->foto_file ? asset('storage/' . $student->foto_file) : asset('img/logo.jpg') }}">
+                                src="{{ $student->foto_file ? asset('storage/public/' . $student->foto_file) : asset('img/logo.jpg') }}">
                         </a>
                     </div>
                     @foreach ($student->studentEnrollment as $enrollment)
