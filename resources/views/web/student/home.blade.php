@@ -281,7 +281,7 @@
                 <div style="display: flex;justify-content: space-between">
                     <div></div>
                     <div
-                        style="display: flex;justify-content: right;align-items: flex-end;width: 100%; border: solid 1px #00000021 ">
+                        style="display: flex;justify-content: right;align-items: flex-end;width: 100%; border: solid 1px #00000021;padding-right: 8px ">
                         Semestres e Número de disciplinas</div>
                 </div>
                 <table class="table-registration">
