@@ -20,6 +20,7 @@ use App\Models\AcademicLevel;
 use App\Models\Admin;
 use App\Models\ScholarshipType;
 use App\Models\CourseAnnouncementSource;
+use App\Models\CourseSubjectNumber;
 use App\Models\FormPayment;
 use App\Models\Manager;
 use App\Models\MovementStudent;
@@ -480,6 +481,7 @@ class WebController extends Controller
         $student = Student::with(['studentEnrollment','studentPreviousSkills'])->where('user_id', '=', auth()->user()->id)->first();
         $lastEnrollmentPeriod=EnrollmentPeriod::latest('end')->first();
         $lastEnrollment = StudentEnrollment::where('student_id','=',$student->id)->latest()->first();
+        $courseSubjects = CourseSubjectNumber::all();
 
          $movements =null;
         if($lastEnrollment){
@@ -488,7 +490,7 @@ class WebController extends Controller
         }
         // dd($lastEnrollment->id);
         $enrollments = StudentEnrollment::where('student_id', '=', $student->id)->get();
-        return view('web.student.home', compact('student','enrollments','lastEnrollment','lastEnrollmentPeriod','movements'));
+        return view('web.student.home', compact('student','enrollments','lastEnrollment','lastEnrollmentPeriod','movements','courseSubjects'));
         }else{
             return redirect()->route('login');
         }

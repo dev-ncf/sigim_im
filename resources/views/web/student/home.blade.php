@@ -293,33 +293,35 @@
                         <th>4º</th>
 
                     </tr>
-                    <tr>
+                    @if ($lastEnrollment->academic_level_id == '1')
+                        @foreach ($courseSubjects as $subject)
+                            @if ($subject->nivel == '1')
+                                <tr>
 
-                        <td>Gestão Ambiental</td>
-                        <td>6</td>
-                        <td>5</td>
-                        <td>5</td>
-                        <td>5</td>
+                                    <td>{{ $subject->course->label }}</td>
+                                    <td>{{ $subject->sem_1 }}</td>
+                                    <td>{{ $subject->sem_2 }}</td>
+                                    <td>{{ $subject->sem3_ }}</td>
+                                    <td>{{ $subject->sem_4 }}</td>
 
-                    </tr>
-                    <tr>
+                                </tr>
+                            @endif
+                        @endforeach
+                    @else
+                        @foreach ($courseSubjects as $subject)
+                            @if ($subject->nivel == '2')
+                                <tr>
 
-                        <td>Gestão Ambiental</td>
-                        <td>6</td>
-                        <td>5</td>
-                        <td>5</td>
-                        <td>5</td>
+                                    <td>{{ $subject->course->label }}</td>
+                                    <td>{{ $subject->sem_1 }}</td>
+                                    <td>{{ $subject->sem_2 }}</td>
+                                    <td>{{ $subject->sem3_ }}</td>
+                                    <td>{{ $subject->sem_4 }}</td>
 
-                    </tr>
-                    <tr>
-
-                        <td>Gestão Ambiental</td>
-                        <td>6</td>
-                        <td>5</td>
-                        <td>5</td>
-                        <td>5</td>
-
-                    </tr>
+                                </tr>
+                            @endif
+                        @endforeach
+                    @endif
 
 
                 </table>
