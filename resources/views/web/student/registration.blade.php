@@ -614,8 +614,7 @@
                 // Resetar selects dependentes
                 document.getElementById("courses").innerHTML =
                     '<option value="" selected disabled>escolha...</option>';
-                document.getElementById("sewing-lines").innerHTML =
-                    '<option value="" selected disabled>escolha...</option>';
+
             });
 
             // Filtrar Cursos ao escolher Faculdade
@@ -631,9 +630,7 @@
                     });
                 }
 
-                // Resetar select de Linha de Pesquisa
-                document.getElementById("sewing-lines").innerHTML =
-                    '<option value="" selected disabled>escolha...</option>';
+
             });
             // Filtrar distrito ao escolher provincia
             document.getElementById("province").addEventListener("change", function() {
@@ -656,8 +653,7 @@
             // Filtrar Linhas de Pesquisa ao escolher Curso
             document.getElementById("courses").addEventListener("change", function() {
                 var courseId = this.value;
-                var sewingLineSelect = document.getElementById("sewing-lines");
-                sewingLineSelect.innerHTML = '<option value="" selected disabled>escolha...</option>';
+    
 
                 sewingLines.forEach(function(line) {
                     if (line.course_id == courseId) {
