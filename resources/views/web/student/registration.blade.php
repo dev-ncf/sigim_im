@@ -299,7 +299,8 @@
                 <select name="academic_level_id" id="student-previous-license" class="input-begin" required>
                     <option value="">escolha...</option>
                     @foreach ($academic_levels as $level)
-                        <option value="{{ $level->id }}">{{ $level->label }}</option>
+                        <option {{ $level->id == '3' ? 'disabled' : '' }} value="{{ $level->id }}">{{ $level->label }}
+                        </option>
                     @endforeach
                 </select>
             </div>
@@ -653,7 +654,7 @@
             // Filtrar Linhas de Pesquisa ao escolher Curso
             document.getElementById("courses").addEventListener("change", function() {
                 var courseId = this.value;
-    
+
 
                 sewingLines.forEach(function(line) {
                     if (line.course_id == courseId) {

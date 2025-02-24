@@ -295,8 +295,8 @@ class WebController extends Controller
     'career_start_year' => 'nullable|integer|min:1900|max:' . date('Y'),
     'completion_year' => 'nullable|integer|min:1900|max:' . date('Y').'|after_or_equal:career_start_year',
     'role' => 'nullable|string|max:255',
-    'father_profession' => 'required|string|max:255',
-    'mother_profession' => 'required|string|max:255',
+    'father_profession' => 'nullable|string|max:255',
+    'mother_profession' => 'nullable|string|max:255',
     'family_type' => 'required|string|max:255',
     'household' => 'required|string|max:255',
     'block' => 'required|integer|min:1',
@@ -426,7 +426,7 @@ class WebController extends Controller
 
 
             $new_student_enrollment = $studentEnrollment->create([
-                'academic_level_id' => 2,
+                'academic_level_id' => $validatedDatas['academic_level_id']+1,
                 "faculty_id" => $validatedDatas['faculty_id'],
                 "course_id" => $validatedDatas['course_id'],
                 "extension_id" => $validatedDatas['extension_id'],

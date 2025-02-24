@@ -293,7 +293,7 @@
                         <th>4º Sem.</th>
 
                     </tr>
-                    @if ($lastEnrollment->academic_level_id == '1')
+                    @if ($lastEnrollment->academic_level_id == '2')
                         @foreach ($courseSubjects as $subject)
                             @if ($subject->nivel == '1')
                                 <tr>
