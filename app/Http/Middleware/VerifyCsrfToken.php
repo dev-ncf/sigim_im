@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Middleware;
-
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+use Illuminate\Session\TokenMismatchException;
+use Closure;
 
 class VerifyCsrfToken extends Middleware
 {
@@ -14,4 +14,14 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
     ];
+
+    public function handle($request, Closure $next)
+    {
+        try {
+            return parent::handle($request, $next);
+        } catch (TokenMismatchException $exception) {
+            // Se o token expirar, redireciona para a página de login
+            return redirect()->route('login')->with('error', 'Sua sessão expirou. Faça login novamente.');
+        }
+    }
 }
