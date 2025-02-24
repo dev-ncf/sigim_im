@@ -287,10 +287,10 @@
                 <table class="table-registration">
                     <tr>
                         <th>Curso</th>
-                        <th>1º</th>
-                        <th>2º</th>
-                        <th>3º</th>
-                        <th>4º</th>
+                        <th>1º Sem.</th>
+                        <th>2º Sem.</th>
+                        <th>3º Sem.</th>
+                        <th>4º Sem.</th>
 
                     </tr>
                     @if ($lastEnrollment->academic_level_id == '1')
