@@ -118,7 +118,7 @@ class EnrollmentController extends Controller
     }
      public function matricular(Request $request, StudentEnrollment $enrollment)
     {
-        // dd($request);
+        // dd($request->all());
 
         $validatedDatas=$request->validate([
             'taxa_matricula'=>'required|numeric|min:4850|max:15000',

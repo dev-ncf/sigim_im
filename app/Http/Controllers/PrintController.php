@@ -384,9 +384,10 @@ class PrintController extends Controller
         $student = $enrollment->student;
         $str_itemsPre='';
         $taxaPorDisciplinas = ($enrollment->taxa) * ($enrollment->numero_disciplinas);
-        $valor_formatado = number_format($taxaPorDisciplinas, 0, '', '.');
-        $total=number_format($enrollment->valor, 0, '', '.');
-        $taxaLabel = "Taxa de inscrição por disciplina ( $enrollment->numero_disciplinas x $enrollment->taxa,00)";
+        $valor_formatado = number_format($taxaPorDisciplinas, 0, '', ',');
+        $taxa_formatada = number_format($enrollment->taxa, 0, '', ',');
+        $total=number_format($enrollment->valor, 0, '', ',');
+        $taxaLabel = "Taxa de inscrição por disciplina ( $enrollment->numero_disciplinas x $taxa_formatada.00)";
         if($enrollment->semestre>1){
 
         $str_itemsPre = $str_itemsPre."
@@ -421,7 +422,7 @@ class PrintController extends Controller
              </div>
         ";
             }else{
-                if($enrollment->academic_level_id=='1'){
+                if($enrollment->academic_level_id=='2'){
                     if($enrollment->taxa>1000){
                     $str_itemsPre = $str_itemsPre."
 
@@ -436,25 +437,25 @@ class PrintController extends Controller
                                         <tr>
                                             <td>1</td>
                                             <td>Taxa de matrícula</td>
-                                            <td>7.700,00</td>
+                                            <td>7,700.00</td>
 
                                         </tr>
                                         <tr>
                                             <td>2</td>
                                             <td>$taxaLabel</td>
-                                            <td>$valor_formatado,00</td>
+                                            <td>$valor_formatado.00</td>
 
                                         </tr>
                                         <tr>
                                             <td>3</td>
                                             <td>Primeira propina mensal</td>
-                                            <td>10.000,00</td>
+                                            <td>10,000.00</td>
 
                                         </tr>
                                         <tr>
                                             <td>4</td>
                                             <td>Taxa de serviços semestrais</td>
-                                            <td>1.750,00</td>
+                                            <td>1,750.00</td>
 
                                         </tr>
 
@@ -462,7 +463,7 @@ class PrintController extends Controller
                                         <div style='margin-left: 453px;border: 1px solid; border-top:none; align-items:center; text-align: center; margin-bottom:20px;'>
 
                                             <strong>Total: </strong>
-                                            <strong>$total,00</strong>
+                                            <strong>$total.00</strong>
                                         </div>
                                         <p><span style='font-weight: 500; '>Nota:</span> Para que a sua pré-inscrição seja aprovada, siga os seguintes passos: </p>
 
@@ -489,25 +490,25 @@ class PrintController extends Controller
                                             <tr>
                                                 <td>1</td>
                                                 <td>Taxa de matrícula</td>
-                                                <td>4.850,00</td>
+                                                <td>4,850.00</td>
 
                                             </tr>
                                             <tr>
                                                 <td>2</td>
                                                 <td>$taxaLabel</td>
-                                                <td>$valor_formatado,00</td>
+                                                <td>$valor_formatado.00</td>
 
                                             </tr>
                                             <tr>
                                                 <td>3</td>
                                                 <td>Primeira propina mensal</td>
-                                                <td>8.000,00</td>
+                                                <td>8,000.00</td>
 
                                             </tr>
                                             <tr>
                                                 <td>4</td>
                                                 <td>Taxa de serviços semestrais</td>
-                                                <td>1.750,00</td>
+                                                <td>1,750.00</td>
 
                                             </tr>
 
@@ -515,7 +516,7 @@ class PrintController extends Controller
                                             <div style='margin-left: 453px;border: 1px solid; border-top:none; align-items:center; text-align: center; margin-bottom:20px;'>
 
                                                 <strong>Total: </strong>
-                                                <strong>$total,00</strong>
+                                                <strong>$total.00</strong>
                                             </div>
                                             <p><span style='font-weight: 500; '>Nota:</span> Para que a sua pré-inscrição seja aprovada, siga os seguintes passos: </p>
 
@@ -542,26 +543,26 @@ class PrintController extends Controller
 
                                            <tr>
                                                <td>1</td>
-                                               <td>Taxa de matrícula</td>
-                                               <td>15.000,00</td>
+                                               <td>Taxa de matrícula </td>
+                                               <td>15,000.00</td>
 
                                            </tr>
                                            <tr>
                                                <td>2</td>
                                                <td>$taxaLabel</td>
-                                               <td>$valor_formatado,00</td>
+                                               <td>$valor_formatado.00</td>
 
                                            </tr>
                                            <tr>
                                                <td>3</td>
                                                <td>Primeira propina mensal</td>
-                                               <td>19.000,00</td>
+                                               <td>19,000.00</td>
 
                                            </tr>
                                            <tr>
                                                <td>4</td>
                                                <td>Taxa de serviços semestrais</td>
-                                               <td>4.000,00</td>
+                                               <td>4,000.00</td>
 
                                            </tr>
 
@@ -569,7 +570,7 @@ class PrintController extends Controller
                                            <div style='margin-left: 453px;border: 1px solid; border-top:none; align-items:center; text-align: center; margin-bottom:20px;'>
 
                                                <strong>Total: </strong>
-                                               <strong>$total,00</strong>
+                                               <strong>$total.00</strong>
                                            </div>
                                            <p><span style='font-weight: 500; '>Nota:</span> Para que a sua pré-inscrição seja aprovada, siga os seguintes passos: </p>
 
@@ -596,25 +597,25 @@ class PrintController extends Controller
                                            <tr>
                                                <td>1</td>
                                                <td>Taxa de matrícula</td>
-                                               <td>10.000,00</td>
+                                               <td>10,000.00</td>
 
                                            </tr>
                                            <tr>
                                                <td>2</td>
                                                <td>$taxaLabel</td>
-                                               <td>$valor_formatado,00</td>
+                                               <td>$valor_formatado.00</td>
 
                                            </tr>
                                            <tr>
                                                <td>3</td>
                                                <td>Primeira propina mensal</td>
-                                               <td>15.000,00</td>
+                                               <td>15,000.00</td>
 
                                            </tr>
                                            <tr>
                                                <td>4</td>
                                                <td>Taxa de serviços semestrais</td>
-                                               <td>4.000,00</td>
+                                               <td>4,000.00</td>
 
                                            </tr>
 
@@ -622,7 +623,7 @@ class PrintController extends Controller
                                            <div style='margin-left: 453px;border: 1px solid; border-top:none; align-items:center; text-align: center; margin-bottom:20px;'>
 
                                                <strong>Total: </strong>
-                                               <strong>$total,00</strong>
+                                               <strong>$total.00</strong>
                                            </div>
                                            <p><span style='font-weight: 500; '>Nota:</span> Para que a sua pré-inscrição seja aprovada, siga os seguintes passos: </p>
 
