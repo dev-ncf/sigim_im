@@ -1,9 +1,8 @@
 @extends('template.template')
 
 @section('content')
-
-    <form class="card" action="{{ route('student-registration') }}" method="POST" enctype="multipart/form-data"
-        onsubmit="subscribe()">
+    <form class="card" id="form-submit" action="{{ route('student-registration') }}" method="POST"
+        enctype="multipart/form-data">
 
         @csrf
         <img class="img-logo" src="{{ asset('img/logo.jpg') }}" alt="" srcset="">
@@ -11,11 +10,21 @@
         <h1 class="sub-title">DIRECÇÃO DO REGISTO ACADÉMICO</h1>
         <p>Atenção! Preenche todos campos obrigatórios indicados pelo caractere < <span style="color: #ff0000">*</span> >.
         </p>
+        @php
+            $count = 0;
+        @endphp
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li style="color: #ff0000">{{ $error }}</li>
+                        @if ($count == 3)
+                            @break
+                        @endif
+                        @php
+
+                            $count++;
+                        @endphp
                     @endforeach
                 </ul>
             </div>
@@ -299,7 +308,8 @@
                 <select name="academic_level_id" id="student-previous-license" class="input-begin" required>
                     <option value="">escolha...</option>
                     @foreach ($academic_levels as $level)
-                        <option {{ $level->id == '3' ? 'disabled' : '' }} value="{{ $level->id }}">{{ $level->label }}
+                        <option {{ $level->id == '3' ? 'disabled' : '' }} value="{{ $level->id }}">
+                            {{ $level->label }}
                         </option>
                     @endforeach
                 </select>
@@ -519,7 +529,7 @@
                     onclick="hideDivForm('div-form9', 'div-form8')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
-                <button class="btn-begin" type="submit" onclick="subscribe()"
+                <button class="btn-begin" type="button" onclick="subscribe()"
                     style="border: solid 1px blue; color:blue">
                     Submeter-inscrição
                 </button>
@@ -710,7 +720,7 @@
             //Capturando os vdados de inscricao
             document.getElementById('div-form9').addEventListener('submit', function(e) {
                 e.preventDefault();
-                subscribe();
+
             });
             //criando a variavel para armazenamento de Bolsa de estudo
             document.getElementById('special-need-yes').addEventListener('click', function() {
@@ -792,9 +802,12 @@
 
                 //Preloader
                 document.getElementById('preloader').style.display = 'flex';
+                document.getElementById('form-submit').submit();
+
 
 
             }
+            window.subscribe = subscribe;
         });
     </script>
 @endsection
