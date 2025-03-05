@@ -52,6 +52,7 @@ class PrintController extends Controller
 
         $student = Student::find($movement->student_id);
         $enrollment = $student->studentEnrollment;
+        // dd($student);
         foreach ($student->studentEnrollment as $enrollment) {
             # code...
             $course = $enrollment->course->label;

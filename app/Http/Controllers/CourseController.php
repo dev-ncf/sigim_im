@@ -121,7 +121,10 @@ class CourseController extends Controller
          DB::beginTransaction();
         try {
             //code...
-            $course->update($request->all());
+            $course->update([
+                'faculty_id'=>$request->faculty_id,
+                'label'=>$request->label
+            ]);
             DB::commit();
             return back()->with(['success'=>'Curso actualizado com sucesso!']);
         } catch (Throwable $th) {
