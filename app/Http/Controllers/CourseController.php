@@ -125,8 +125,8 @@ class CourseController extends Controller
                 'faculty_id'=>$request->faculty_id,
                 'label'=>$request->label
             ]);
-            
-            dd($request->all());
+
+            // dd($request->all());
             DB::commit();
             return back()->with(['success'=>'Curso actualizado com sucesso!']);
         } catch (Throwable $th) {
