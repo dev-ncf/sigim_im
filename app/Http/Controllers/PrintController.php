@@ -436,19 +436,19 @@ class PrintController extends Controller
 
                                         <tr>
                                             <td>1</td>
-                                            <td>Taxa de matrícula</td>
+                                            <td>Taxa de matrícula para estrangeiro</td>
                                             <td>7,700.00</td>
 
                                         </tr>
                                         <tr>
                                             <td>2</td>
-                                            <td>$taxaLabel</td>
+                                            <td>$taxaLabel para estrangeiro</td>
                                             <td>$valor_formatado.00</td>
 
                                         </tr>
                                         <tr>
                                             <td>3</td>
-                                            <td>Primeira propina mensal</td>
+                                            <td>Primeira propina mensal para estrangeiro</td>
                                             <td>10,000.00</td>
 
                                         </tr>
@@ -543,19 +543,19 @@ class PrintController extends Controller
 
                                            <tr>
                                                <td>1</td>
-                                               <td>Taxa de matrícula </td>
+                                               <td>Taxa de matrícula para estrangeiro </td>
                                                <td>15,000.00</td>
 
                                            </tr>
                                            <tr>
                                                <td>2</td>
-                                               <td>$taxaLabel</td>
+                                               <td>$taxaLabel para estrangeiro</td>
                                                <td>$valor_formatado.00</td>
 
                                            </tr>
                                            <tr>
                                                <td>3</td>
-                                               <td>Primeira propina mensal</td>
+                                               <td>Primeira propina mensal para estrangeiro</td>
                                                <td>19,000.00</td>
 
                                            </tr>
