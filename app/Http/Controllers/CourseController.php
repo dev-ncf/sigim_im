@@ -121,12 +121,13 @@ class CourseController extends Controller
          DB::beginTransaction();
         try {
             //code...
-            $course->update([
+            // dd($course);
+           $course= $course->update([
                 'faculty_id'=>$request->faculty_id,
                 'label'=>$request->label
             ]);
 
-            // dd($request->all());
+            // dd($course);
             DB::commit();
             return back()->with(['success'=>'Curso actualizado com sucesso!']);
         } catch (Throwable $th) {

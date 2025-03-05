@@ -67,31 +67,31 @@ Route::prefix('admin')->middleware('auth:manager')->group(function () {
     Route::get('/student', [WebController::class, 'studentDashboard'])->name('student-dashboard');
     Route::prefix('/students')->group(function(){
         Route::get('/list',[StudentController::class,'index'])->name('student-list');
-        Route::get('/show/{student_id?}',[StudentController::class,'show'])->name('student-show');
+        Route::get('/show/{student_id}',[StudentController::class,'show'])->name('student-show');
         Route::get('/add',[AdminController::class,'adminEstudanteAdicionar'])->name('student-add');
         Route::get('/search',[StudentController::class,'index'])->name('student-search');
         Route::post('/store',[AdminController::class,'adminEstudanteStore'])->name('admin-student-store');
-         Route::post('/update-password/{student?}',[StudentController::class,'updatePassword'])->name('student-update-password');
+         Route::post('/update-password/{student}',[StudentController::class,'updatePassword'])->name('student-update-password');
         Route::get('/edit/{studente_code?}',[StudentController::class,'edit'])->name('student-edit');
-        Route::put('/update/{student?}',[StudentController::class,'update'])->name('student-update');
-        Route::get('/delete/{student?}',[StudentController::class,'destroy'])->name('student-delete');
-        Route::get('/active-deactive/{student?}',[StudentController::class,'activeDeactive'])->name('student-active-deactive');
+        Route::put('/update/{student}',[StudentController::class,'update'])->name('student-update');
+        Route::get('/delete/{student}',[StudentController::class,'destroy'])->name('student-delete');
+        Route::get('/active-deactive/{student}',[StudentController::class,'activeDeactive'])->name('student-active-deactive');
     });
     Route::prefix('/user')->group(function(){
         Route::get('/show/{manager?}',[ManagerController::class,'userShow'])->name('user-show');
-        Route::post('/user-update-password/{manager?}',[ManagerController::class,'userUpdatePassword'])->name('user-update-password');
+        Route::post('/user-update-password/{manager}',[ManagerController::class,'userUpdatePassword'])->name('user-update-password');
     });
     Route::prefix('/managers')->group(function(){
         Route::get('/list',[ManagerController::class,'index'])->name('manager-list');
         Route::get('/search',[ManagerController::class,'index'])->name('manager-search');
         Route::get('/add',[AdminController::class,'AdminGestorAdicionar'])->name('manager-add');
         Route::post('/store',[AdminController::class,'AdminGestorStore'])->name('admin-manager-store');
-        Route::get('/edit/{manager?}',[ManagerController::class,'edit'])->name('manager-edit');
-        Route::get('/show/{manager?}',[ManagerController::class,'show'])->name('manager-show');
-        Route::get('/active-deactive/{manager?}',[ManagerController::class,'activeDeactive'])->name('manager-active-deactive');
-        Route::post('/update/{manager?}',[ManagerController::class,'update'])->name('manager-update');
-        Route::post('/update-password/{manager?}',[ManagerController::class,'updatePassword'])->name('manager-update-password');
-        Route::get('/delete/{manager?}',[ManagerController::class,'destroy'])->name('manager-delete');
+        Route::get('/edit/{manager}',[ManagerController::class,'edit'])->name('manager-edit');
+        Route::get('/show/{manager}',[ManagerController::class,'show'])->name('manager-show');
+        Route::get('/active-deactive/{manager}',[ManagerController::class,'activeDeactive'])->name('manager-active-deactive');
+        Route::post('/update/{manager}',[ManagerController::class,'update'])->name('manager-update');
+        Route::post('/update-password/{manager}',[ManagerController::class,'updatePassword'])->name('manager-update-password');
+        Route::get('/delete/{manager}',[ManagerController::class,'destroy'])->name('manager-delete');
     });
     Route::prefix('/admins')->group(function(){
         Route::get('/list',[AdminController::class,'index'])->name('admin-list');
@@ -104,19 +104,19 @@ Route::prefix('admin')->middleware('auth:manager')->group(function () {
         Route::post('/search',[MovementStudentController::class,'index'])->name('propina-search');
         Route::post('/store',[AdminController::class,'AdminPropinaStore'])->name('admin-propina-store');
         Route::post('/update',[MovementStudentController::class,'update'])->name('admin-propina-update');
-        Route::get('/add/{student_id?}',[AdminController::class,'AdminPropinaAdicionar'])->name('propina-add');
-        Route::get('/edit/{movementStudent?}',[MovementStudentController::class,'edit'])->name('propina-edit');
-        Route::get('/destroy/{movementStudent?}',[MovementStudentController::class,'destroy'])->name('propina-delete');
+        Route::get('/add/{student_id}',[AdminController::class,'AdminPropinaAdicionar'])->name('propina-add');
+        Route::get('/edit/{movementStudent}',[MovementStudentController::class,'edit'])->name('propina-edit');
+        Route::get('/destroy/{movementStudent}',[MovementStudentController::class,'destroy'])->name('propina-delete');
     });
     Route::prefix('/enrollments')->group(function(){
         Route::get('/list',[EnrollmentController::class,'index'])->name('enrollment-list');
         Route::post('/search',[EnrollmentController::class,'index'])->name('enrollment-search');
         Route::get('/add',[AdminController::class,'adminInscricaoAdicionar'])->name('enrollment-add');
         Route::post('/store',[AdminController::class,'adminInscricaoStore'])->name('admin-enrollment-store');
-        Route::get('/edit/{enrollment?}',[EnrollmentController::class,'edit'])->name('enrollment-edit');
-        Route::get('/destroy/{enrollment?}',[EnrollmentController::class,'destroy'])->name('enrollment-delete');
-        Route::post('/update/{enrollment?}',[EnrollmentController::class,'update'])->name('admin-enrollment-update');
-        Route::get('/approve/{enrollment?}',[EnrollmentController::class,'approve'])->name('enrollment-approve');
+        Route::get('/edit/{enrollment}',[EnrollmentController::class,'edit'])->name('enrollment-edit');
+        Route::get('/destroy/{enrollment}',[EnrollmentController::class,'destroy'])->name('enrollment-delete');
+        Route::post('/update/{enrollment}',[EnrollmentController::class,'update'])->name('admin-enrollment-update');
+        Route::get('/approve/{enrollment}',[EnrollmentController::class,'approve'])->name('enrollment-approve');
         Route::get('/print/{code}/{id}', [PrintController::class, 'print'])->name('enrollment-print');
     });
     Route::prefix('/faculties')->group(function(){
@@ -124,28 +124,28 @@ Route::prefix('admin')->middleware('auth:manager')->group(function () {
         Route::post('/search',[FacultyController::class,'index'])->name('faculty-search');
         Route::get('/add',[FacultyController::class,'create'])->name('faculty-add');
         Route::post('/store',[FacultyController::class,'store'])->name('faculty-store');
-        Route::get('/edit/{faculty?}',[FacultyController::class,'edit'])->name('faculty-edit');
-        Route::get('/show/{faculty?}',[FacultyController::class,'show'])->name('faculty-show');
-        Route::get('/destroy/{faculty?}',[FacultyController::class,'destroy'])->name('faculty-delete');
-        Route::post('/update/{faculty?}',[FacultyController::class,'update'])->name('faculty-update');
+        Route::get('/edit/{faculty}',[FacultyController::class,'edit'])->name('faculty-edit');
+        Route::get('/show/{faculty}',[FacultyController::class,'show'])->name('faculty-show');
+        Route::get('/destroy/{faculty}',[FacultyController::class,'destroy'])->name('faculty-delete');
+        Route::post('/update/{faculty}',[FacultyController::class,'update'])->name('faculty-update');
     });
     Route::prefix('/courses')->group(function(){
         Route::get('/list',[CourseController::class,'index'])->name('course-list');
         Route::post('/search',[CourseController::class,'index'])->name('course-search');
         Route::get('/add',[CourseController::class,'create'])->name('course-add');
         Route::post('/store',[CourseController::class,'store'])->name('course-store');
-        Route::get('/edit/{course?}',[CourseController::class,'edit'])->name('course-edit');
-        Route::get('/show/{course?}',[CourseController::class,'show'])->name('course-show');
-        Route::get('/destroy/{course?}',[CourseController::class,'destroy'])->name('course-delete');
-        Route::post('/update/{course?}',[CourseController::class,'update'])->name('course-update');
+        Route::get('/edit/{course}',[CourseController::class,'edit'])->name('course-edit');
+        Route::get('/show/{course}',[CourseController::class,'show'])->name('course-show');
+        Route::get('/destroy/{course}',[CourseController::class,'destroy'])->name('course-delete');
+        Route::post('/update/{course}',[CourseController::class,'update'])->name('course-update');
     });
     Route::prefix('/periodos')->group(function(){
         Route::get('/list',[PeriodoController::class,'index'])->name('periodo-list');
         Route::get('/add',[PeriodoController::class,'create'])->name('periodo-add');
         Route::post('/store',[PeriodoController::class,'store'])->name('periodo-store');
-        Route::get('/edit/{periodo?}',[PeriodoController::class,'edit'])->name('periodo-edit');
-        Route::post('/update/{periodo?}',[PeriodoController::class,'update'])->name('periodo-update');
-        Route::post('/destroy/{periodo?}',[PeriodoController::class,'destroy'])->name('periodo-delete');
+        Route::get('/edit/{periodo}',[PeriodoController::class,'edit'])->name('periodo-edit');
+        Route::post('/update/{periodo}',[PeriodoController::class,'update'])->name('periodo-update');
+        Route::post('/destroy/{periodo}',[PeriodoController::class,'destroy'])->name('periodo-delete');
     });
 });
 
