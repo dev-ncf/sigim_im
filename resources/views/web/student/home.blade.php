@@ -90,7 +90,7 @@
                 @method('PUT')
                 <div class="flex w-[40rem] flex-col gap-2 rounded-md bg-white" id="matricula">
 
-                    @if ($level->academic_level_id == '2')
+                    @if ($level->academic_level_id === 1)
                         <div class="flex h-12 items-center rounded-md bg-sky-200 px-4 text-sky-900">
                             <span class="text-2xl">Matrícula para Mestrados</span>
                         </div>
@@ -148,7 +148,7 @@
                         </div>
                     @else
                         <div class="flex h-12 items-center rounded-md bg-sky-200 px-4 text-sky-900">
-                            <span class="text-2xl">Matrícula para Doutoramento</span>
+                            <span class="text-2xl">Matrícula para Doutoramento {{$level->academic_level_id}}</span>
                         </div>
                         <div class="mb-2 flex w-full flex-col gap-2 border-2 p-2 px-4">
                             <span>Taxa de Matrícula</span>
