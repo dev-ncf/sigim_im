@@ -529,7 +529,7 @@
                     onclick="hideBackDivForm('div-form9', 'div-form8')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
-                <button class="btn-begin" type="button" onclick="subscribe()"
+                <button class="btn-begin" type="button" onclick="subscribe('div-form9')"
                     style="border: solid 1px blue; color:blue">
                     Submeter-inscrição
                 </button>
@@ -853,7 +853,7 @@
                 requiredInputs.forEach(input => {
                     if (!input.value.trim()) {
                         allFilled = false;
-                        input.style.border = '2px solid red'; // Destaca os campos vazios
+                        input.style.border = '1px solid red'; // Destaca os campos vazios
                     } else {
                         input.style.border = ''; // Remove o destaque se preenchido
                     }
