@@ -211,7 +211,7 @@
                 @if (session('success'))
                     <div id="success-alert" class="alert alert-success"
                         style="background-color: #00ff0021 ; padding: 2px;">
-                        <span style="font-size: 8pt;color: #008800"> {{ session('success') }}</span>
+                        <span style="font-size: 10pt;color: #008800"> {{ session('success') }}</span>
                     </div>
                 @endif
                 @if ($errors->any())
@@ -219,7 +219,7 @@
                         style="background-color: #ff000021 ; padding: 2px;">
                         <ul>
                             @foreach ($errors->all() as $error)
-                                <li><span style="font-size: 8pt;color: #880000">{{ $error }}</span></li>
+                                <li><span style="font-size: 10pt;color: #880000">{{ $error }}</span></li>
                             @endforeach
                         </ul>
                     </div>
@@ -397,7 +397,7 @@
             if (errorAlert) {
                 errorAlert.style.display = 'none';
             }
-        }, 5000);
+        }, 20000);
     </script>
     <style>
         #divTaxaPropina {
