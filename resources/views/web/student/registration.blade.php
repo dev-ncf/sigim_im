@@ -33,6 +33,7 @@
             <div class="form-group div-100">
                 <label for="">Nome Completo <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="text" name="name" id="name" value="" required>
+
             </div>
             <div class="form-group div-30">
                 <label for="">Local de estudo <span style="color: #ff0000">*</span></label>
@@ -497,32 +498,38 @@
                 <label for="">Anexar BI/DIRE <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-bi" accept=".pdf,.PDF" name="bi"
                     required />
+                <span class="error" style="color: #ff0000">Campo obrigatório!</span>
             </div>
             <div class="form-group div-50">
                 <label for="">Anexar Foto tamanho 4.5x3.5<span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-bi" accept=".png,.jpeg,.jpg,.JPG"
                     name="foto" required />
+                <span class="error" style="color: #ff0000">Campo obrigatório!</span>
             </div>
             <div class="form-group div-50">
                 <label for="">Anexar CV <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-nuit" accept=".pdf,.PDF" name="cv"
                     required />
+                <span class="error" style="color: #ff0000">Campo obrigatório!</span>
             </div>
             <div class="form-group div-50">
                 <label for="">Anexar Declaração de comprmisso assinada<span
                         style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-nuit" accept=".pdf,.PDF"
                     name="declaracao_compromisso" required />
+                <span class="error" style="color: #ff0000">Campo obrigatório!</span>
             </div>
             <div class="form-group div-50">
                 <label for="">Anexar Nuit <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-nuit" accept=".pdf,.PDF" name="nuit"
                     required />
+                <span class="error" style="color: #ff0000">Campo obrigatório!</span>
             </div>
             <div class="form-group div-50">
                 <label for="">Anexar Certificado <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-certificate" accept=".pdf,.PDF"
                     name="certificate" required />
+                <span class="error" style="color: #ff0000">Campo obrigatório!</span>
             </div>
             <div class="div-100" style="text-align: center;">
                 <button class="btn-prev" id="btn-show-form8" type="button" style="background-color: gray;"
@@ -573,27 +580,37 @@
             let allFilled = true;
 
             requiredInputs.forEach(input => {
+                let errorSpan = input.nextElementSibling; // Verifica se já existe uma <span> de erro
+
+                if (!errorSpan || !errorSpan.classList.contains('error-message')) {
+                    errorSpan = document.createElement('span');
+                    errorSpan.classList.add('error-message');
+                    errorSpan.style.color = 'red';
+                    errorSpan.style.fontSize = '12px';
+                    errorSpan.style.marginLeft = '5px';
+                    input.parentNode.appendChild(errorSpan);
+                }
+
                 if (input.type === 'radio') {
-                    // Verifica se pelo menos um radio do mesmo grupo (name) está marcado
                     let radios = document.querySelectorAll(`input[name="${input.name}"]`);
                     let checked = Array.from(radios).some(radio => radio.checked);
+                    let label = radios[0].closest('.form-group').querySelector('label'); // Obtém o label do grupo
 
                     if (!checked) {
                         allFilled = false;
-                        radios.forEach(radio => {
-                            radio.parentElement.style.color = 'red'; // Destaca a label se não preenchido
-                        });
+                        label.style.color = 'red';
                     } else {
-                        radios.forEach(radio => {
-                            radio.parentElement.style.color = ''; // Remove o destaque se preenchido
-                        });
+                        errorSpan.textContent = '';
+                        label.style.color = '';
                     }
                 } else {
                     if (!input.value.trim()) {
                         allFilled = false;
-                        input.style.border = '1px solid red'; // Destaca os campos vazios
+                        input.style.border = '1px solid red';
+                        errorSpan.textContent = 'Campo obrigatório';
                     } else {
-                        input.style.border = ''; // Remove o destaque se preenchido
+                        input.style.border = '';
+                        errorSpan.textContent = '';
                     }
                 }
             });
@@ -846,7 +863,9 @@
 
                 // Selecionar todos os inputs obrigatórios dentro da div a ser escondida
                 let requiredInputs = div_final.querySelectorAll(
-                    'input[required], select[required], textarea[required]');
+                    'input[required], select[required], textarea[required], .error');
+                let error = div_final.querySelectorAll('.error');
+                error.style.display = 'none'
 
                 let allFilled = true;
 
