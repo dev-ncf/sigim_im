@@ -839,11 +839,31 @@
                 });
             }
 
-            function subscribe() {
+            function subscribe(div) {
 
                 //Preloader
-                document.getElementById('preloader').style.display = 'flex';
-                document.getElementById('form-submit').submit();
+                let div_final = document.getElementById(div);
+
+                // Selecionar todos os inputs obrigatórios dentro da div a ser escondida
+                let requiredInputs = div_final.querySelectorAll(
+                    'input[required], select[required], textarea[required]');
+
+                let allFilled = true;
+
+                requiredInputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        allFilled = false;
+                        input.style.border = '2px solid red'; // Destaca os campos vazios
+                    } else {
+                        input.style.border = ''; // Remove o destaque se preenchido
+                    }
+                });
+
+                if (allFilled) {
+
+                    document.getElementById('preloader').style.display = 'flex';
+                    document.getElementById('form-submit').submit();
+                }
 
 
 
