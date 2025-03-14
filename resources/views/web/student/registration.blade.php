@@ -498,38 +498,38 @@
                 <label for="">Anexar BI/DIRE <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-bi" accept=".pdf,.PDF" name="bi"
                     required />
-                <span class="error" style="color: #ff0000">Campo obrigatório!</span>
+                
             </div>
             <div class="form-group div-50">
                 <label for="">Anexar Foto tamanho 4.5x3.5<span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-bi" accept=".png,.jpeg,.jpg,.JPG"
                     name="foto" required />
-                <span class="error" style="color: #ff0000">Campo obrigatório!</span>
+
             </div>
             <div class="form-group div-50">
                 <label for="">Anexar CV <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-nuit" accept=".pdf,.PDF" name="cv"
                     required />
-                <span class="error" style="color: #ff0000">Campo obrigatório!</span>
+
             </div>
             <div class="form-group div-50">
                 <label for="">Anexar Declaração de comprmisso assinada<span
                         style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-nuit" accept=".pdf,.PDF"
                     name="declaracao_compromisso" required />
-                <span class="error" style="color: #ff0000">Campo obrigatório!</span>
+
             </div>
             <div class="form-group div-50">
                 <label for="">Anexar Nuit <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-nuit" accept=".pdf,.PDF" name="nuit"
                     required />
-                <span class="error" style="color: #ff0000">Campo obrigatório!</span>
+
             </div>
             <div class="form-group div-50">
                 <label for="">Anexar Certificado <span style="color: #ff0000">*</span></label>
                 <input class="input-begin" type="file" id="student-file-certificate" accept=".pdf,.PDF"
                     name="certificate" required />
-                <span class="error" style="color: #ff0000">Campo obrigatório!</span>
+
             </div>
             <div class="div-100" style="text-align: center;">
                 <button class="btn-prev" id="btn-show-form8" type="button" style="background-color: gray;"
