@@ -424,6 +424,38 @@ class PrintController extends Controller
             }else{
                 if($enrollment->academic_level_id=='2'){
                     if($enrollment->taxa>1000){
+                        $propina="";
+                        if($enrollment->primeira_propina=='1'){
+
+                            $propina="
+
+                        <tr>
+                            <td>3</td>
+                            <td>Primeira propina mensal para estrangeiro</td>
+                            <td>10,000.00</td>
+
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Taxa de serviços semestrais</td>
+                            <td>1,750.00</td>
+
+                        </tr>
+                            ";
+
+                        }else{
+                               $propina="
+
+
+                        <tr>
+                            <td>3</td>
+                            <td>Taxa de serviços semestrais</td>
+                            <td>1,750.00</td>
+
+                        </tr>
+                            ";
+
+                        }
                     $str_itemsPre = $str_itemsPre."
 
                         <div style='margin-top: 5px;'>
@@ -446,18 +478,7 @@ class PrintController extends Controller
                                             <td>$valor_formatado.00</td>
 
                                         </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Primeira propina mensal para estrangeiro</td>
-                                            <td>10,000.00</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Taxa de serviços semestrais</td>
-                                            <td>1,750.00</td>
-
-                                        </tr>
+                                       $propina
 
                                         </table>
                                         <div style='margin-left: 453px;border: 1px solid; border-top:none; align-items:center; text-align: center; margin-bottom:20px;'>
@@ -476,6 +497,40 @@ class PrintController extends Controller
                     ";
 
                     }else{
+
+                         $propina='';
+                        if($enrollment->primeira_propina=='1'){
+
+                            $propina="
+
+                         <tr>
+                            <td>3</td>
+                            <td>Primeira propina mensal</td>
+                            <td>8,000.00</td>
+
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Taxa de serviços semestrais</td>
+                            <td>1,750.00</td>
+
+                        </tr>
+                            ";
+
+                        }else{
+                               $propina="
+
+
+
+                        <tr>
+                            <td>3</td>
+                            <td>Taxa de serviços semestrais</td>
+                            <td>1,750.00</td>
+
+                        </tr>
+                            ";
+
+                        }
 
                         $str_itemsPre = $str_itemsPre."
 
@@ -499,19 +554,9 @@ class PrintController extends Controller
                                                 <td>$valor_formatado.00</td>
 
                                             </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Primeira propina mensal</td>
-                                                <td>8,000.00</td>
+                                          <tr>
 
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Taxa de serviços semestrais</td>
-                                                <td>1,750.00</td>
-
-                                            </tr>
-
+                                            $propina
                                             </table>
                                             <div style='margin-left: 453px;border: 1px solid; border-top:none; align-items:center; text-align: center; margin-bottom:20px;'>
 
@@ -531,6 +576,40 @@ class PrintController extends Controller
 
                 }else{
                     if($enrollment->taxa>2150){
+
+                         $propina="";
+                        if($enrollment->primeira_propina=='1'){
+
+                            $propina="
+
+                         <tr>
+                            <td>3</td>
+                            <td>Primeira propina mensal</td>
+                            <td>19,000.00</td>
+
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Taxa de serviços semestrais</td>
+                            <td>4,000.00</td>
+
+                        </tr>
+                            ";
+
+                        }else{
+                               $propina="
+
+
+
+                        <tr>
+                            <td>3</td>
+                            <td>Taxa de serviços semestrais</td>
+                            <td>4,000.00</td>
+
+                        </tr>
+                            ";
+
+                        }
                         $str_itemsPre = $str_itemsPre."
 
                            <div style='margin-top: 5px;'>
@@ -553,18 +632,7 @@ class PrintController extends Controller
                                                <td>$valor_formatado.00</td>
 
                                            </tr>
-                                           <tr>
-                                               <td>3</td>
-                                               <td>Primeira propina mensal para estrangeiro</td>
-                                               <td>19,000.00</td>
-
-                                           </tr>
-                                           <tr>
-                                               <td>4</td>
-                                               <td>Taxa de serviços semestrais</td>
-                                               <td>4,000.00</td>
-
-                                           </tr>
+                                           $propina;
 
                                            </table>
                                            <div style='margin-left: 453px;border: 1px solid; border-top:none; align-items:center; text-align: center; margin-bottom:20px;'>
@@ -583,6 +651,39 @@ class PrintController extends Controller
                        ";
 
                     }else{
+                         $propina="";
+                        if($enrollment->primeira_propina=='1'){
+
+                            $propina="
+
+                         <tr>
+                            <td>3</td>
+                            <td>Primeira propina mensal</td>
+                            <td>15,000.00</td>
+
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Taxa de serviços semestrais</td>
+                            <td>4,000.00</td>
+
+                        </tr>
+                            ";
+
+                        }else{
+                               $propina="
+
+
+
+                        <tr>
+                            <td>3</td>
+                            <td>Taxa de serviços semestrais</td>
+                            <td>4,000.00</td>
+
+                        </tr>
+                            ";
+
+                        }
 
                         $str_itemsPre = $str_itemsPre."
 
@@ -606,18 +707,7 @@ class PrintController extends Controller
                                                <td>$valor_formatado.00</td>
 
                                            </tr>
-                                           <tr>
-                                               <td>3</td>
-                                               <td>Primeira propina mensal</td>
-                                               <td>15,000.00</td>
-
-                                           </tr>
-                                           <tr>
-                                               <td>4</td>
-                                               <td>Taxa de serviços semestrais</td>
-                                               <td>4,000.00</td>
-
-                                           </tr>
+                                           $propina
 
                                            </table>
                                            <div style='margin-left: 453px;border: 1px solid; border-top:none; align-items:center; text-align: center; margin-bottom:20px;'>

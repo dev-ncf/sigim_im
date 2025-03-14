@@ -19,7 +19,8 @@ class StudentEnrollment extends Model
         'enrollment_status',
         'numero_disciplinas',
         'taxa',
-        'valor'
+        'valor',
+        'primeira_propina'
     ];
 
     public function student()

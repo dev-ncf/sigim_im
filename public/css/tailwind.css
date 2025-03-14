@@ -1258,4 +1258,15 @@ video {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
   }
+  .border-s {
+    border-inline-start-width: 1px;
+}
+  .border-e {
+    border-inline-end-width: 1px;
+}
+.border-spacing-1 {
+    --tw-border-spacing-x: 0.25rem /* 4px */;
+    --tw-border-spacing-y: 0.25rem /* 4px */;
+    border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
+}
 }

@@ -71,7 +71,7 @@
                 </select>
             </div> --}}
             <div class="div-100" style="text-align: center;">
-                <button class="btn-next" id="btn-hide-form1" type="button" style="border: solid 1px blue; color:blue"
+                <button class="btn-next" id="btn-hide-form1" type="submit" style="border: solid 1px blue; color:blue"
                     onclick="hideDivForm('div-form1', 'div-form2')">
                     Próximo <i class="bi bi-chevron-double-right"></i>
                 </button>
@@ -123,10 +123,10 @@
             </div>
             <div class="div-100" style="text-align: center;">
                 <button class="btn-prev" id="btn-show-form1" type="button" style="background-color: gray;"
-                    onclick="hideDivForm('div-form2', 'div-form1')">
+                    onclick="hideBackDivForm('div-form2', 'div-form1')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
-                <button class="btn-next" id="btn-hide-form2" type="button" style="border: solid 1px blue; color:blue"
+                <button class="btn-next" id="btn-hide-form2" type="submit" style="border: solid 1px blue; color:blue"
                     onclick="hideDivForm('div-form2', 'div-form3')">
                     Próximo <i class="bi bi-chevron-double-right"></i>
                 </button>
@@ -218,10 +218,10 @@
             </div>
             <div class="div-100" style="text-align: center;">
                 <button class="btn-prev" id="btn-show-form2" type="button" style="background-color: gray;"
-                    onclick="hideDivForm('div-form3', 'div-form2')">
+                    onclick="hideBackDivForm('div-form3', 'div-form2')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
-                <button class="btn-next" id="btn-hide-form3" type="button" style="border: solid 1px blue; color:blue"
+                <button class="btn-next" id="btn-hide-form3" type="submit" style="border: solid 1px blue; color:blue"
                     onclick="hideDivForm('div-form3', 'div-form4')">
                     Próximo <i class="bi bi-chevron-double-right"></i>
                 </button>
@@ -288,10 +288,10 @@
             </div>
             <div class="div-100" style="text-align: center;">
                 <button class="btn-prev" id="btn-show-form3" type="button" style="background-color: gray;"
-                    onclick="hideDivForm('div-form4', 'div-form3')">
+                    onclick="hideBackDivForm('div-form4', 'div-form3')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
-                <button class="btn-next" id="btn-hide-form4" type="button" style="border: solid 1px blue; color:blue"
+                <button class="btn-next" id="btn-hide-form4" type="submit" style="border: solid 1px blue; color:blue"
                     onclick="hideDivForm('div-form4', 'div-form5')">
                     Próximo <i class="bi bi-chevron-double-right"></i>
                 </button>
@@ -336,7 +336,7 @@
             </div>
             <div class="div-100" style="text-align: center;">
                 <button class="btn-prev" id="btn-show-form4" type="button" style="background-color: gray;"
-                    onclick="hideDivForm('div-form5', 'div-form4')">
+                    onclick="hideBackDivForm('div-form5', 'div-form4')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
                 <button class="btn-next" id="btn-hide-form5" type="button" style="border: solid 1px blue; color:blue"
@@ -372,10 +372,10 @@
             </div>
             <div class="div-100" style="text-align: center;">
                 <button class="btn-prev" id="btn-show-form5" type="button" style="background-color: gray;"
-                    onclick="hideDivForm('div-form6', 'div-form5')">
+                    onclick="hideBackDivForm('div-form6', 'div-form5')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
-                <button class="btn-next" id="btn-hide-form6" type="button" style="border: solid 1px blue; color:blue"
+                <button class="btn-next" id="btn-hide-form6" type="submit" style="border: solid 1px blue; color:blue"
                     onclick="hideDivForm('div-form6', 'div-form7')">
                     Próximo <i class="bi bi-chevron-double-right"></i>
                 </button>
@@ -414,10 +414,10 @@
             </div>
             <div class="div-100" style="text-align: center;">
                 <button class="btn-prev" id="btn-show-form6" type="button" style="background-color: gray;"
-                    onclick="hideDivForm('div-form7', 'div-form6')">
+                    onclick="hideBackDivForm('div-form7', 'div-form6')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
-                <button class="btn-next" id="btn-hide-form7" type="button" style="border: solid 1px blue; color:blue"
+                <button class="btn-next" id="btn-hide-form7" type="submit" style="border: solid 1px blue; color:blue"
                     onclick="hideDivForm('div-form7', 'div-form8')">
                     Próximo <i class="bi bi-chevron-double-right"></i>
                 </button>
@@ -472,10 +472,10 @@
             </div>
             <div class="div-100" style="text-align: center;">
                 <button class="btn-prev" id="btn-show-form7" type="button" style="background-color: gray;"
-                    onclick="hideDivForm('div-form8', 'div-form7')">
+                    onclick="hideBackDivForm('div-form8', 'div-form7')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
-                <button class="btn-next" id="btn-hide-form8" type="button" style="border: solid 1px blue; color:blue"
+                <button class="btn-next" id="btn-hide-form8" type="submit" style="border: solid 1px blue; color:blue"
                     onclick="hideDivForm('div-form8', 'div-form9')">
                     Próximo <i class="bi bi-chevron-double-right"></i>
                 </button>
@@ -526,7 +526,7 @@
             </div>
             <div class="div-100" style="text-align: center;">
                 <button class="btn-prev" id="btn-show-form8" type="button" style="background-color: gray;"
-                    onclick="hideDivForm('div-form9', 'div-form8')">
+                    onclick="hideBackDivForm('div-form9', 'div-form8')">
                     <i class="bi bi-chevron-double-left"></i> Anterior
                 </button>
                 <button class="btn-begin" type="button" onclick="subscribe()"
@@ -565,10 +565,51 @@
         function hideDivForm(hide, show) {
             let form_hide = document.getElementById(hide);
             let form_show = document.getElementById(show);
+            let form_submit = document.getElementById('form-submit');
 
-            form_hide.style.display = 'none';
-            form_show.style.display = 'flex';
+            // Selecionar todos os inputs obrigatórios dentro da div a ser escondida
+            let requiredInputs = form_hide.querySelectorAll('input[required], select[required], textarea[required]');
+
+            let allFilled = true;
+
+            requiredInputs.forEach(input => {
+                if (input.type === 'radio') {
+                    // Verifica se pelo menos um radio do mesmo grupo (name) está marcado
+                    let radios = document.querySelectorAll(`input[name="${input.name}"]`);
+                    let checked = Array.from(radios).some(radio => radio.checked);
+
+                    if (!checked) {
+                        allFilled = false;
+                        radios.forEach(radio => {
+                            radio.parentElement.style.color = 'red'; // Destaca a label se não preenchido
+                        });
+                    } else {
+                        radios.forEach(radio => {
+                            radio.parentElement.style.color = ''; // Remove o destaque se preenchido
+                        });
+                    }
+                } else {
+                    if (!input.value.trim()) {
+                        allFilled = false;
+                        input.style.border = '1px solid red'; // Destaca os campos vazios
+                    } else {
+                        input.style.border = ''; // Remove o destaque se preenchido
+                    }
+                }
+            });
+
+            if (allFilled) {
+                form_hide.style.display = 'none';
+                form_show.style.display = 'flex';
+            }
+
+            // Evita o envio do formulário
+            form_submit.addEventListener('submit', (event) => {
+                event.preventDefault();
+            });
         }
+
+
 
 
         //Validando o prencimento do formulario

@@ -59,7 +59,7 @@
                     <div class="mb-2 flex w-full flex-col gap-2 border-2 p-2 px-4">
                         <span>Serviços</span>
                         <select name="taxa" id="taxa"
-                            class="h-8 w-full rounded-md border-2 border-blue-400 outline-none"
+                            class="h-8 w-full rounded-md border border-e border-blue-400 outline-none"
                             title="Selecione um serviço. Por favor!" required>
                             <option value="">Selecione um serviço...</option>
 
@@ -68,13 +68,13 @@
                             </option>
                         </select>
                     </div>
-                    <div class="mb-2 flex w-full flex-col gap-2 border-2 p-2 px-4">
+                    <div class="mb-2 flex w-full flex-col gap-2 border p-2 px-4">
                         <span>Número de displinas</span>
                         <input type="number" name="number"
-                            class="h-8 w-full rounded-md border-2 border-blue-400 px-2 outline-none" min="1"
+                            class="h-8 w-full rounded-md border border-blue-400 px-2 outline-none" min="1"
                             placeholder="Digite um número..." max="9" required>
                     </div>
-                    <div class="mb-2 flex w-full flex-row justify-between gap-2 border-2 p-2 px-4">
+                    <div class="mb-2 flex w-full flex-row justify-between gap-2 border p-2 px-4">
                         <button id="enrollmentCancel" type="button"
                             class="rounded-md bg-red-700 px-4 text-xl text-white hover:bg-opacity-50">Cancel</button>
                         <button type="submit"
@@ -90,120 +90,69 @@
                 @method('PUT')
                 <div class="flex w-[40rem] flex-col gap-2 rounded-md bg-white" id="matricula">
 
-                    @if ($level->academic_level_id === 1)
-                        <div class="flex h-12 items-center rounded-md bg-sky-200 px-4 text-sky-900">
-                            <span class="text-2xl">Matrícula para Mestrados</span>
-                        </div>
-                        <div class="mb-2 flex w-full flex-col gap-2 border-2 p-2 px-4">
-                            <span>Taxa de Matrícula</span>
-                            <select name="taxa_matricula" id="taxa"
-                                class="h-8 w-full rounded-md border-2 border-blue-400 outline-none"
-                                title="Selecione um serviço. Por favor!" required>
-                                <option value="">Selecione um taxa...</option>
-                                <option value="4850">Estudantes Nacionais</option>
-                                <option value="7700">Estudantes Estrangeiros</option>
-                            </select>
-                        </div>
-                        <div class="mb-2 flex w-full flex-col gap-2 border-2 p-2 px-4">
-                            <span>Taxa de Inscrição semestral por módulo/disciplina</span>
-                            <select name="taxa_inscricao_disciplina" id="taxa"
-                                class="h-8 w-full rounded-md border-2 border-blue-400 outline-none"
-                                title="Selecione um serviço. Por favor!" required>
-                                <option value="">Selecione um taxa...</option>
-                                <option value="1000">Inscrição semestral por módulo/disciplina para estudantes nacionais
-                                </option>
-                                <option value="1200">Inscrição semestral por módulo/disciplina para estudantes
-                                    estrangeiros</option>
 
-                            </select>
-                        </div>
-                        <div class="mb-2 flex w-full flex-col gap-2 border-2 p-2 px-4">
-                            <span>Numero de disciplinas</span>
-                            <input name="numero_disciplinas" id="taxa" type="number"
-                                class="h-8 w-full rounded-md border-2 border-blue-400 outline-none"
-                                placeholder="Digite o numero de dis. Por favor!" min="5" max="9" required>
-                        </div>
-                        <div class="mb-2 flex w-full flex-col gap-2 border-2 p-2 px-4">
-                            <span>Propina Mensal</span>
-                            <select name="primeira_propina_mensal" id="taxa"
-                                class="h-8 w-full rounded-md border-2 border-blue-400 outline-none"
-                                title="Selecione um serviço. Por favor!" required>
-                                <option value="">Selecione um taxa...</option>
-                                <option value="8000">Propina mensal para estudantes nacionais
-                                </option>
-                                <option value="10000">Propina Mensal para estudantes
-                                    estrangeiros</option>
+                    <div class="flex h-12 items-center rounded-md bg-sky-200 px-4 text-sky-900">
+                        <span class="text-2xl">Matrícula para
+                            {{ $level->academic_level_id === 1 ? 'Mestrados' : 'Doutoramento' }}</span>
+                    </div>
+                    <div class="mb-2 flex w-full flex-col gap-2  p-1 px-4">
+                        <span id="labelTaxaM">Taxa de Matrícula <span style="color:#ff0000">*</span></span>
+                        <select name="taxa_matricula" id="taxaM"
+                            class="h-8 w-full rounded-md border border-blue-400 outline-none"
+                            title="Selecione um serviço. Por favor!" required>
+                            <option value="" disabled selected>Selecione um taxa...</option>
+                            <option value="{{ $level->academic_level_id === 1 ? 4850 : 10000 }}">Estudantes Nacionais
+                            </option>
+                            <option value="{{ $level->academic_level_id === 1 ? 7700 : 15000 }}">Estudantes Estrangeiros
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-2 flex w-full flex-col gap-2  p-1 px-4">
+                        <span id="labelTaxaI">Taxa de Inscrição semestral por módulo/disciplina <span
+                                style="color:#ff0000">*</span></span>
+                        <select name="taxa_inscricao_disciplina" id="taxaI"
+                            class="h-8 w-full rounded-md border border-blue-400 outline-none"
+                            title="Selecione um serviço. Por favor!" required>
+                            <option value="" selected disabled>Selecione um taxa...</option>
+                            <option value="{{ $level->academic_level_id === 1 ? 1000 : 2150 }}">Nacionais</option>
+                            <option value="{{ $level->academic_level_id === 1 ? 1200 : 2650 }}">Estrangeiros</option>
 
-                            </select>
-                        </div>
-                        <div class="mb-2 flex w-full flex-col gap-2 border-2 p-2 px-4">
-                            <span>Taxa de Serviços Semestrais</span>
-                            <select name="taxa_servico_semestrais" id="taxa"
-                                class="h-8 w-full rounded-md border-2 border-blue-400 outline-none"
-                                title="Selecione um serviço. Por favor!" required>
-                                <option value="1750">Taxa de Serviços Semestrais
-                                </option>
+                        </select>
+                    </div>
+                    <div class="mb-2 flex w-full flex-col gap-2  p-1 px-4">
+                        <span>Numero de disciplinas <span style="color:#ff0000">*</span></span>
+                        <input name="numero_disciplinas" id="numeroD" type="number"
+                            class="h-8 w-full rounded-md border border-blue-400 outline-none"
+                            placeholder="Digite o numero de dis. Por favor!" min="5" max="9" required>
+                    </div>
 
-                            </select>
-                        </div>
-                    @else
-                        <div class="flex h-12 items-center rounded-md bg-sky-200 px-4 text-sky-900">
-                            <span class="text-2xl">Matrícula para Doutoramento {{$level->academic_level_id}}</span>
-                        </div>
-                        <div class="mb-2 flex w-full flex-col gap-2 border-2 p-2 px-4">
-                            <span>Taxa de Matrícula</span>
-                            <select name="taxa_matricula" id="taxa"
-                                class="h-8 w-full rounded-md border-2 border-blue-400 outline-none"
-                                title="Selecione um serviço. Por favor!" required>
-                                <option value="">Selecione um taxa...</option>
-                                <option value="10000">Estudantes Nacionais</option>
-                                <option value="15000">Estudantes Estrangeiros</option>
-                            </select>
-                        </div>
-                        <div class="mb-2 flex w-full flex-col gap-2 border-2 p-2 px-4">
-                            <span>Taxa de Inscrição semestral por módulo/disciplina</span>
-                            <select name="taxa_inscricao_disciplina" id="taxa"
-                                class="h-8 w-full rounded-md border-2 border-blue-400 outline-none"
-                                title="Selecione um serviço. Por favor!" required>
-                                <option value="">Selecione um taxa...</option>
-                                <option value="2150">Inscrição semestral por módulo/disciplina para estudantes nacionais
-                                </option>
-                                <option value="2650">Inscrição semestral por módulo/disciplina para estudantes
-                                    estrangeiros</option>
+                    <div class="mb-2 flex w-full fex-row  items-center gap-2 p-1 px-4">
+                        <input name="incluir_propina" id="include" type="checkbox" class="h-8">
 
-                            </select>
-                        </div>
-                        <div class="mb-2 flex w-full flex-col gap-2 border-2 p-2 px-4">
-                            <span>Numero de disciplinas</span>
-                            <input name="numero_disciplinas" id="taxa" type="number"
-                                class="h-8 w-full rounded-md border-2 border-blue-400 outline-none p-2"
-                                placeholder="Digite o numero de dis. Por favor!" min="5" max="9" required>
-                        </div>
-                        <div class="mb-2 flex w-full flex-col gap-2 border-2 p-2 px-4">
-                            <span>Incluir Primeira Propina Mensal (opcional)</span>
-                            <select name="primeira_propina_mensal" id="taxa"
-                                class="h-8 w-full rounded-md border-2 border-blue-400 outline-none"
-                                title="Selecione um serviço. Por favor!" required>
-                                <option value="">Selecione um taxa...</option>
-                                <option value="15000">Propina mensal para estudantes nacionais
-                                </option>
-                                <option value="19000">Propina Mensal para estudantes
-                                    estrangeiros</option>
+                        <span>Incluir Primeira Propina Mensal <span style="color: gray">(Opcional)</span></span>
+                    </div>
+                    <div class="mb-2  w-full flex-col gap-2 p-1 px-4 hidden" id="divTaxaPropina">
+                        <span id="labelTaxaP">Propina Mensal <span style="color:#ff0000">*</span></span>
+                        <select name="primeira_propina_mensal" id="taxaP"
+                            class="h-8 w-full rounded-md border border-blue-400 outline-none"
+                            title="Selecione um serviço. Por favor!">
+                            <option value="" disabled selected>Selecione um taxa...</option>
+                            <option value="{{ $level->academic_level_id === 1 ? 8000 : 15000 }}">Nacionais</option>
+                            <option value="{{ $level->academic_level_id === 1 ? 10000 : 19000 }}">Estrangeiros</option>
 
-                            </select>
-                        </div>
-                        <div class="mb-2 flex w-full flex-col gap-2 border-2 p-2 px-4">
-                            <span>Taxa de Serviços Semestrais</span>
-                            <select name="taxa_servico_semestrais" id="taxa"
-                                class="h-8 w-full rounded-md border-2 border-blue-400 outline-none"
-                                title="Selecione um serviço. Por favor!" required>
-                                <option value="4000">Taxa de Serviços Semestrais
-                                </option>
+                        </select>
+                    </div>
+                    <div class="mb-2 flex w-full flex-col gap-2  p-1 px-4">
+                        <span id="labelTaxaS">Taxa de Serviços Semestrais</span>
+                        <select name="taxa_servico_semestrais" id="taxaS"
+                            class="h-8 w-full rounded-md border border-blue-400 outline-none"
+                            title="Selecione um serviço. Por favor!" required>
+                            <option value="{{ $level->academic_level_id === 1 ? 1750 : 4000 }}">Valor fixo</option>
 
-                            </select>
-                        </div>
-                    @endif
-                    <div class="mb-2 flex w-full flex-row justify-between gap-2 border-2 p-2 px-4">
+                        </select>
+                    </div>
+
+                    <div class="mb-2 flex w-full flex-row justify-between gap-2  p-1 px-4">
                         <button id="matriculaCancel" type="button"
                             class="rounded-md bg-red-700 px-4 text-xl text-white hover:bg-opacity-50">Cancel</button>
                         <button type="submit"
@@ -339,6 +288,66 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
 
+            var taxaIncricao = document.getElementById('taxaI');
+            var taxaMatricula = document.getElementById('taxaM');
+            var taxaServico = document.getElementById('taxaS');
+            var propinaMensal = document.getElementById('taxaP');
+            var labelTaxaM = document.getElementById('labelTaxaM');
+            var labelTaxaI = document.getElementById('labelTaxaI');
+            var labelTaxaP = document.getElementById('labelTaxaP');
+            var labelTaxaS = document.getElementById('labelTaxaS');
+            var numeroD = document.getElementById('numeroD');
+            var include = document.getElementById('include');
+
+            taxaMatricula.addEventListener('change', () => {
+                labelTaxaM.innerHTML = 'Taxa de Matrícula = ' + taxaMatricula.value + ' Mts'
+            })
+            taxaIncricao.addEventListener('change', () => {
+                if (numeroD.value > 0) {
+
+                    labelTaxaI.innerHTML = 'Taxa de Inscrição semestral por módulo/disciplina = ' +
+                        taxaIncricao
+                        .value * numeroD.value + ' Mts'
+                } else {
+                    labelTaxaI.innerHTML = 'Taxa de Inscrição semestral por módulo/disciplina = ' +
+                        taxaIncricao
+                        .value + ' Mts'
+
+                }
+            })
+            numeroD.addEventListener('input', () => {
+                if (numeroD.value > 0) {
+
+                    labelTaxaI.innerHTML = 'Taxa de Inscrição semestral por módulo/disciplina = ' +
+                        taxaIncricao
+                        .value * numeroD.value + ' Mts'
+                } else {
+                    labelTaxaI.innerHTML = 'Taxa de Inscrição semestral por módulo/disciplina = ' +
+                        taxaIncricao
+                        .value + ' Mts'
+
+                }
+            })
+            include.addEventListener('change', function() {
+                var divTaxaPropina = document.getElementById('divTaxaPropina');
+                if (this.checked) {
+                    divTaxaPropina.style.display = 'flex';
+                    divTaxaPropina.style.maxHeight = divTaxaPropina.scrollHeight + "px";
+                    divTaxaPropina.style.opacity = "1";
+                    propinaMensal.setAttribute('required', 'true');
+                } else {
+                    divTaxaPropina.style.maxHeight = "0";
+                    divTaxaPropina.style.opacity = "0";
+                    propinaMensal.removeAttribute('required');
+                }
+            });
+            propinaMensal.addEventListener('change', () => {
+                labelTaxaP.innerHTML = 'Primeira Propina Mensal = ' + propinaMensal.value + ' Mts'
+            })
+
+            labelTaxaS.innerHTML = 'Taxa de Serviços Semestrais = ' + taxaServico.value + ' Mts'
+
+
             if (document.getElementById('novaInscricaoLink')) {
                 // Adicionar o listener de clique apenas se o botão existir
                 document.getElementById('novaInscricaoLink').addEventListener('click', function(event) {
@@ -390,4 +399,12 @@
             }
         }, 5000);
     </script>
+    <style>
+        #divTaxaPropina {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
+    </style>
 @endsection

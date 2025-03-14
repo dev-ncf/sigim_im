@@ -125,9 +125,17 @@ class EnrollmentController extends Controller
             'taxa_inscricao_disciplina'=>'required|numeric|min:1000|max:2650',
             'numero_disciplinas'=>'required|numeric|min:5|max:9',
             'primeira_propina_mensal'=>'nullable|numeric|min:8000|max:19000',
-            'taxa_servico_semestrais'=>'required|numeric|min:1750|max:4000'
+            'taxa_servico_semestrais'=>'required|numeric|min:1750|max:4000',
+            'incluir_propina'=>'nullable|in:on,off',
+
         ]);
-        $primeiraPropina= $validatedDatas['primeira_propina_mensal']!=null?$validatedDatas['primeira_propina_mensal']:0;
+        $primeiraPropina=0;
+        $incluirPropina=0;
+        if($request->has('incluir_propina')){
+
+            $incluirPropina= '1';
+            $primeiraPropina= $validatedDatas['primeira_propina_mensal']!=null?$validatedDatas['primeira_propina_mensal']:0;
+        }
 
         $semestre = 1;
         $numeroDisciplinas=$validatedDatas['numero_disciplinas'];
@@ -142,7 +150,8 @@ class EnrollmentController extends Controller
                 'numero_disciplinas' => $numeroDisciplinas,
                 'valor' => $valor,
                 'taxa' => $taxa,
-                'enrollment_status'=>'1'
+                'enrollment_status'=>'1',
+                'primeira_propina'=>$incluirPropina
             ]);
             // dd($enrollment);
             DB::commit();
