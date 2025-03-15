@@ -123,7 +123,7 @@
                         <span>Numero de disciplinas <span style="color:#ff0000">*</span></span>
                         <input name="numero_disciplinas" id="numeroD" type="number"
                             class="h-8 w-full rounded-md border border-blue-400 outline-none"
-                            placeholder="Digite o numero de dis. Por favor!" min="5" max="9" required>
+                            placeholder="Digite o numero de dis. Por favor!" min="4" max="12" required>
                     </div>
 
                     <div class="mb-2 flex w-full fex-row  items-center gap-2 p-1 px-4">

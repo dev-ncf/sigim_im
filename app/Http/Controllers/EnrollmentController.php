@@ -123,7 +123,7 @@ class EnrollmentController extends Controller
         $validatedDatas=$request->validate([
             'taxa_matricula'=>'required|numeric|min:4850|max:15000',
             'taxa_inscricao_disciplina'=>'required|numeric|min:1000|max:2650',
-            'numero_disciplinas'=>'required|numeric|min:5|max:9',
+            'numero_disciplinas'=>'required|numeric|min:4|max:12',
             'primeira_propina_mensal'=>'nullable|numeric|min:8000|max:19000',
             'taxa_servico_semestrais'=>'required|numeric|min:1750|max:4000',
             'incluir_propina'=>'nullable|in:on,off',
