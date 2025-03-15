@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\Course;
 use App\Models\Gender;
 use App\Models\Manager;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -126,7 +127,9 @@ class StudentController extends Controller
         DB::beginTransaction();
         try {
             //code...
+            $user = User::find($student->user_id);
             $student->delete();
+            $user->delete();
             DB::commit();
             return redirect()->route('student-list')->with(['success'=>'Estudante excluido com sucesso!']);
         } catch (Throwable $th) {
