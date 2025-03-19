@@ -16,95 +16,95 @@ class PrintController extends Controller
     public function receiptPayment($number)
     {
         function obterNomeMes($semestre) {
-    switch ($semestre) {
-        case 1:
-            return 'Janeiro';
-        case 2:
-            return 'Fevereiro';
-        case 3:
-            return 'Março';
-        case 4:
-            return 'Abril';
-        case 5:
-            return 'Maio';
-        case 6:
-            return 'Junho';
-        case 7:
-            return 'Julho';
-        case 8:
-            return 'Agosto';
-        case 9:
-            return 'Setembro';
-        case 10:
-            return 'Outubro';
-        case 11:
-            return 'Novembro';
-        case 12:
-            return 'Dezembro';
-        default:
-            return 'Mês Inválido';
-    }
-}
-        $movement = MovementStudent::with(['payment', 'items', 'student'])->where('code', '=', $number)->first();
-
-        $payment = $movement->payment;
-        $items = $movement->items;
-
-        $student = Student::find($movement->student_id);
-        $enrollment = $student->studentEnrollment;
-        // dd($student);
-        foreach ($student->studentEnrollment as $enrollment) {
-            # code...
-            $course = $enrollment->course->label;
+                    switch ($semestre) {
+                    case 1:
+                        return 'Janeiro';
+                    case 2:
+                        return 'Fevereiro';
+                    case 3:
+                        return 'Março';
+                    case 4:
+                        return 'Abril';
+                    case 5:
+                        return 'Maio';
+                    case 6:
+                        return 'Junho';
+                    case 7:
+                        return 'Julho';
+                    case 8:
+                        return 'Agosto';
+                    case 9:
+                        return 'Setembro';
+                    case 10:
+                        return 'Outubro';
+                    case 11:
+                        return 'Novembro';
+                    case 12:
+                        return 'Dezembro';
+                    default:
+                        return 'Mês Inválido';
+                }
         }
-        // dd($course);
+                $movement = MovementStudent::with(['payment', 'items', 'student'])->where('code', '=', $number)->first();
 
-        $total = number_format($movement->total_amount, 2, '.', ',');
+                $payment = $movement->payment;
+                $items = $movement->items;
 
-        $e = new Extenso();
+                $student = Student::find($movement->student_id);
+                $enrollment = $student->studentEnrollment;
+                // dd($student);
+                foreach ($student->studentEnrollment as $enrollment) {
+                    # code...
+                    $course = $enrollment->course->label;
+                }
+                // dd($course);
 
-        $e = str_replace(['real', 'reais'], ['metical', 'meticais'], $e->extenso($movement->total_amount));
+                $total = number_format($movement->total_amount, 2, '.', ',');
 
-        $manager = auth()->user()->first_name.' '. auth()->user()->last_name;
-        $date = date('Y-m-d H:i:s');
-        $mes= obterNomeMes($movement->month);
-        $str_items = '';
+                $e = new Extenso();
 
-        $order = 0;
-        foreach ($items as $item) {
-    $amount = number_format($item->amount, 2, '.', ',');
+                $e = str_replace(['real', 'reais'], ['metical', 'meticais'], $e->extenso($movement->total_amount));
+
+                $manager = auth()->user()->first_name.' '. auth()->user()->last_name;
+                $date = date('Y-m-d H:i:s');
+                $mes= obterNomeMes($movement->month);
+                $str_items = '';
+
+                $order = 0;
+                foreach ($items as $item) {
+                    $amount = number_format($item->amount, 2, '.', ',');
 
 
 
-    // Verifica se o item não é a taxa de matrícula
-    if($movement->semestre>1){
+                    // Verifica se o item não é a taxa de matrícula
+                    if($movement->semestre>1){
 
-        if ($item->description !== 'Taxa de Matrícula (Nacional)' && $item->description !== 'Taxa de Matrícula (Estrangeiro)') {
-            $order = $order + 1;
-            $str_items = $str_items . "
-                <tr>
-                    <td>$order</td>
-                    <td>$item->description</td>
-                    <td>
-                        $amount
-                    </td>
-                </tr>
-            ";
-        }
-    }else{
-        $order = $order + 1;
-         $str_items = $str_items . "
-                <tr>
-                    <td>$order</td>
-                    <td>$item->description</td>
-                    <td>
-                        $amount
-                    </td>
-                </tr>
-            ";
+                        if ($item->description !== 'Taxa de Matrícula (Nacional)' && $item->description !== 'Taxa de Matrícula (Estrangeiro)') {
+                            $order = $order + 1;
+                            $str_items = $str_items . "
+                                <tr>
+                                    <td>$order</td>
+                                    <td>$item->description</td>
+                                    <td>
+                                        $amount
+                                    </td>
+                                </tr>
+                            ";
+                        }
+                    }else{
+                        $order = $order + 1;
+                        $str_items = $str_items . "
+                                <tr>
+                                    <td>$order</td>
+                                    <td>$item->description</td>
+                                    <td>
+                                        $amount
+                                    </td>
+                                </tr>
+                            ";
 
-    }
-}
+                    }
+                }
 
 
         $str = <<<TEXT
@@ -333,7 +333,7 @@ class PrintController extends Controller
         $pdf->loadHtml($data);
         $pdf->setPaper('A4');
         $pdf->render();
-        $pdf->stream();
+        $pdf->stream("Comprovativo-".$student->first_name." ".$student->last_name.".pdf", ["Attachment" => true]);
     }
 
     //A funcao que executa a impressao dos recibos
@@ -358,7 +358,7 @@ class PrintController extends Controller
             $pdf->loadHtml($data);
             $pdf->setPaper('A4');
             $pdf->render();
-            $pdf->stream();
+            $pdf->stream("Comprovativo-".$student_data->first_name." ".$student_data->last_name.".pdf", ["Attachment" => true]);
         }
     }
 

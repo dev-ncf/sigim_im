@@ -96,6 +96,7 @@ class MovementStudentController extends Controller
         try {
             //code...
             $movementStudent->update($dados);
+            DB::commit();
             return back()->with(['success'=>'Propina actualizada com sucesso!']);
         } catch (Throwable $th) {
             //throw $th;
@@ -114,7 +115,10 @@ class MovementStudentController extends Controller
          DB::beginTransaction();
         try {
             //code...
+
             $movementStudent->delete();
+            // dd($movementStudent);
+            DB::commit();
             return back()->with(['success'=>'Propina excluida com sucesso!']);
         } catch (Throwable $th) {
             //throw $th;

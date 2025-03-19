@@ -81,7 +81,7 @@
                         <a class="dropdown-item" href="{{ route('user-show') }}">Meu Perfil</a>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class="dropdown-item">Logout</button>
+                            <button type="submit" class="dropdown-item">Sair</button>
                         </form>
                     </div>
                 </li>

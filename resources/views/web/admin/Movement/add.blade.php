@@ -76,10 +76,10 @@
                                     <select id="taxa" class="form-control select" name="taxa_matricula">
                                         <option value="" selected>Selecione o Serviço</option>
 
-                                        <option value="{{ $enrollment->academic_level_id == '1' ? '4850' : '10000' }}">Taxa
+                                        <option value="{{ $enrollment->academic_level_id == '2' ? '4850' : '10000' }}">Taxa
                                             de
                                             Matrícula (Nacional)</option>
-                                        <option value="{{ $enrollment->academic_level_id == '1' ? '7700' : '15000' }}">Taxa
+                                        <option value="{{ $enrollment->academic_level_id == '2' ? '7700' : '15000' }}">Taxa
                                             de
                                             Matrícula (Estrangeiro)</option>
                                     </select>
@@ -97,10 +97,10 @@
                                         <option value="" selected>Selecione o Serviço</option>
 
 
-                                        <option value="{{ $enrollment->academic_level_id == '1' ? '1000' : '2150' }}">Taxa
+                                        <option value="{{ $enrollment->academic_level_id == '2' ? '1000' : '2150' }}">Taxa
                                             de
                                             inscrição por disciplina (Nacional)
-                                        <option value="{{ $enrollment->academic_level_id == '1' ? '1200' : '2650' }}">Taxa
+                                        <option value="{{ $enrollment->academic_level_id == '2' ? '1200' : '2650' }}">Taxa
                                             de
                                             inscrição por disciplina (Estrangeiro)
                                         </option>
@@ -129,10 +129,10 @@
                                     <select id="taxa" class="form-control select" name="propina_mensal">
                                         <option value="" selected>Selecione o Serviço</option>
 
-                                        <option value="{{ $enrollment->academic_level_id == '1' ? '8000' : '15000' }}">Taxa
+                                        <option value="{{ $enrollment->academic_level_id == '2' ? '8000' : '15000' }}">Taxa
                                             de
                                             Propinas (Mensalidade para nacional)</option>
-                                        <option value="{{ $enrollment->academic_level_id == '1' ? '10000' : '19000' }}">
+                                        <option value="{{ $enrollment->academic_level_id == '2' ? '10000' : '19000' }}">
                                             Taxa de
                                             Propinas (Mensalidade para estrangeiro)</option>
 
@@ -151,7 +151,7 @@
                                     <select id="taxa" class="form-control select" name="taxa_servicos_semestrais">
                                         <option value="" selected>Selecione o Serviço</option>
 
-                                        <option value="{{ $enrollment->academic_level_id == '1' ? '1750' : '4000' }}">Taxa
+                                        <option value="{{ $enrollment->academic_level_id == '2' ? '1750' : '4000' }}">Taxa
                                             de
                                             Serviços Semestrais</option>
 

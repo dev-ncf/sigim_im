@@ -57,12 +57,13 @@ class EnrollmentController extends Controller
 
             $query->where('extension_id','=',$dadosUsuario->extension_id);
         }
-       $query->with('studentEnrollment');
-       $query->orderBy('id','desc');
-        $enrollments = $query->get();
-        $students = $query->get();
+            $enrollments = $query->with('studentEnrollment')
+            ->orderBy('id', 'desc') // Pega os últimos registros com base no ID
+            ->get();
+
+        // dd($enrollments);
         $cursos = Course::all();
-      return view('web.admin.Enrolment.list', compact('enrollments','dadosUsuario','cursos','students'));
+      return view('web.admin.Enrolment.list', compact('enrollments','dadosUsuario','cursos'));
       }else{
             return redirect()->route('login');
         }
@@ -199,7 +200,9 @@ class EnrollmentController extends Controller
         //
         DB::beginTransaction();
         try {
+            // dd($request->all());
             $enrollment->update($request->all());
+            DB::commit();
             return redirect()->route('enrollment-list')->with(['success'=>'Inscricao actualizada!']);
         } catch (Throwable $th) {
             //throw $th;

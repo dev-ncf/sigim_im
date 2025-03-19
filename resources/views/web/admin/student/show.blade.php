@@ -184,6 +184,12 @@
                                             </td>
                                             <td class="text-end">
                                                 <div class="actions">
+                                                    @if ($enrollment->enrollment_status == 1)
+                                                        <a href="{{ route('enrollment-approve', $enrollment->id) }}"
+                                                            class="btn btn-sm bg-success-light me-2">
+                                                            <i class="{{ 'feather-check' }}"></i>
+                                                        </a>
+                                                    @endif
                                                     <a href="{{ route('enrollment-print', ['code' => $student->code, 'id' => $enrollment->id]) }}"
                                                         class="btn btn-sm bg-success-light me-2">
                                                         <i class="feather-printer"></i>
@@ -270,6 +276,12 @@
 
                                                         <i class="feather-edit"></i>
                                                     </a>
+                                                    <a href="#" id="delete-{{ $propina->id }}"
+                                                        onclick="return confirmDeletion(event)"
+                                                        class="btn btn-sm bg-danger"
+                                                        enrollment-id='{{ $propina->id }}'>
+                                                        <i class="feather-delete"></i>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -310,4 +322,36 @@
         </div>
     </div>
 </div>
+<div id="modal"
+    style="width: 100%; height:100%; top: 0; left:0; background-color: #00000030; display: none; position: fixed; z-index: 100; justify-content: center; align-items: center;">
+    <div style="background-color: white; padding:40px; box-shadow: 1px 5px 10px white; border-radius: 10px">
+
+        <h3>Queres mesmo apagar esta Inscrição?</h3>
+        <div style="display: flex; justify-content: space-between">
+            <a href="#" id="confirm-delete" class="btn btn-primary">Confirmar</a>
+            <button class="btn btn-danger" onclick="closeModal()">Cancelar</button>
+        </div>
+    </div>
+</div>
+<script>
+    function confirmDeletion(event) {
+        event.preventDefault(); // Previne o comportamento padrão do link
+
+        // Exibe o modal
+        document.getElementById('modal').style.display = 'flex';
+
+        // Obtém o código do estudante a partir do botão clicado
+        var enrollmentId = event.currentTarget.getAttribute('enrollment-id');
+        var confirmLink = document.getElementById('confirm-delete');
+        confirmLink.href = "{{ route('propina-delete', '') }}/" + enrollmentId;
+
+        // Define o código no campo do modal
+        document.getElementById('enrollment-id').value = enrollmentId;
+
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+    }
+</script>
 @endsection
