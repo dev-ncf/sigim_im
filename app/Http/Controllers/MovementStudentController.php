@@ -26,7 +26,7 @@ class MovementStudentController extends Controller
 
         }
         if($request->has('student_code') && !empty($request->student_code)){
-            $student = Student::where('code','=',$request->student_code)->first();
+            $student = Student::where('code','like','%'.$request->student_code.'%')->first();
             $query->where('student_id','=',$student->id);
 
         }

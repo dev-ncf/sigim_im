@@ -345,10 +345,13 @@ class PrintController extends Controller
 
         if ($student_data) {
             $pdf = new Dompdf(["enable_remote" => true]);
+            $label = null;
             if($enrollment->enrollment_status == 2){
                 $printer = $this->printerApproved($enrollment);
+                $label = 'Inscrição';
             }elseif($enrollment->enrollment_status == 1){
                 $printer = $this->printerPending($enrollment);
+                $label = 'Pre-Inscrição';
             }
             ob_start();
                 //echo printerPending($student_data);
@@ -358,7 +361,7 @@ class PrintController extends Controller
             $pdf->loadHtml($data);
             $pdf->setPaper('A4');
             $pdf->render();
-            $pdf->stream("Comprovativo-".$student_data->first_name." ".$student_data->last_name.".pdf", ["Attachment" => true]);
+            $pdf->stream($label."-".$student_data->first_name." ".$student_data->last_name.".pdf", ["Attachment" => true]);
         }
     }
 
@@ -870,7 +873,6 @@ class PrintController extends Controller
         $manager = $enrollment->student->manager;
         $faculty = $enrollment->faculty->label;
         $course = $enrollment->course->label;
-        $sewing = $enrollment->sewingLine->label;
         $student = $enrollment->student;
         $str_itemsPre='';
         $taxaPorDisciplinas = ($enrollment->taxa) * ($enrollment->numero_disciplinas);
