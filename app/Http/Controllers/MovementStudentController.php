@@ -26,6 +26,9 @@ class MovementStudentController extends Controller
 
         }
         if($request->has('student_code') && !empty($request->student_code)){
+            $validator = $request->validate([
+        'student_code' => 'regex:/^M\d{2}\.\d{4}\.\d{4}$/'
+            ]);
             $student = Student::where('code','like','%'.$request->student_code.'%')->first();
             $query->where('student_id','=',$student->id);
 
