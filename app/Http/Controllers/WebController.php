@@ -299,7 +299,7 @@ class WebController extends Controller
     'mother_profession' => 'nullable|string|max:255',
     'family_type' => 'required|string|max:255',
     'household' => 'required|string|max:255',
-    'block' => 'required|integer|min:1',
+    'block' => 'nullable|integer|min:1',
     'scholarship' => 'required|integer',
     'modality' => 'nullable|string|max:255',
     'modality_type' => 'nullable|string|max:255',
