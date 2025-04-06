@@ -41,6 +41,10 @@ class MovementStudentController extends Controller
             $query->where('semestre','=',$request->semestre);
 
         }
+        if(session('search')){
+            $query->where('id','=',session('search'));
+        }
+
         $dadosUsuario = Manager::find(Auth::id());
         $query->orderBy('id','desc');
         $propinas = $query->get();

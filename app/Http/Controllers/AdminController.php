@@ -477,7 +477,7 @@ class AdminController extends Controller
 
 
                 DB::commit();
-                return redirect()->back()->with(['success'=>'Movimento registado com sucesso!']);
+                return redirect()->route('propina-list')->with(['success'=>'Movimento registado com sucesso!','search'=>$mov->id]);
 
         } catch (Throwable $th) {
             DB::rollBack();
