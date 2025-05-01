@@ -12,6 +12,6 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        return $request->expectsJson() ? null : redirect()->route('login')->withErrors(['error' => 'O prazo para o uso da página expirou! Tente novamente.']);
+        return $request->expectsJson() ? null : redirect()->route('login')->withErrors(['message' => 'O prazo para o uso da página expirou! Tente novamente.']);
     }
 }
