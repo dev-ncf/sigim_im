@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\Course;
 use App\Models\Gender;
 use App\Models\Manager;
+use App\Models\StudentEnrollment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,10 +36,19 @@ class StudentController extends Controller
                 $query->where('email','like','%'.$request->student_email.'%');
 
             }
+            if($request->has('course_id')){
+                $query->where('email','like','%'.$request->student_email.'%');
+
+            }
             if($dadosUsuario->nivel!='A'){
                 $query->where('extension_id','=',$dadosUsuario->extension_id);
             }
             $students = $query->with('studentEnrollment')->get();
+            if($request->has('course_id')){
+                $studentsEnrollment = StudentEnrollment::where('course_id','=',$request->course_id);
+                $students = $studentsEnrollment->student;
+
+            }
 
         return view('web.admin.student.list',compact('students','dadosUsuario'));
         }else{
