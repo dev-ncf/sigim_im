@@ -878,7 +878,9 @@ class PrintController extends Controller
         $taxaPorDisciplinas = ($enrollment->taxa) * ($enrollment->numero_disciplinas);
         $taxaLabel = "Taxa de inscrição por disciplina ( $enrollment->numero_disciplinas x $enrollment->taxa,00)";
         $total = $taxaPorDisciplinas+1750;
-        $str_itemsPre = $str_itemsPre."
+        if($enrollment->semestre=='1'){
+             $total = $taxaPorDisciplinas+1750+4850;
+            $str_itemsPre = $str_itemsPre."
         <div style='margin-top: 5px;'>
                                 <table style='width: 100%;'>
                                 <tr>
@@ -888,12 +890,18 @@ class PrintController extends Controller
                                 </tr>
                                 <tr>
                                 <td>1</td>
+                                <td>Taxas de matrícula</td>
+                                <td>4850,00</td>
+
+                                </tr>
+                                <tr>
+                                <td>2</td>
                                 <td>Taxas de serviços semestrais</td>
                                 <td>1750,00</td>
 
                                 </tr>
                                 <tr>
-                                <td>1</td>
+                                <td>3</td>
                                 <td>$taxaLabel</td>
                                 <td>$taxaPorDisciplinas,00</td>
 
@@ -908,6 +916,39 @@ class PrintController extends Controller
 
              </div>
         ";
+        }else{
+
+            $str_itemsPre = $str_itemsPre."
+            <div style='margin-top: 5px;'>
+                                    <table style='width: 100%;'>
+                                    <tr>
+                                        <th>Ordem</th>
+                                        <th>Referente a:</th>
+                                        <th>Montante (MT)</th>
+                                    </tr>
+                                    <tr>
+                                    <td>1</td>
+                                    <td>Taxas de serviços semestrais</td>
+                                    <td>1750,00</td>
+
+                                    </tr>
+                                    <tr>
+                                    <td>2</td>
+                                    <td>$taxaLabel</td>
+                                    <td>$taxaPorDisciplinas,00</td>
+
+                                    </tr>
+
+                                    </table>
+                                     <div style='margin-left: 453px;border: 1px solid; border-top:none; align-items:center; text-align: center; margin-bottom:20px;'>
+
+                                        <strong>Total</strong>
+                                        <strong>$total,00</strong>
+                                    </div>
+
+                 </div>
+            ";
+        }
 
 
         $str = <<<TEXT
