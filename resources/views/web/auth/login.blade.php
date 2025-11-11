@@ -25,9 +25,11 @@
             <div class="form-group div-100">
                 <label for="" class="input-label">Senha</label>
                 <input class="input-begin" type="password" name="password" id="" required>
+                   <a href="{{ route('esqueceu-senha') }}" class="register" style="">Esqueceu senha?</a>
                 <div class="div-100 div-btn-login">
 
                     <a href="{{ route('register') }}" class="register" style="">Registar-se</a>
+                 
 
                     <button class="btn-login" id="btn-login" type="submit">
                         Iniciar-sessão

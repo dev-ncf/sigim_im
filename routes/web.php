@@ -7,6 +7,7 @@ use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\MovementStudentController;
 use App\Http\Controllers\PeriodoController;
+use App\Http\Controllers\RecuperarSenha;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -20,9 +21,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 Route::get('/', [WebController::class, 'viewLogin'])->name('login')->middleware('guest');
+// Route::get('/', function(){
+//     return  'ola';
+// });
 Route::post('/', [WebController::class, 'auth'])->name('authenticate');
 
 Route::get('/register', [WebController::class, 'viewForm'])->name('register');
+Route::get('/esqueceu-senha', [WebController::class, 'passForm'])->name('esqueceu-senha');
+Route::post('/recuperarSenha', [RecuperarSenha::class, 'index'])->name('recuperarSenha');
 Route::post('/register', [WebController::class, 'register'])->name('registerPost');
 Route::post('/verify/email', [WebController::class, 'verifyEmail'])->name('verifyEmail');
 

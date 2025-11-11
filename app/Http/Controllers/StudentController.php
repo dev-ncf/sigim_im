@@ -183,7 +183,8 @@ class StudentController extends Controller
             //code...
             if($request->password == $request->confir_password){
                 $dados['password']=bcrypt($request->password);
-                $student->update($request->all());
+                $user = User::find($student->user_id);
+                $user->update($dados);
                 DB::commit();
                 return back()->with(['success'=>'Senha actualizada com sucesso!']);
             }else{

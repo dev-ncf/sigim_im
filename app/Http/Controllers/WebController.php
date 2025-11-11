@@ -54,6 +54,11 @@ class WebController extends Controller
 
     	return view('web.auth.login');
     }
+    public function passForm()
+    {
+
+    	return view('web.auth.senha');
+    }
 
     public function auth(Request $request)
     {
