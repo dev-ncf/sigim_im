@@ -25,6 +25,7 @@ class RecuperarSenha extends Controller
 
         // Gerar senha temporária
         $novaSenha = Str::random(8); // gera uma senha aleatória de 8 caracteres
+        
         $user->password = bcrypt($novaSenha);
         $user->save();
 
